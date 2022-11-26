@@ -18,7 +18,7 @@ extension StringExtension on String {
     }
   }
 
-  Future<void> write(String? value) {
+  Future<void> write(dynamic? value) {
     return GetStorage().write(this, value);
   }
 }

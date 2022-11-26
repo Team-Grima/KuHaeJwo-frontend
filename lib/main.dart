@@ -4,6 +4,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pet_app/splash/splash_page.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'route/routes.dart';
 
@@ -20,7 +21,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
-
+  await GetStorage.init();
   runApp(ScreenUtilInit(
     //화면 일정 비율로 설정해주기 위한 클래스
     designSize: const Size(375, 812),

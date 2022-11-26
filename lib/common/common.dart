@@ -98,7 +98,7 @@ class Common {
     String subText = '',
     int numberOfButton = 2,
     Color button1Color = CommonColor.gray01,
-    Color button2Color = CommonColor.lightRed,
+    Color button2Color = CommonColor.redError,
     String button1Text = '이전',
     String button2Text = '확인',
     Color button1TextColor = CommonColor.gray03,
@@ -206,7 +206,7 @@ class Common {
     required String subText,
     int numberOfButton = 2,
     Color button1Color = CommonColor.gray01,
-    Color button2Color = CommonColor.lightRed,
+    Color button2Color = CommonColor.redError,
     String button1Text = '이전',
     String button2Text = '확인',
     Color button1TextColor = CommonColor.gray03,
@@ -322,8 +322,8 @@ class Common {
     Key? key,
     required BuildContext context,
     numberOfButton = 2, // 버튼의 개수를 정해주는 변수입니다. 디폴트는 2개고 1개일 때 1개의 버튼이 나오고 나머지는 전부 2개 버튼으로 생성시켜 줍니다.
-    buttonColor1 = CommonColor.cyan, // 버튼 1의 색상입니다. 디폴트 그레이 고 설정으로 바꿔줄 수 있습니다.
-    buttonColor2 = CommonColor.yellow, // 버튼 2의 색상입니다. 디폴트 그레이 고 설정으로 바꿔줄 수 있습니다.
+    buttonColor1 = CommonColor.mainDarkGreen, // 버튼 1의 색상입니다. 디폴트 그레이 고 설정으로 바꿔줄 수 있습니다.
+    buttonColor2 = CommonColor.mainMidGreen, // 버튼 2의 색상입니다. 디폴트 그레이 고 설정으로 바꿔줄 수 있습니다.
     textColor1 = CommonColor.white, // 버튼 1의 텍스트색상 입니다.
     textColor2 = CommonColor.navy, // 버튼 2의 텍스트색상 입니다.
     isButton1Active = true,
@@ -523,15 +523,14 @@ class Common {
 }
 
 class CommonColor {
-  static const yellow = Color(0xFFFDC800);
-  static const skyBlue = Color(0xFF00BDBD);
-  static const purple = Color(0xFF5A1EFF);
-  static const navy = Color(0xFF000046);
-  static const lightRed = Color(0xFFFFEAEA);
-  static const lightPurple = Color(0xFFEBE4FF);
-  static const lightYellow = Color(0xFFFFF7D9);
-  static const white = Color(0xFFFFFFFF);
-  static const dullNavy = Color(0xFF19194E);
+  static const black = Color.fromARGB(255, 0, 0, 0);
+  static const mainDarkGreen = Color(0xFF005426);
+  static const mainMidGreen = Color(0xFF005426);
+  static const disabledGrey = Color(0xFFd9d9d9);
+  static const mainBGGreen = Color(0xFF005426);
+  static const redError = Color(0xFFFF656E);
+  static const red = Color(0xFFFB4E4E);
+
   static const darkGray = Color(0xFF999999);
   static const gray06 = Color(0xFF33334A);
   static const gray05 = Color(0xFF4C4C67);
@@ -539,18 +538,8 @@ class CommonColor {
   static const gray03 = Color(0xFF90909F);
   static const gray02 = Color(0xFFC8C8D2);
   static const gray01 = Color(0xFFF3F3F3);
-  static const green = Color(0xFF2AC769);
-  static const lightGreen = Color(0xFFE5F8ED);
-  static const blue = Color(0xFF5B78F6);
-  static const blue03 = Color(0xFF56CCF2);
-  static const defaultShadow = Color(0x80C8C8D2);
-  static const defaultBoxBorder = Color(0xFFC8C8D2);
-  static const red = Color(0xFFFB4E4E);
-  static const orange = Color(0xFFE4A951);
-  static const deeporange = Color(0xFFF2994A);
-  static const black51 = Color(0xFF333333);
-  static const black = Colors.black;
-  static const cyan = Color(0xFF00BDBD);
+  static const navy = Color(0xFF000046);
+  static const white = Color(0xFFFFFFFF);
 }
 
 extension TextExtension on Text {
@@ -558,10 +547,7 @@ extension TextExtension on Text {
 }
 
 dynamic commonSnackBar(
-    {required String messageText,
-    Color textColor = CommonColor.purple,
-    Color backgroundColor = CommonColor.lightPurple,
-    dynamic position = SnackPosition.TOP}) {
+    {required String messageText, Color textColor = CommonColor.black, Color backgroundColor = CommonColor.mainBGGreen, dynamic position = SnackPosition.TOP}) {
   Get.rawSnackbar(
     borderRadius: 8.r,
     snackPosition: position,
@@ -569,15 +555,15 @@ dynamic commonSnackBar(
     padding: EdgeInsets.symmetric(vertical: 16.r, horizontal: 16.r),
     messageText: Text(
       messageText,
-      style: CommonTextStyle.botton02(color: CommonColor.purple),
+      style: CommonTextStyle.botton02(color: CommonColor.black),
     ),
-    backgroundColor: CommonColor.lightPurple,
+    backgroundColor: CommonColor.mainBGGreen,
   );
 }
 
 class CommonTextStyle extends TextStyle {
   CommonTextStyle({Color? color = Colors.black, TextDecoration? decoration = TextDecoration.none, double? fontSize, double? height, FontWeight? fontWeight})
-      : super(color: color, fontFamily: 'Pretendard', fontSize: fontSize!.sp, height: height, fontWeight: fontWeight, decoration: decoration);
+      : super(color: color, fontFamily: 'NotoSansKR', fontSize: fontSize!.sp, height: height, fontWeight: fontWeight, decoration: decoration);
 
   CommonTextStyle.h01({Color color = Colors.black, TextDecoration decoration = TextDecoration.none})
       : this(decoration: decoration, color: color, fontSize: 31, fontWeight: FontWeight.w600, height: 1.61);
@@ -703,7 +689,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.backgroundColor = Colors.white,
     this.titleColor = Colors.black,
     this.shadowColor = Colors.transparent,
-    this.iconColor = CommonColor.gray05,
+    this.iconColor = CommonColor.black,
     this.leadingAssetPath = 'assets/icons/appbar_back.svg',
     this.actions,
     this.shape,

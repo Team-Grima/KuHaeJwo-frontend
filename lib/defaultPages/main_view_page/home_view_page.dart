@@ -16,6 +16,8 @@ class HomeViewPage extends StatelessWidget {
       const MainPage(),
       const MainPage(),
       const MainPage(),
+      const MainPage(),
+
       // const ChatPage(),
       // const AddPostPage(),
       // const MyPageViewPage(),

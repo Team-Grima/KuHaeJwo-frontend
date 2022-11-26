@@ -73,9 +73,9 @@ class SplashController extends GetxController {
 
   void moveToMain() {
     // Get.put(HomeController());
-    Future.delayed(const Duration(milliseconds: 3000), () {
+    Future.delayed(const Duration(milliseconds: 2), () {
       opacity.value = 0.0;
-      Future.delayed(const Duration(milliseconds: 500), () {
+      Future.delayed(const Duration(milliseconds: 2), () {
         isVisible.value = false;
         //로그인 여부 확인 및 라우트
 
