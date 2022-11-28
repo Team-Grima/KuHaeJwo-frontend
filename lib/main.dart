@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pet_app/common/service/auth_service.dart';
 import 'package:pet_app/splash/splash_page.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -22,6 +23,8 @@ void main() async {
 
   await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
   await GetStorage.init();
+  Get.put(AuthService());
+
   runApp(ScreenUtilInit(
     //화면 일정 비율로 설정해주기 위한 클래스
     designSize: const Size(375, 812),
@@ -35,7 +38,7 @@ void main() async {
             child: child!, // child는 null이 아님을 해서 에러 방지 해둠.
           );
         },
-        theme: ThemeData(fontFamily: 'AbhayaLibre'), //전체 테마 폰트를 설정해뒀음. 변경하고 싶으면 Theme.of().textTheme 사용하면 됨
+        theme: ThemeData(fontFamily: 'NotoSansKR'), //전체 테마 폰트를 설정해뒀음. 변경하고 싶으면 Theme.of().textTheme 사용하면 됨
         debugShowCheckedModeBanner: false, //Debug 모양 나오는거 없애기
         locale: Get.deviceLocale, //현재 표시할 언어(디바이스) 설정
         home: const SplashPage(), //home을 실행할때 로딩창으로 띄움

@@ -35,7 +35,7 @@ class ImageLoader extends StatelessWidget {
                   ),
                 ),
               ),
-          errorWidget: (context, url, error) => Image.asset("assets/images/error_image.jpg", width: width, height: height, fit: BoxFit.fill));
+          errorWidget: (context, url, error) => Image.asset("assets/images/error_image.png", width: width, height: height, fit: BoxFit.fill));
     }
   }
 }

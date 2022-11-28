@@ -1,10 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 
 class Common {
+  static final f = NumberFormat('###,###,###,###');
+  static const String baseUrl = "";
+
   static const double defaultMarginHor = 24.0;
   static const double defaultMarginVer = 24.0;
   static const double defaultBorderRadius = 16.0;
@@ -687,9 +692,9 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     required BuildContext context,
     required this.title,
     this.backgroundColor = Colors.white,
-    this.titleColor = Colors.black,
+    this.titleColor = CommonColor.black,
     this.shadowColor = Colors.transparent,
-    this.iconColor = CommonColor.black,
+    this.iconColor = CommonColor.gray03,
     this.leadingAssetPath = 'assets/icons/appbar_back.svg',
     this.actions,
     this.shape,
@@ -704,7 +709,10 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     leading: Container(
       margin: EdgeInsets.only(left: 16.r),
       child: InkWell(
-        child: SvgPicture.asset('assets/icon/appbar_close.svg', width: 40.r, height: 40.r),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 10.r, horizontal: 14.r),
+          child: SvgPicture.asset('assets/icon/appbar_close.svg', width: 12.r, height: 20.r),
+        ),
       ),
     ),
   ).preferredSize;
@@ -716,33 +724,73 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final String leadingAssetPath;
   final List<Widget>? actions;
-  final Function? onTapFunction;
+  void Function()? onTapFunction;
   final bool hasGetBack;
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      titleSpacing: Common.defaultMarginHor,
+      titleSpacing: Common.defaultMarginHor.r,
       centerTitle: true,
       elevation: 0.0,
       backgroundColor: backgroundColor,
       shape: shape,
       shadowColor: shadowColor,
-      title: Text(title, style: CommonTextStyle.h10(color: titleColor)),
-      leading: Container(
-        margin: EdgeInsets.only(left: 16.r),
-        child: InkWell(
-          child: SvgPicture.asset(
-            leadingAssetPath,
-            width: 40.r,
-            height: 40.r,
-            color: iconColor,
-          ),
-          onTap: () {
-            hasGetBack == true ? Get.back() : onTapFunction!(); //기능들 넣어주셔야 합니다!
-          },
-        ),
-      ),
+      title: Text(title,
+          style: CommonTextStyle(
+            color: titleColor,
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          )),
+      leading: !hasGetBack
+          ? Container(
+              margin: EdgeInsets.only(left: 18.r),
+              child: InkWell(
+                onTap: hasGetBack ? Get.back : onTapFunction!,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20.r, horizontal: 15.r),
+                  child: SvgPicture.asset(
+                    leadingAssetPath,
+                    width: 12.r,
+                    height: 20.r,
+                    color: iconColor,
+                  ),
+                ),
+              ),
+            )
+          : null,
       actions: actions,
     );
+  }
+}
+
+extension ImageUrlExtension on String {
+  String get getUrl => Common.baseUrl + this;
+}
+
+extension IntegerExtension on int {
+  String get format => Common.f.format(this);
+}
+
+extension FutureExtension<T> on Future<T> {
+  Future<T> load() async {
+    Get.dialog(
+      const Center(
+        child: CupertinoActivityIndicator(
+          color: Colors.white,
+        ),
+      ),
+      barrierDismissible: false,
+    );
+
+    whenComplete(() {
+      Get.until((route) => !Get.isDialogOpen!);
+    });
+
+    catchError((e) {
+      Common.showSnackbar(message: "오류가 발생했습니다");
+      throw e;
+    });
+
+    return this;
   }
 }
