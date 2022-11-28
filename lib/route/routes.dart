@@ -6,6 +6,7 @@ import 'package:pet_app/post_detail_view_page/post_detail_view_page.dart';
 import 'package:pet_app/splash/splash_page.dart';
 import 'package:get/get.dart';
 import 'package:pet_app/survey_page/survey_view_page.dart';
+import 'package:pet_app/survey_steps/survey_step_1/survey_step_1_view_page.dart';
 
 class GetXRouter {
   static final route = [
@@ -17,6 +18,7 @@ class GetXRouter {
     GetPage(name: AlarmViewPage.url, page: () => const AlarmViewPage()),
     GetPage(name: EditMyKUViewPage.url, page: () => const EditMyKUViewPage()),
     GetPage(name: SurveyViewPage.url, page: () => const SurveyViewPage()),
+    GetPage(name: SurveyStep1ViewPage.url, page: () => const SurveyStep1ViewPage()),
     // GetPage(name: ChatPage.url, page: () => const ChatPage()),
     // GetPage(name: AddPostPage.url, page: () => const AddPostPage()),
     // GetPage(name: MyPageViewPage.url, page: () => const MyPageViewPage()),
