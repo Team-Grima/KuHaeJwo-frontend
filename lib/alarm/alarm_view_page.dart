@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pet_app/alarm/alarm_controller.dart';
 import 'package:pet_app/common/common.dart';
 
@@ -37,6 +38,39 @@ class AlarmViewPage extends StatelessWidget {
   }
 
   _alarmFragment(Noti notification) {
-    return Text(notification.title ?? '');
+    return InkWell(
+      onTap: () {},
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.r, vertical: 8.r),
+            child: Row(
+              children: [
+                Image.asset(
+                  "assets/images/alarm_lined.png",
+                  width: 24.r,
+                  height: 24.r,
+                ),
+                SizedBox(width: 10.r),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      notification.title ?? '',
+                      style: CommonTextStyle(color: CommonColor.black, fontSize: 13.r, fontWeight: FontWeight.w500),
+                    ),
+                    Text(
+                      notification.receivedDate ?? '',
+                      style: CommonTextStyle(color: CommonColor.gray03, fontSize: 11.r, fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Divider(height: 1.r)
+        ],
+      ),
+    );
   }
 }
