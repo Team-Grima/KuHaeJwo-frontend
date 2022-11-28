@@ -28,7 +28,7 @@ class MainPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text("KU",
-                      // style: CommonTextStyle(fontSize: 40.r, fontWeight: FontWeight.w800, color: CommonColor.mainBGGreen.withAlpha(70)),
+                      // style: CommonTextStyle(fontSize: 40, fontWeight: FontWeight.w800, color: CommonColor.mainBGGreen.withAlpha(70)),
                       style: TextStyle(
                         fontSize: 40.r,
                         letterSpacing: -3.2,
@@ -120,13 +120,13 @@ class MainPage extends StatelessWidget {
                             Text(
                               // post.time ?? "" == ,
                               "방금",
-                              style: CommonTextStyle(fontSize: 10.r, color: CommonColor.disabledGrey),
+                              style: CommonTextStyle(fontSize: 10, color: CommonColor.disabledGrey),
                             ),
                           ],
                         ),
                         Text(
                           "${post.major ?? ""}·${post.age ?? -1}살",
-                          style: CommonTextStyle(fontSize: 11.r, color: CommonColor.gray03),
+                          style: CommonTextStyle(fontSize: 11, color: CommonColor.gray03),
                         ),
                       ],
                     )
@@ -137,7 +137,7 @@ class MainPage extends StatelessWidget {
                   // child: Expanded(
                   child: Text(
                     post.title ?? "",
-                    style: CommonTextStyle(fontSize: 14.r, fontWeight: FontWeight.w500),
+                    style: CommonTextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                   ),
                 ),
                 // ),
@@ -145,7 +145,7 @@ class MainPage extends StatelessWidget {
                   overflow: TextOverflow.visible,
                   (post.detailString ?? ""),
                   maxLines: 4,
-                  style: CommonTextStyle(fontSize: 11.r, color: CommonColor.gray03),
+                  style: CommonTextStyle(fontSize: 11, color: CommonColor.gray03),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -180,7 +180,7 @@ class MainPage extends StatelessWidget {
                         color: Colors.transparent, borderRadius: BorderRadius.circular(20.r), border: Border.all(color: Colors.transparent, width: 0.r)),
                     child: Center(
                       child: TextField(
-                        style: CommonTextStyle(color: const Color(0xFF000000), fontSize: 16.r, fontWeight: FontWeight.w400),
+                        style: CommonTextStyle(color: const Color(0xFF000000), fontSize: 16, fontWeight: FontWeight.w400),
                         keyboardType: TextInputType.text,
                         textAlign: TextAlign.start,
                         controller: textEditingController,
@@ -200,7 +200,7 @@ class MainPage extends StatelessWidget {
                                 OutlineInputBorder(borderRadius: BorderRadius.circular(20.r), borderSide: BorderSide(color: Colors.transparent, width: 0.r)),
                             isDense: true,
                             hintText: "게시물 검색",
-                            hintStyle: CommonTextStyle(color: const Color(0xFF000000).withOpacity(0.5), fontSize: 16.r, fontWeight: FontWeight.w400)),
+                            hintStyle: CommonTextStyle(color: const Color(0xFF000000).withOpacity(0.5), fontSize: 16, fontWeight: FontWeight.w400)),
                       ),
                     ),
                   ),

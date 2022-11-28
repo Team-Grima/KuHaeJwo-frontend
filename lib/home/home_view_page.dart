@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:pet_app/common/common.dart';
 import 'package:pet_app/main_view_page/main_view_page.dart';
 import 'package:pet_app/home/home_controller.dart';
+import 'package:pet_app/my_page/mypage_view_page.dart';
 
 class HomeViewPage extends StatelessWidget {
   const HomeViewPage({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class HomeViewPage extends StatelessWidget {
       const MainPage(),
       const MainPage(),
       const MainPage(),
-      const MainPage(),
+      const MyPageViewPage(),
       const MainPage(),
       // const ChatPage(),
       // const AddPostPage(),

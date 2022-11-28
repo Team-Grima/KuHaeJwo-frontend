@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
 import 'package:pet_app/common/common.dart';
 import 'package:pet_app/common/common_storage.dart';
+import 'package:pet_app/common/model/user_model.dart';
 
 class AuthService {
   bool get authed => CommonStorageKey.userId.read.value != null;
-  // Rxn<UserModel> user = Rxn(null);
+  Rxn<UserModel> user = Rxn(null);
   // Rxn<StoreModel> store = Rxn(null);
 
   static final AuthService _instance = AuthService._internal();
@@ -15,15 +16,10 @@ class AuthService {
   AuthService._internal() {
     Common.logger.d('AreaService._internal() called!!!');
   }
-  login() {
-    return;
+  login(String email, String password) async {
+    // user.value = (await HttpServiceManager.postLogin(email, password)).value;
+    user.value = UserModel(username: "username", major: "소프트웨어학과", age: 12, upperMajor: "공과대학", profileImageUrl: "www.naver.com");
   }
-
-  bool isSubscribed() {
-    return !false;
-  }
-
-  logout() {}
 
 //   Future<dynamic> registerDevice({String? id, int? alertSettings, bool isLogout = false}) async {
 //     id ??= CommonStorageKey.userId.read.value;

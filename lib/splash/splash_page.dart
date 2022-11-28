@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:pet_app/common/common.dart';
+import 'package:pet_app/common/service/auth_service.dart';
 import 'package:pet_app/home/home_view_page.dart';
 
 class SplashPage extends StatelessWidget {
@@ -73,6 +74,7 @@ class SplashController extends GetxController {
 
   void moveToMain() {
     // Get.put(HomeController());
+    AuthService().login("", 'password');
     Future.delayed(const Duration(milliseconds: 2), () {
       opacity.value = 0.0;
       Future.delayed(const Duration(milliseconds: 2), () {

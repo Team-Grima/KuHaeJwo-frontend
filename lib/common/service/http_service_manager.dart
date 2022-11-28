@@ -32,12 +32,12 @@ class HttpServiceManager {
     Common.logger.d('HttpServiceManager._internal() called!!!');
   }
 
-  Future<ServiceResponse<String>> getYummyFunInfoPageImage() async {
+  Future<ServiceResponse<String>> postLogin() async {
     try {
-      var res = await dio_lib.Dio().get('/api/about-yummy-fun'.getUrl, queryParameters: {"populate": "*"});
+      var res = await dio_lib.Dio().post('/api/login'.getUrl);
       String result = '';
       try {
-        result = res.data["data"]["attributes"]["image"]["data"]["attributes"]["url"];
+        result = res.data;
       } catch (eas) {}
 
       return ServiceResponse(result: result != '', value: result);

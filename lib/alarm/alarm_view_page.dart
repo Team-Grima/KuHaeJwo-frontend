@@ -57,11 +57,11 @@ class AlarmViewPage extends StatelessWidget {
                   children: [
                     Text(
                       notification.title ?? '',
-                      style: CommonTextStyle(color: CommonColor.black, fontSize: 13.r, fontWeight: FontWeight.w500),
+                      style: CommonTextStyle(color: CommonColor.black, fontSize: 13, fontWeight: FontWeight.w500),
                     ),
                     Text(
                       notification.receivedDate ?? '',
-                      style: CommonTextStyle(color: CommonColor.gray03, fontSize: 11.r, fontWeight: FontWeight.w500),
+                      style: CommonTextStyle(color: CommonColor.gray03, fontSize: 11, fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),

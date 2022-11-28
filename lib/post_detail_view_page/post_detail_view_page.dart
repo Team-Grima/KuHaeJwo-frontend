@@ -63,7 +63,7 @@ class PostDetailViewPage extends StatelessWidget {
                                     SizedBox(width: 10.r),
                                     Text(
                                       "스크랩",
-                                      style: CommonTextStyle(color: CommonColor.black, fontSize: 18.r, fontWeight: FontWeight.w500),
+                                      style: CommonTextStyle(color: CommonColor.black, fontSize: 18, fontWeight: FontWeight.w500),
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 30,
                                     ),
@@ -89,7 +89,7 @@ class PostDetailViewPage extends StatelessWidget {
                                     SizedBox(width: 10.r),
                                     Text(
                                       "채팅하기",
-                                      style: CommonTextStyle(color: CommonColor.black, fontSize: 18.r, fontWeight: FontWeight.w500),
+                                      style: CommonTextStyle(color: CommonColor.black, fontSize: 18, fontWeight: FontWeight.w500),
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 30,
                                     ),
@@ -145,13 +145,13 @@ class PostDetailViewPage extends StatelessWidget {
                           Text(
                             // post.time ?? "" == ,
                             "방금",
-                            style: CommonTextStyle(fontSize: 10.r, color: CommonColor.disabledGrey),
+                            style: CommonTextStyle(fontSize: 10, color: CommonColor.disabledGrey),
                           ),
                         ],
                       ),
                       Text(
                         "${post.major ?? ""}·${post.age ?? -1}살",
-                        style: CommonTextStyle(fontSize: 11.r, color: CommonColor.gray03),
+                        style: CommonTextStyle(fontSize: 11, color: CommonColor.gray03),
                       ),
                     ],
                   )
@@ -162,7 +162,7 @@ class PostDetailViewPage extends StatelessWidget {
                 // child: Expanded(
                 child: Text(
                   post.title ?? "",
-                  style: CommonTextStyle(fontSize: 14.r, fontWeight: FontWeight.w500),
+                  style: CommonTextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
               ),
               // ),
@@ -175,7 +175,7 @@ class PostDetailViewPage extends StatelessWidget {
 ✅ 취침시간은 보통 오후 10~12시에요
 ✅ 기상시간은 보통 오전 9~11시에요
 ''',
-                style: CommonTextStyle(fontSize: 14.r, color: CommonColor.gray03),
+                style: CommonTextStyle(fontSize: 14, color: CommonColor.gray03),
               ),
             ],
           ),
