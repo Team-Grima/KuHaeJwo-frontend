@@ -15,14 +15,20 @@ class MainPage extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 16.r, horizontal: 16.r),
+        padding: EdgeInsets.symmetric(vertical: 24.r, horizontal: 16.r),
         child: Column(children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                "KU",
-                style: CommonTextStyle(fontSize: 40.r, fontWeight: FontWeight.w800, color: CommonColor.mainBGGreen.withAlpha(70)),
-              ),
+              Text("KU",
+                  // style: CommonTextStyle(fontSize: 40.r, fontWeight: FontWeight.w800, color: CommonColor.mainBGGreen.withAlpha(70)),
+                  style: TextStyle(
+                      fontSize: 40.r,
+                      letterSpacing: -3.2,
+                      // wordSpacing: 0.3,
+                      // height: 1.2,
+                      fontWeight: FontWeight.w900,
+                      color: CommonColor.mainBGGreen.withAlpha(70))),
               Expanded(child: searchBar(textEditingController: controller.searchTextEditingController)),
               SvgPicture.asset(
                 'assets/icons/alarm_none.svg',
@@ -38,7 +44,7 @@ class MainPage extends StatelessWidget {
   static Widget searchBar({required textEditingController}) {
     return IntrinsicHeight(
       child: Padding(
-        padding: EdgeInsets.only(bottom: 18.r, top: 25.r, left: 29.r),
+        padding: EdgeInsets.only(bottom: 0.r, top: 0.r, left: 12.r),
         child: Row(
           children: [
             Expanded(
