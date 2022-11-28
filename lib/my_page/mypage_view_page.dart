@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pet_app/common/common.dart';
 import 'package:get/get.dart';
 import 'package:pet_app/common/image_loader.dart';
+import 'package:pet_app/edit_my_ku/edit_my_KU_view_page.dart';
 import 'package:pet_app/my_page/mypage_controller.dart';
 
 class MyPageViewPage extends StatelessWidget {
@@ -188,11 +189,11 @@ class MyPageViewPage extends StatelessWidget {
       child: InkWell(
         splashColor: Colors.black.withOpacity(0.05),
         onTap: () {
-          // routeFunction(header, context, btnIndex, body);
+          Get.toNamed(EditMyKUViewPage.url);
         },
         child: Container(
           decoration: BoxDecoration(color: CommonColor.disabledGrey, borderRadius: BorderRadius.circular(5.r)),
-          padding: EdgeInsets.symmetric(horizontal: 20.r, vertical: 16.r),
+          padding: EdgeInsets.symmetric(horizontal: 16.r, vertical: 16.r),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -201,7 +202,7 @@ class MyPageViewPage extends StatelessWidget {
                 header,
                 style: CommonTextStyle(
                   color: CommonColor.black,
-                  fontSize: 16,
+                  fontSize: 15,
                 ),
               ).c,
               const Spacer(),

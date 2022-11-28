@@ -330,7 +330,7 @@ class Common {
     buttonColor1 = CommonColor.mainDarkGreen, // 버튼 1의 색상입니다. 디폴트 그레이 고 설정으로 바꿔줄 수 있습니다.
     buttonColor2 = CommonColor.mainMidGreen, // 버튼 2의 색상입니다. 디폴트 그레이 고 설정으로 바꿔줄 수 있습니다.
     textColor1 = CommonColor.white, // 버튼 1의 텍스트색상 입니다.
-    textColor2 = CommonColor.navy, // 버튼 2의 텍스트색상 입니다.
+    textColor2 = CommonColor.white, // 버튼 2의 텍스트색상 입니다.
     isButton1Active = true,
     isButton2Active = true,
     buttonText1 = '이전', // 버튼 1의 텍스트입니다.
@@ -338,7 +338,7 @@ class Common {
     gradientVisible = false,
     void Function()? button1Function,
     void Function()? button2Function,
-    double verticalPaddding = 24.0,
+    double verticalPaddding = 20.0,
     double horizontalPaddding = 20.0,
   }) {
     if (numberOfButton == 1) {
@@ -386,13 +386,13 @@ class Common {
                               child: TextButton(
                                 onPressed: button1Function,
                                 style: TextButton.styleFrom(
-                                  foregroundColor: CommonColor.navy, padding: EdgeInsets.all(18.r), // foreground
+                                  foregroundColor: CommonColor.navy, padding: EdgeInsets.all(14.r), // foreground
                                   backgroundColor: buttonColor1,
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
                                 ),
                                 child: Text(
                                   buttonText1,
-                                  style: CommonTextStyle.botton17(color: textColor1),
+                                  style: CommonTextStyle(color: textColor1, fontSize: 15, fontWeight: FontWeight.w500),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 ),
@@ -454,15 +454,15 @@ class Common {
                               child: TextButton(
                                 onPressed: button1Function,
                                 style: TextButton.styleFrom(
-                                  foregroundColor: CommonColor.navy, padding: EdgeInsets.all(18.r), // foreground
+                                  foregroundColor: CommonColor.navy, padding: EdgeInsets.all(14.r), // foreground
                                   backgroundColor: buttonColor1,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
                                 ),
                                 child: Text(
                                   buttonText1,
-                                  style: CommonTextStyle.botton17(color: textColor1),
+                                  style: CommonTextStyle(color: textColor1, fontSize: 15, fontWeight: FontWeight.w500),
                                   overflow: TextOverflow.ellipsis,
-                                  maxLines: 30,
+                                  maxLines: 1,
                                 ),
                               ),
                             ),
@@ -472,15 +472,15 @@ class Common {
                                 onPressed: button2Function,
                                 style: TextButton.styleFrom(
                                   foregroundColor: CommonColor.navy,
-                                  padding: EdgeInsets.all(18.r),
+                                  padding: EdgeInsets.all(14.r),
                                   backgroundColor: buttonColor2,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Common.defaultBorderRadius)),
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
                                 ),
                                 child: Text(
                                   buttonText2,
-                                  style: CommonTextStyle.botton17(color: textColor2),
+                                  style: CommonTextStyle(color: textColor2, fontSize: 15, fontWeight: FontWeight.w500),
                                   overflow: TextOverflow.ellipsis,
-                                  maxLines: 30,
+                                  maxLines: 1,
                                 ),
                               ),
                             ),
@@ -738,7 +738,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(title,
           style: CommonTextStyle(
             color: titleColor,
-            fontSize: 14,
+            fontSize: 20,
             fontWeight: FontWeight.w600,
           )),
       leading: !hasGetBack
