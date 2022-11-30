@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:pet_app/common/common.dart';
+import 'package:pet_app/login/login_step_0_view_page.dart';
 import 'package:pet_app/main_view_page/main_view_page.dart';
 import 'package:pet_app/home/home_controller.dart';
 import 'package:pet_app/my_page/mypage_view_page.dart';
@@ -14,7 +15,7 @@ class HomeViewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> pageList = [
       const MainPage(),
-      const MainPage(),
+      const ChangePWViewPage(),
       const MainPage(),
       const MyPageViewPage(),
       const MainPage(),

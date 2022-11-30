@@ -1,5 +1,6 @@
 import 'package:pet_app/alarm/alarm_view_page.dart';
 import 'package:pet_app/edit_my_ku/edit_my_KU_view_page.dart';
+import 'package:pet_app/login/login_step_0_view_page.dart';
 import 'package:pet_app/main_view_page/main_view_page.dart';
 import 'package:pet_app/home/home_view_page.dart';
 import 'package:pet_app/post_detail_view_page/post_detail_view_page.dart';
@@ -19,6 +20,7 @@ class GetXRouter {
     GetPage(name: EditMyKUViewPage.url, page: () => const EditMyKUViewPage()),
     GetPage(name: SurveyViewPage.url, page: () => const SurveyViewPage()),
     GetPage(name: SurveyStep1ViewPage.url, page: () => const SurveyStep1ViewPage()),
+    GetPage(name: ChangePWViewPage.url, page: () => const ChangePWViewPage()),
     // GetPage(name: ChatPage.url, page: () => const ChatPage()),
     // GetPage(name: AddPostPage.url, page: () => const AddPostPage()),
     // GetPage(name: MyPageViewPage.url, page: () => const MyPageViewPage()),
