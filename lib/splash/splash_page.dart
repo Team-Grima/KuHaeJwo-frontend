@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:pet_app/auth/login/sign_in_view_page.dart';
 import 'package:pet_app/common/common.dart';
 import 'package:pet_app/common/common_storage.dart';
+import 'package:pet_app/common/service/auth_service.dart';
 import 'package:pet_app/common/service/http_service_manager.dart';
 import 'package:pet_app/home/home_view_page.dart';
 
@@ -85,7 +86,12 @@ class SplashController extends GetxController {
         //로그인 여부 확인 및 라우트
         if (CommonStorageKey.accessToken.read.result && CommonStorageKey.accessToken.read.value != '') {
           var res = await HttpServiceManager().getUser();
-          if (res.result) {
+          if (res.result && res.value != null) {
+            try {
+              AuthService().setUserDetails(res.value!.userData!, res.value!.detailData!);
+            } catch (e) {
+              Get.offAllNamed(SignInViewPage.url);
+            }
             Get.offAllNamed(HomeViewPage.url);
           } else {
             Get.offAllNamed(SignInViewPage.url);

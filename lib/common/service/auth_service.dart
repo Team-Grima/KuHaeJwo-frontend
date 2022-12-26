@@ -4,17 +4,20 @@ import 'package:get/get.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:pet_app/common/common.dart';
 import 'package:pet_app/common/common_storage.dart';
+import 'package:pet_app/common/http_model/GetUserDetailResponse.dart';
 import 'package:pet_app/common/http_model/PostLoginResponse.dart';
-import 'package:pet_app/common/model/user_model.dart';
 import 'package:pet_app/common/service/http_service_manager.dart';
 
 import 'package:pet_app/common/service_response.dart';
 
 class AuthService {
   bool get authed => CommonStorageKey.userId.read.value != null;
-  Rxn<UserModel> user = Rxn(null);
+  // Rxn<UserModel> user = Rxn(null);
   // Rxn<StoreModel> store = Rxn(null);
   Rxn<User> fbUser = Rxn(null);
+
+  Rxn<UserData> userData = Rxn(null);
+  Rxn<DetailData> userDetailData = Rxn(null);
 
   static final AuthService _instance = AuthService._internal();
 
@@ -37,6 +40,11 @@ class AuthService {
     //   fbUser.value = userCredential.user;
     // }
     // createFirestoreUser(userCredential);
+  }
+
+  setUserDetails(UserData u, DetailData d) {
+    userDetailData.value = d;
+    userData.value = u;
   }
 
 // register(){

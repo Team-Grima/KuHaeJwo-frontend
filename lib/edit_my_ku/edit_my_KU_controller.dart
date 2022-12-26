@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:pet_app/common/model/user_model.dart';
-import 'package:pet_app/common/service/auth_service.dart';
 import 'package:pet_app/survey_page/survey_view_page.dart';
 
 class EditMyKUController extends GetxController {
@@ -62,7 +61,6 @@ class EditMyKUController extends GetxController {
   Rxn<UserModel> user = Rxn(null);
   @override
   void onInit() {
-    user.value = AuthService().user.value;
     selectedIndexMap = {
       "소속 단과 대학": RxnInt(null),
       "소속 학과": RxnInt(null),
