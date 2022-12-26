@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import 'package:pet_app/auth/password_change/change_password_view_page.dart';
 import 'package:pet_app/chat/chat_room_list/chat_room_list_view_page.dart';
 import 'package:pet_app/common/common.dart';
-import 'package:pet_app/login/login_step_0_view_page.dart';
+
 import 'package:pet_app/main_view_page/main_view_page.dart';
 import 'package:pet_app/home/home_controller.dart';
 import 'package:pet_app/my_page/mypage_view_page.dart';

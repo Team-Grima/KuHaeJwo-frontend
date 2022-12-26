@@ -7,7 +7,7 @@ import 'package:pet_app/chat/chat_room/chat_room_view_page.dart';
 import 'package:pet_app/chat/chat_room_list/chat_room_list_controller.dart';
 import 'package:get/get.dart';
 import 'package:pet_app/chat/chat_room_list/user_list_page.dart';
-import 'package:pet_app/common/image_loader.dart';
+import 'package:pet_app/common/service/auth_service.dart';
 
 import '../../common/common.dart';
 
@@ -20,33 +20,34 @@ class ChatRoomListViewPage extends StatelessWidget {
     ChatRoomListController controller = Get.put(ChatRoomListController());
 
     return Scaffold(
-        backgroundColor: CommonColor.white,
-        appBar: AppBar(
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.add),
-              onPressed: controller.user.value == null
-                  ? null
-                  : () {
-                      Get.to(() => const UsersPage());
-                    },
-            ),
-          ],
-          backgroundColor: CommonColor.white,
-          elevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: controller.user.value == null ? null : controller.logout,
+      backgroundColor: CommonColor.white,
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: AuthService().fbUser.value == null
+                ? null
+                : () {
+                    Get.to(() => const UsersPage());
+                  },
           ),
-          // systemOverlayStyle: SystemUiOverlayStyle.light,
-          title: Center(
-            child: Text(
-              '채팅',
-              style: CommonTextStyle(color: CommonColor.black, fontSize: 20, fontWeight: FontWeight.w500),
-            ),
+        ],
+        backgroundColor: CommonColor.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.logout),
+          onPressed: AuthService().fbUser.value == null ? null : null,
+        ),
+        // systemOverlayStyle: SystemUiOverlayStyle.light,
+        title: Center(
+          child: Text(
+            '채팅',
+            style: CommonTextStyle(color: CommonColor.black, fontSize: 20, fontWeight: FontWeight.w500),
           ),
         ),
-        body: controller.user.value == null
+      ),
+      body: Obx(
+        () => AuthService().fbUser.value == null
             ? Container(
                 alignment: Alignment.center,
                 margin: const EdgeInsets.only(
@@ -125,7 +126,9 @@ class ChatRoomListViewPage extends StatelessWidget {
                     },
                   );
                 },
-              ));
+              ),
+      ),
+    );
   }
 
   Widget _buildAvatar(types.Room room) {
@@ -134,7 +137,7 @@ class ChatRoomListViewPage extends StatelessWidget {
     if (room.type == types.RoomType.direct) {
       try {
         final otherUser = room.users.firstWhere(
-          (u) => u.id != Get.find<ChatRoomListController>().user.value!.uid,
+          (u) => u.id != AuthService().fbUser.value!.uid,
         );
 
         // color = getUserAvatarNameColor(otherUser);
@@ -148,22 +151,22 @@ class ChatRoomListViewPage extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.only(right: 16),
-      child: ImageLoader(
-        url: room.imageUrl ?? "",
-        height: 24.r,
-        width: 24.r,
-      ),
-      // child: CircleAvatar(
-      //   backgroundColor: hasImage ? Colors.transparent : color,
-      //   backgroundImage: hasImage ? : null,
-      //   radius: 20,
-      //   child: !hasImage
-      //       ? Text(
-      //           name.isEmpty ? '' : name[0].toUpperCase(),
-      //           style: const TextStyle(color: Colors.white),
-      //         )
-      //       : null,
+      // child: ImageLoader(
+      //   url: room.imageUrl ?? "",
+      //   height: 24.r,
+      //   width: 24.r,
       // ),
+      child: CircleAvatar(
+        backgroundColor: hasImage ? Colors.transparent : color,
+        backgroundImage: hasImage ? NetworkImage(room.imageUrl!) : null,
+        radius: 20,
+        child: !hasImage
+            ? Text(
+                name.isEmpty ? '' : name[0].toUpperCase(),
+                style: const TextStyle(color: Colors.white),
+              )
+            : null,
+      ),
     );
   }
 }

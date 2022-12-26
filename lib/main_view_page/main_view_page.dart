@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pet_app/common/common.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pet_app/common/http_model/GetMateOfferListResponse.dart';
 import 'package:pet_app/common/image_loader.dart';
 import 'package:pet_app/common/service/auth_service.dart';
 import 'package:pet_app/common/service/service_response.dart';
 import 'package:pet_app/main_view_page/main_controller.dart';
 import 'package:get/get.dart';
-import 'package:pet_app/post_detail_view_page/post_detail_view_page.dart';
+import 'package:pet_app/user_post_view_page/user_post_view_page.dart';
 import 'package:pet_app/route/routes.dart';
 
 class MainPage extends StatelessWidget {
@@ -71,7 +72,7 @@ class MainPage extends StatelessWidget {
           child: SingleChildScrollView(
             child: IntrinsicHeight(
               child: Column(
-                children: List.generate(controller.posts.length, (index) => Obx(() => _bodyFragment(controller.posts[index], index))),
+                children: List.generate(controller.mateList.length, (index) => Obx(() => _bodyFragment(controller.mateList[index], index))),
               ),
             ),
           ),
@@ -84,9 +85,9 @@ class MainPage extends StatelessWidget {
     return Container();
   }
 
-  static Widget _bodyFragment(Post post, int index) {
+  static Widget _bodyFragment(UserDetailData userDetailData, int index) {
     return InkWell(
-      onTap: (() => Get.toNamed(PostDetailViewPage.url, arguments: PostDetailRouteParams(post: post))),
+      onTap: (() => Get.toNamed(UserPostViewPage.url, arguments: UserDetailDataRouteParams(userDetailData: userDetailData))),
       child: Column(
         children: [
           Padding(
@@ -98,7 +99,7 @@ class MainPage extends StatelessWidget {
                 Row(
                   children: [
                     ImageLoader(
-                      url: post.profileImageUrl ?? "",
+                      url: userDetailData.body ?? "",
                       height: 38.r,
                       width: 38.r,
                     ),
@@ -109,7 +110,8 @@ class MainPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              post.nickname ?? "",
+                              // userDetailData ?? "",
+                              "RandomNickName",
                               style: CommonTextStyle(
                                 fontSize: 13.r,
                               ),
@@ -125,7 +127,7 @@ class MainPage extends StatelessWidget {
                           ],
                         ),
                         Text(
-                          "${post.major ?? ""}·${post.age ?? -1}살",
+                          "${userDetailData.userProfile?.department ?? ""}·${userDetailData.userProfile?.age ?? -1}살",
                           style: CommonTextStyle(fontSize: 11, color: CommonColor.gray03),
                         ),
                       ],
@@ -136,14 +138,14 @@ class MainPage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 0.r),
                   // child: Expanded(
                   child: Text(
-                    post.title ?? "",
+                    userDetailData.title ?? "",
                     style: CommonTextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                   ),
                 ),
                 // ),
                 Text(
                   overflow: TextOverflow.visible,
-                  (post.detailString ?? ""),
+                  (userDetailData.body ?? ""),
                   maxLines: 4,
                   style: CommonTextStyle(fontSize: 11, color: CommonColor.gray03),
                 ),

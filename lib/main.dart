@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pet_app/common/service/auth_service.dart';
@@ -24,7 +23,9 @@ void main() async {
   ));
   WidgetsFlutterBinding.ensureInitialized();
 
-  await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
   await GetStorage.init();
   Get.put(AuthService());
   await Firebase.initializeApp(

@@ -4,17 +4,16 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pet_app/common/common.dart';
 
 import 'package:get/get.dart';
+import 'package:pet_app/common/http_model/GetMateOfferListResponse.dart';
 import 'package:pet_app/common/image_loader.dart';
-import 'package:pet_app/main_view_page/main_view_page.dart';
-import 'package:pet_app/post_detail_view_page/post_detail_controller.dart';
+import 'package:pet_app/user_post_view_page/user_post_controller.dart';
 
-class PostDetailViewPage extends StatelessWidget {
-  const PostDetailViewPage({Key? key}) : super(key: key);
-  static const url = '/post-detail';
-
+class UserPostViewPage extends StatelessWidget {
+  const UserPostViewPage({Key? key}) : super(key: key);
+  static const url = '/user-post';
   @override
   Widget build(BuildContext context) {
-    PostDetailController controller = Get.put(PostDetailController());
+    UserPostController controller = Get.put(UserPostController());
     return SafeArea(
       child: Scaffold(
         backgroundColor: CommonColor.white,
@@ -28,7 +27,7 @@ class PostDetailViewPage extends StatelessWidget {
         body: Stack(
           children: [
             SingleChildScrollView(
-              child: IntrinsicHeight(child: _bodyFragment(controller.post)),
+              child: IntrinsicHeight(child: _bodyFragment(controller.userDetailData)),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -111,7 +110,7 @@ class PostDetailViewPage extends StatelessWidget {
     );
   }
 
-  static Widget _bodyFragment(Post post) {
+  static Widget _bodyFragment(UserDetailData userDetailData) {
     return Column(
       children: [
         Padding(
@@ -123,7 +122,8 @@ class PostDetailViewPage extends StatelessWidget {
               Row(
                 children: [
                   ImageLoader(
-                    url: post.profileImageUrl ?? "",
+                    // url: userDetailData.profileImageUrl ?? "",
+                    url: "",
                     height: 38.r,
                     width: 38.r,
                   ),
@@ -134,7 +134,7 @@ class PostDetailViewPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            post.nickname ?? "",
+                            userDetailData.title ?? "",
                             style: CommonTextStyle(
                               fontSize: 13.r,
                             ),
@@ -150,7 +150,7 @@ class PostDetailViewPage extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        "${post.major ?? ""}·${post.age ?? -1}살",
+                        "${userDetailData.userProfile?.department ?? ""}·${userDetailData.userProfile?.age ?? -1}살",
                         style: CommonTextStyle(fontSize: 11, color: CommonColor.gray03),
                       ),
                     ],
@@ -161,20 +161,14 @@ class PostDetailViewPage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 0.r),
                 // child: Expanded(
                 child: Text(
-                  post.title ?? "",
+                  userDetailData.title ?? "",
                   style: CommonTextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
               ),
               // ),
               Text(
+                userDetailData.body ?? "",
                 overflow: TextOverflow.visible,
-                '''✅ 청소는 이틀에 한번 정도해요
-✅ 음주는 3일에 한번 정도 하는 편이에요
-✅ 주사는 귀여운 정도!
-✅ 흡연은 하지 않아요
-✅ 취침시간은 보통 오후 10~12시에요
-✅ 기상시간은 보통 오전 9~11시에요
-''',
                 style: CommonTextStyle(fontSize: 14, color: CommonColor.gray03),
               ),
             ],

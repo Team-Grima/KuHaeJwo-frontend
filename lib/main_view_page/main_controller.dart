@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pet_app/common/common.dart';
+import 'package:pet_app/common/http_model/GetMateOfferListResponse.dart';
 import 'package:pet_app/common/service/http_service_manager.dart';
 import 'package:pet_app/main_view_page/main_view_page.dart';
 
@@ -7,46 +9,19 @@ class MainController extends GetxController {
   TextEditingController searchTextEditingController = TextEditingController();
   HttpServiceManager httpServiceManager = HttpServiceManager();
   RxList<Post> posts = <Post>[].obs;
+  RxList<UserDetailData> mateList = <UserDetailData>[].obs;
   @override
   void onInit() {
-    // posts.value = httpServiceManager.getPosts();
-    posts.add(Post(
-        age: 10,
-        nickname: "asdf",
-        profileImageUrl: "https://picsum.photos/id/237/200/300",
-        detailString: '''🙋🏻‍♀️ 저는요 !
-청소주기 : 이틀에 한번
-음주여부 : 예
-음주빈도 : 3일에 한번 
-''',
-        major: "소프트웨어학부",
-        time: "2000-10-10 1000",
-        title: "레이크홀 여자 룸메이트 구해요"));
-
-    posts.add(Post(
-        age: 10,
-        nickname: "asdf",
-        profileImageUrl: "https://picsum.photos/id/237/200/300",
-        detailString: '''🙋🏻‍♀️ 저는요 !
-청소주기 : 이틀에 한번
-음주여부 : 예
-음주빈도 : 3일에 한번 
-''',
-        major: "소프트웨어학부",
-        time: "2000-10-10 1000",
-        title: "레이크홀 여자 룸메이트 구해요"));
-    posts.add(Post(
-        age: 10,
-        nickname: "asdf",
-        profileImageUrl: "https://picsum.photos/id/237/200/300",
-        detailString: '''🙋🏻‍♀️ 저는요 !
-청소주기 : 이틀에 한번
-음주여부 : 예
-음주빈도 : 3일에 한번 
-''',
-        major: "소프트웨어학부",
-        time: "2000-10-10 1000",
-        title: "레이크홀 여자 룸메이트 구해요"));
     super.onInit();
+    fetchData();
+  }
+
+  fetchData() async {
+    var res = await HttpServiceManager().getMateOfferListResponse();
+    if (res.result) {
+      mateList.value = res.value?.data ?? [];
+    } else {
+      Common.showSnackbar(message: "리스트 불러오기 실패");
+    }
   }
 }

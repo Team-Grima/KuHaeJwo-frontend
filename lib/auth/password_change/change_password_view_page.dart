@@ -3,11 +3,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pet_app/auth/password_change/change_password_controller.dart';
 import 'package:pet_app/common/common.dart';
-import 'package:pet_app/login/login_controller.dart';
 
 class ChangePWViewPage extends StatelessWidget {
-  static const String url = "/login";
+  static const String url = "/change-pw";
   const ChangePWViewPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
