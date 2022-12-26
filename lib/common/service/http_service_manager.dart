@@ -8,6 +8,7 @@ import 'package:logger/logger.dart';
 import 'package:pet_app/common/common.dart';
 import 'package:pet_app/common/common_storage.dart';
 import 'package:pet_app/common/http_model/GetMateOfferListResponse.dart';
+import 'package:pet_app/common/http_model/GetUserDetailResponse.dart';
 import 'package:pet_app/common/http_model/PostLoginResponse.dart';
 
 import 'package:pet_app/common/service_response.dart';
@@ -61,6 +62,21 @@ class HttpServiceManager {
         return ServiceResponse(result: true, value: getMateOfferListResponse);
       }
       return ServiceResponse(result: false, errorMsg: getMateOfferListResponse.msg ?? '오류가 발생했습니다');
+    } on dio_lib.DioError catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.response?.data["msg"] ?? '오류가 발생했습니다');
+    } catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.toString());
+    }
+  }
+
+  Future<ServiceResponse<GetUserResponse>> getUser() async {
+    try {
+      var res = await (await authDio()).get('/api/get-user'.getUrl);
+      GetUserResponse getUserResponse = GetUserResponse.fromJson(res.data);
+      if (getUserResponse.code == 200) {
+        return ServiceResponse(result: true, value: getUserResponse);
+      }
+      return ServiceResponse(result: false, errorMsg: getUserResponse.msg ?? '오류가 발생했습니다');
     } on dio_lib.DioError catch (e) {
       return ServiceResponse(result: false, errorMsg: e.response?.data["msg"] ?? '오류가 발생했습니다');
     } catch (e) {

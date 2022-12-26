@@ -9,6 +9,9 @@ class CommonStorageKey {
   static const String userId = 'userId';
   static const String accessToken = 'accessToken';
   static const String refreshToken = 'refreshToken';
+  static const String isIdSave = 'isIdSave';
+  static const String isAutoLogin = 'isAutoLogin';
+  static const String savedId = 'savedId';
   deleteAll() {
     GetStorage().erase();
   }

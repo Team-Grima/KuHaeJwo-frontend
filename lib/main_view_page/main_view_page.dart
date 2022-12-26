@@ -71,8 +71,10 @@ class MainPage extends StatelessWidget {
         Expanded(
           child: SingleChildScrollView(
             child: IntrinsicHeight(
-              child: Column(
-                children: List.generate(controller.mateList.length, (index) => Obx(() => _bodyFragment(controller.mateList[index], index))),
+              child: Obx(
+                () => Column(
+                  children: List.generate(controller.mateList.length, (index) => _bodyFragment(controller.mateList[index], index)),
+                ),
               ),
             ),
           ),

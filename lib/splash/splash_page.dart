@@ -3,6 +3,9 @@ import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:pet_app/auth/login/sign_in_view_page.dart';
 import 'package:pet_app/common/common.dart';
+import 'package:pet_app/common/common_storage.dart';
+import 'package:pet_app/common/service/http_service_manager.dart';
+import 'package:pet_app/home/home_view_page.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -77,10 +80,19 @@ class SplashController extends GetxController {
 
     Future.delayed(const Duration(milliseconds: 1), () {
       opacity.value = 0.0;
-      Future.delayed(const Duration(milliseconds: 2), () {
+      Future.delayed(const Duration(milliseconds: 2), () async {
         isVisible.value = false;
         //로그인 여부 확인 및 라우트
-        Get.offAllNamed(SignInViewPage.url);
+        if (CommonStorageKey.accessToken.read.result && CommonStorageKey.accessToken.read.value != '') {
+          var res = await HttpServiceManager().getUser();
+          if (res.result) {
+            Get.offAllNamed(HomeViewPage.url);
+          } else {
+            Get.offAllNamed(SignInViewPage.url);
+          }
+        } else {
+          Get.offAllNamed(SignInViewPage.url);
+        }
       });
     });
   }

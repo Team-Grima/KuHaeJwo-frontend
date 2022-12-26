@@ -130,12 +130,13 @@ Widget _checkBoxLine(SignInController controller) {
             Obx(
               () => controller.isIdSave.value
                   ? SvgPicture.asset(
-                      'assets/icon/check_active.svg',
+                      'assets/icons/check_active.svg',
                       width: 22.r,
                       height: 22.r,
+                      color: CommonColor.mainDarkGreen,
                     )
                   : SvgPicture.asset(
-                      'assets/icon/check_inactive.svg',
+                      'assets/icons/check_inactive.svg',
                       width: 22.r,
                       height: 22.r,
                     ),
@@ -153,12 +154,13 @@ Widget _checkBoxLine(SignInController controller) {
             Obx(
               () => controller.isAutoLogin.value
                   ? SvgPicture.asset(
-                      'assets/icon/check_active.svg',
+                      'assets/icons/check_active.svg',
                       width: 22.r,
                       height: 22.r,
+                      color: CommonColor.mainDarkGreen,
                     )
                   : SvgPicture.asset(
-                      'assets/icon/check_inactive.svg',
+                      'assets/icons/check_inactive.svg',
                       width: 22.r,
                       height: 22.r,
                     ),

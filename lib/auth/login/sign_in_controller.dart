@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:pet_app/common/common.dart';
+import 'package:pet_app/common/common_storage.dart';
 import 'package:pet_app/common/service/auth_service.dart';
 import 'package:pet_app/common/service_response.dart';
 import 'package:pet_app/home/home_view_page.dart';
@@ -28,8 +29,9 @@ class SignInController extends GetxController {
 
   @override
   void onInit() {
-    isAndroid = Platform.isAndroid;
     super.onInit();
+    isAndroid = Platform.isAndroid;
+    restoreId();
   }
 
   @override
@@ -56,7 +58,7 @@ class SignInController extends GetxController {
       var email = idController.text.trim();
       var pwd = pwdController.text.trim();
       ServiceResponse res = await AuthService().login(email, pwd);
-
+      writeUserSettings();
       isLoading = false;
       if (res.result) {
         Get.toNamed(HomeViewPage.url);
@@ -76,6 +78,34 @@ class SignInController extends GetxController {
       }
     } catch (e) {
       // _setLog.setCrashLog(Routes.signInViewRoute, "submit", e.toString());
+    }
+  }
+
+  restoreId() {
+    //restore id string
+    if (CommonStorageKey.isIdSave.read.result && CommonStorageKey.isIdSave.read.value == true && CommonStorageKey.savedId.read.result) {
+      isIdSave.value = true;
+      idController.text = CommonStorageKey.savedId.read.value;
+    }
+
+    //restore autologin settings
+    if (CommonStorageKey.isAutoLogin.read.result && CommonStorageKey.isAutoLogin.read.value == true) {
+      isAutoLogin.value = true;
+    }
+  }
+
+  writeUserSettings() {
+    if (isIdSave.value) {
+      CommonStorageKey.isIdSave.write(true);
+      CommonStorageKey.savedId.write(idController.text.trim());
+    } else {
+      CommonStorageKey.isIdSave.write(null);
+      CommonStorageKey.savedId.write(null);
+    }
+    if (isAutoLogin.value) {
+      CommonStorageKey.isAutoLogin.write(true);
+    } else {
+      CommonStorageKey.isAutoLogin.write(null);
     }
   }
   // Future naverSubmit() async {
