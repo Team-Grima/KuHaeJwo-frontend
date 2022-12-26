@@ -33,12 +33,12 @@ class SplashPage extends StatelessWidget {
                             const Spacer(),
                             isDarkMode
                                 ? Image.asset(
-                                    'assets/icons/logo_dark.png',
+                                    'assets/images/konkuk_logo.png',
                                     width: 250,
                                     fit: BoxFit.scaleDown,
                                   )
                                 : Image.asset(
-                                    'assets/icons/logo.png',
+                                    'assets/images/konkuk_logo.png',
                                     width: 250,
                                     fit: BoxFit.scaleDown,
                                   ),

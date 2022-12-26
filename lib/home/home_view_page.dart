@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import 'package:pet_app/chat/chat_room_list/chat_room_list_view_page.dart';
 import 'package:pet_app/common/common.dart';
 import 'package:pet_app/login/login_step_0_view_page.dart';
 import 'package:pet_app/main_view_page/main_view_page.dart';
@@ -15,10 +16,10 @@ class HomeViewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> pageList = [
       const MainPage(),
-      const ChangePWViewPage(),
+      const ChatRoomListViewPage(),
       const MainPage(),
       const MyPageViewPage(),
-      const MainPage(),
+      const ChangePWViewPage(),
       // const ChatPage(),
       // const AddPostPage(),
       // const MyPageViewPage(),

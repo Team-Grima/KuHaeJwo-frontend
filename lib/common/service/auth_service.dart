@@ -18,7 +18,7 @@ class AuthService {
   }
   login(String email, String password) async {
     // user.value = (await HttpServiceManager.postLogin(email, password)).value;
-    user.value = UserModel(username: "username", major: "소프트웨어학과", age: 12, upperMajor: "공과대학", profileImageUrl: "www.naver.com");
+    user.value = UserModel(username: "username", major: "소프트웨어학과", age: 12, upperMajor: "공과대학", profileImageUrl: "https://picsum.photos/200/300");
   }
 
 //   Future<dynamic> registerDevice({String? id, int? alertSettings, bool isLogout = false}) async {

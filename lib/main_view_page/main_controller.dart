@@ -13,7 +13,7 @@ class MainController extends GetxController {
     posts.add(Post(
         age: 10,
         nickname: "asdf",
-        profileImageUrl: "www.nav",
+        profileImageUrl: "https://picsum.photos/id/237/200/300",
         detailString: '''🙋🏻‍♀️ 저는요 !
 청소주기 : 이틀에 한번
 음주여부 : 예
@@ -26,7 +26,7 @@ class MainController extends GetxController {
     posts.add(Post(
         age: 10,
         nickname: "asdf",
-        profileImageUrl: "www.nav",
+        profileImageUrl: "https://picsum.photos/id/237/200/300",
         detailString: '''🙋🏻‍♀️ 저는요 !
 청소주기 : 이틀에 한번
 음주여부 : 예
@@ -38,7 +38,7 @@ class MainController extends GetxController {
     posts.add(Post(
         age: 10,
         nickname: "asdf",
-        profileImageUrl: "www.nav",
+        profileImageUrl: "https://picsum.photos/id/237/200/300",
         detailString: '''🙋🏻‍♀️ 저는요 !
 청소주기 : 이틀에 한번
 음주여부 : 예
