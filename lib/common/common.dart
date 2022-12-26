@@ -146,7 +146,7 @@ class Common {
                     children: [
                       Expanded(
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16.r),
+                          borderRadius: BorderRadius.circular(5.r),
                           child: Material(
                             color: button1Color,
                             child: InkWell(

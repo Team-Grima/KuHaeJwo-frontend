@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:pet_app/common/common.dart';
+import 'package:pet_app/common/service/auth_service.dart';
+import 'package:pet_app/common/service_response.dart';
 import 'package:pet_app/home/home_view_page.dart';
 
 class SignInController extends GetxController {
@@ -37,7 +40,7 @@ class SignInController extends GetxController {
   }
 
   void submit() async {
-    Get.offAllNamed(HomeViewPage.url);
+    // Get.offAllNamed(HomeViewPage.url);
     try {
       if (isLoading) {
         return;
@@ -52,36 +55,25 @@ class SignInController extends GetxController {
 
       var email = idController.text.trim();
       var pwd = pwdController.text.trim();
+      ServiceResponse res = await AuthService().login(email, pwd);
 
-      // var res = await AuthService().signInWithEmail(email, pwd, null, isAutoLogin.value);
-
-      // isLoading = false;
-      // if (res.result) {
-      //   // _setLog.trackingUser("signin_view", "로그인", "", "");
-      //   // if (_isDetailRoute == true) {
-      //   // await _mealService.initialize();
-      //   Get.offAllNamed('/home');
-      //   // } else if (_isMealViewLoginRoute == true) {
-      //   //   await navigateToHomeRoute(isMealViewLoginRoute: true);
-      //   // } else {
-      //   //   print("here");
-      //   //   await navigateToHomeRoute(isMealViewLoginRoute: false);
-      //   // }
-      // } else {
-      //   Common.showSnackbar(message: res.errorMsg);
-
-      //   Get.dialog(
-      //     Common.commonModal(
-      //       mainText: '로그인 오류',
-      //       subText: '올바른 아이디(이메일) 또는 비밀번호를 입력하세요.',
-      //       button1Color: CommonColor.mainMidGreen,
-      //       button1TextColor: CommonColor.white,
-      //       button1Text: '확인',
-      //       numberOfButton: 1,
-      //     ),
-      //   );
-      //   // await Get.defaultDialog(title: "로그인 실패", middleText: res.errorMsg);
-      // }
+      isLoading = false;
+      if (res.result) {
+        Get.toNamed(HomeViewPage.url);
+      } else {
+        // Common.showSnackbar(message: res.errorMsg);
+        Get.dialog(
+          Common.commonModal(
+            mainText: '로그인 오류',
+            subText: '올바른 아이디(이메일) 또는 비밀번호를 입력하세요.',
+            button1Color: CommonColor.mainMidGreen,
+            button1TextColor: CommonColor.white,
+            button1Text: '확인',
+            numberOfButton: 1,
+          ),
+        );
+        // await Get.defaultDialog(title: "로그인 실패", middleText: res.errorMsg);
+      }
     } catch (e) {
       // _setLog.setCrashLog(Routes.signInViewRoute, "submit", e.toString());
     }

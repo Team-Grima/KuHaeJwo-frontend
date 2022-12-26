@@ -1,5 +1,6 @@
 import 'package:get_storage/get_storage.dart';
-import 'package:pet_app/common/service/service_response.dart';
+
+import 'package:pet_app/common/service_response.dart';
 
 class CommonStorageKey {
   static const String userAlertSettings = 'userAlertSettings';

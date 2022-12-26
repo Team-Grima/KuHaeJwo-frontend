@@ -19,49 +19,31 @@ class SignInViewPage extends StatelessWidget {
     final SignInController controller = Get.put(SignInController());
     return DefaultTextHeightBehavior(
       textHeightBehavior: const TextHeightBehavior(leadingDistribution: TextLeadingDistribution.even),
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
-            // CommonAppBar(
-            //   context: context,
-            //   title: '로그인',
-            //   shadowColor: Colors.transparent,
-            //   leadingAssetPath: 'assets/icon/appbar_close.svg',
-            // ),
-            Padding(padding: EdgeInsets.only(top: 12.r), child: SvgPicture.asset('assets/images/logo.svg')),
-            _divider(CommonColor.gray02, 24.r), //Top padding
-            _infoMessage('로그인', CommonTextStyle.h05(color: CommonColor.gray05), 30.r), // Top padding  //TODO: 글꼴 변경
-            if (controller.isAndroid)
-              Column(
-                children: [
-                  _infoMessage('네이버로 1초 만에 로그인 하세요.', CommonTextStyle.b14(color: CommonColor.gray04), 1.5.r),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(24.r, 24.r, 24.r, 0.0),
-                          child: InkWell(
-                            // onTap: controller.naverSubmit,
-                            child: SvgPicture.asset(
-                              'assets/images/naverButton.svg',
-                              fit: BoxFit.fitWidth,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  _dividerOr(24.r, 16.r), //vertical, horizontal
-                ],
-              ),
-            if (!controller.isAndroid) SizedBox(height: Common.defaultMarginVer.r),
-            _idInput('아이디(이메일)', controller, 12.r), //bottom padding
-            _passwordInput('비밀번호', controller, 12.r), //bottom padding
-            _checkBoxLine(controller),
-            _submitButton(controller, 24.r), //top padding
-            _findBar()
-          ]),
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: SafeArea(
+          child: Scaffold(
+            backgroundColor: Colors.white,
+            body: SingleChildScrollView(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
+                // CommonAppBar(
+                //   context: context,
+                //   title: '로그인',
+                //   shadowColor: Colors.transparent,
+                //   leadingAssetPath: 'assets/icon/appbar_close.svg',
+                // ),
+                Padding(padding: EdgeInsets.only(top: 12.r), child: SvgPicture.asset('assets/images/logo.svg')),
+                _divider(CommonColor.gray02, 24.r), //Top padding
+                _infoMessage('쿠해줘\n시작하기', CommonTextStyle(fontSize: 30, color: CommonColor.gray05, fontWeight: FontWeight.w400), 30.r),
+                _infoMessage('로그인', CommonTextStyle(fontSize: 20, color: CommonColor.gray05, fontWeight: FontWeight.w400), 90.r),
+                _idInput('아이디(이메일)', controller, 20.r, 12.r), //bottom padding
+                _passwordInput('비밀번호', controller, 12.r), //bottom padding
+                _checkBoxLine(controller),
+                _submitButton(controller, 24.r), //top padding
+                _findBar()
+              ]),
+            ),
+          ),
         ),
       ),
     );
@@ -80,19 +62,19 @@ Widget _infoMessage(String text, TextStyle style, double top) {
   );
 }
 
-Widget _idInput(String hintText, SignInController controller, double bottom) {
+Widget _idInput(String hintText, SignInController controller, double top, double bottom) {
   return Padding(
-    padding: EdgeInsets.fromLTRB(24.r, 0.0, 24.r, bottom),
+    padding: EdgeInsets.fromLTRB(24.r, top, 24.r, bottom),
     child: TextField(
       textInputAction: TextInputAction.done,
       style: CommonTextStyle.b04(),
       keyboardType: TextInputType.emailAddress,
       controller: controller.idController,
       decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: CommonColor.gray02), borderRadius: BorderRadius.circular(16.r)),
-        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: CommonColor.gray01, width: 1.5.r), borderRadius: BorderRadius.circular(16.r)),
+        enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: CommonColor.gray02), borderRadius: BorderRadius.circular(5.r)),
+        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: CommonColor.mainMidGreen, width: 1.5.r), borderRadius: BorderRadius.circular(5.r)),
         contentPadding: EdgeInsets.symmetric(vertical: 15.5.r, horizontal: 24.r),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.r)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.r)),
         hintText: hintText,
         hintStyle: CommonTextStyle.b03(color: CommonColor.gray03),
       ),
@@ -110,10 +92,10 @@ Widget _passwordInput(String hintText, SignInController controller, double botto
       obscureText: true,
       controller: controller.pwdController,
       decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: CommonColor.gray02), borderRadius: BorderRadius.circular(16.r)),
-        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: CommonColor.gray01, width: 1.5.r), borderRadius: BorderRadius.circular(16.r)),
+        enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: CommonColor.gray02), borderRadius: BorderRadius.circular(5.r)),
+        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: CommonColor.mainMidGreen, width: 1.5.r), borderRadius: BorderRadius.circular(5.r)),
         contentPadding: EdgeInsets.symmetric(vertical: 15.5.r, horizontal: 24.r),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.r)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.r)),
         hintText: hintText,
         hintStyle: CommonTextStyle.b03(color: CommonColor.gray03),
       ),
@@ -131,31 +113,6 @@ Widget _divider(Color color, double top) {
           height: 1.r,
           color: color,
         ))
-      ],
-    ),
-  );
-}
-
-Widget _dividerOr(double horizontal, double vertical) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: 15.5.r, horizontal: 24.r),
-    child: Row(
-      children: [
-        Expanded(
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              const Divider(color: CommonColor.gray02),
-              Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.r),
-                  decoration: const BoxDecoration(color: Colors.white),
-                  child: Text(
-                    '또는',
-                    style: CommonTextStyle.b14(color: CommonColor.gray02),
-                  )),
-            ],
-          ),
-        ),
       ],
     ),
   );
@@ -219,7 +176,7 @@ Widget _submitButton(SignInController controller, double top) {
   return Padding(
     padding: EdgeInsets.fromLTRB(24.r, top, 24.r, 0.0),
     child: ClipRRect(
-      borderRadius: BorderRadius.circular(16.r),
+      borderRadius: BorderRadius.circular(5.r),
       child: Material(
         color: CommonColor.mainDarkGreen,
         child: InkWell(
@@ -228,7 +185,7 @@ Widget _submitButton(SignInController controller, double top) {
             padding: EdgeInsets.symmetric(horizontal: 14.r, vertical: 16.r),
             child: Text(
               "로그인",
-              style: CommonTextStyle.b05(color: Colors.black),
+              style: CommonTextStyle.b05(color: Colors.white),
             ).c,
           ),
         ),

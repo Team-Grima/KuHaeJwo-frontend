@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pet_app/common/http_model/GetMateOfferListResponse.dart';
 import 'package:pet_app/common/image_loader.dart';
 import 'package:pet_app/common/service/auth_service.dart';
-import 'package:pet_app/common/service/service_response.dart';
+import 'package:pet_app/common/service_response.dart';
 import 'package:pet_app/main_view_page/main_controller.dart';
 import 'package:get/get.dart';
 import 'package:pet_app/user_post_view_page/user_post_view_page.dart';

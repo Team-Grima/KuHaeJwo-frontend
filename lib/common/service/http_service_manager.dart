@@ -9,7 +9,8 @@ import 'package:pet_app/common/common.dart';
 import 'package:pet_app/common/common_storage.dart';
 import 'package:pet_app/common/http_model/GetMateOfferListResponse.dart';
 import 'package:pet_app/common/http_model/PostLoginResponse.dart';
-import 'package:pet_app/common/service/service_response.dart';
+
+import 'package:pet_app/common/service_response.dart';
 
 class HttpServiceManager {
   // dio instance

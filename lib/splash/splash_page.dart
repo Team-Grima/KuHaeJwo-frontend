@@ -3,7 +3,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:pet_app/auth/login/sign_in_view_page.dart';
 import 'package:pet_app/common/common.dart';
-import 'package:pet_app/common/service/auth_service.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -69,7 +68,7 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     moveToMain();
-    AuthService().login("asdf@d.com", "asdfasdf");
+    // AuthService().login("asdf@d.com", "asdfasdf");
     super.onInit();
   }
 

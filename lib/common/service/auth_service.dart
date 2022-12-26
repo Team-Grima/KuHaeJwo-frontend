@@ -7,7 +7,8 @@ import 'package:pet_app/common/common_storage.dart';
 import 'package:pet_app/common/http_model/PostLoginResponse.dart';
 import 'package:pet_app/common/model/user_model.dart';
 import 'package:pet_app/common/service/http_service_manager.dart';
-import 'package:pet_app/common/service/service_response.dart';
+
+import 'package:pet_app/common/service_response.dart';
 
 class AuthService {
   bool get authed => CommonStorageKey.userId.read.value != null;
@@ -21,33 +22,26 @@ class AuthService {
 
   factory AuthService() => _instance;
   AuthService._internal() {
-    Common.logger.d('AreaService._internal() called!!!');
+    Common.logger.d('AuthService._internal() called!!!');
+  }
+
+  Future<ServiceResponse> login(String email, String password) async {
+    ServiceResponse<PostLoginResponse> loginResponse = await HttpServiceManager().postLogin(email: email, password: password);
+    return loginResponse;
+    // UserCredential userCredential;
+    // try {
+    //   userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+    //   fbUser.value = userCredential.user;
+    // } catch (e) {
+    //   userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+    //   fbUser.value = userCredential.user;
+    // }
+    // createFirestoreUser(userCredential);
   }
 
 // register(){
 //   FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password)
 // }
-  login(String email, String password) async {
-    // user.value = (await HttpServiceManager.postLogin(email, password)).value;
-    ServiceResponse<PostLoginResponse> loginResponse = await HttpServiceManager().postLogin(email: email, password: password);
-    if (loginResponse.result) {
-      //로그인 성공
-
-      Common.showSnackbar(message: loginResponse.value!.data!.accessToken!);
-    } else {
-      Common.showSnackbar(message: loginResponse.errorMsg);
-    }
-    UserCredential userCredential;
-    try {
-      userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-      fbUser.value = userCredential.user;
-    } catch (e) {
-      userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
-      fbUser.value = userCredential.user;
-    }
-    createFirestoreUser(userCredential);
-  }
-
   void createFirestoreUser(UserCredential userCredential) async {
     if (userCredential.user != null) {
       return await FirebaseChatCore.instance.createUserInFirestore(
