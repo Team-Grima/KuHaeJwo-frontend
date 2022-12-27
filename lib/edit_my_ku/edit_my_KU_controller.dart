@@ -1,6 +1,10 @@
 import 'package:get/get.dart';
+import 'package:pet_app/common/http_model/GetUserDetailResponse.dart';
 import 'package:pet_app/common/model/user_model.dart';
-import 'package:pet_app/survey_page/survey_view_page.dart';
+import 'package:pet_app/common/service/auth_service.dart';
+import 'package:pet_app/common/service/http_service_manager.dart';
+import 'package:pet_app/common/service_response.dart';
+import 'package:pet_app/survey_steps/survey_step_0/survey_step_0_view_page.dart';
 
 class EditMyKUController extends GetxController {
   List<String> college = [
@@ -33,21 +37,21 @@ class EditMyKUController extends GetxController {
     "사범대학": ["일어교육과", "수학교육과", "체육교육과", "음악교육과", "교육공학과", "영어교육과"]
   };
   List<String> age = [
-    "19살",
-    "20살",
-    "21살",
-    "22살",
-    "23살",
-    "24살",
-    "25살",
-    "26살",
-    "27살",
-    "28살",
-    "29살",
-    "30살",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
     "30~",
   ];
-  List<String> hak = [
+  List<String> studentId = [
     "23학번",
     "22학번",
     "21학번",
@@ -88,18 +92,19 @@ class EditMyKUController extends GetxController {
     "MBTI를 선택해주세요",
     "성별",
   ];
-  Map<String, RxnInt> selectedIndexMap = <String, RxnInt>{}.obs;
+  Map<String, RxnInt> selectedIndexMap = {
+    "소속 단과 대학": RxnInt(null),
+    "소속 학과": RxnInt(null),
+    "학번": RxnInt(null),
+    "나이": RxnInt(null),
+    "MBTI": RxnInt(null),
+    "성별": RxnInt(null),
+  };
   Rxn<UserModel> user = Rxn(null);
+  AuthService authService = AuthService();
   @override
   void onInit() {
-    selectedIndexMap = {
-      "소속 단과 대학": RxnInt(null),
-      "소속 학과": RxnInt(null),
-      "학번": RxnInt(null),
-      "나이": RxnInt(null),
-      "MBTI": RxnInt(null),
-      "성별": RxnInt(null),
-    };
+    restoreConfigs();
     super.onInit();
   }
 
@@ -108,11 +113,70 @@ class EditMyKUController extends GetxController {
   }
 
   void submit() {
-    saveSettings();
+    saveConfigs();
     routeToSurvey();
   }
 
-  saveSettings() async {
-    // HttpServiceManager().saveUserInfo();
+  restoreConfigs() {
+    fetchData();
+  }
+
+  saveConfigs() async {
+    HttpServiceManager().putUserInfoUpdate(
+      {
+        "college": getSelectedString(college, selectedIndexMap["소속 단과 대학"]?.value),
+        "department": getSelectedString(department[getSelectedString(college, selectedIndexMap["소속 단과 대학"]?.value)] ?? [], selectedIndexMap["소속 학과"]?.value),
+        "studentId": getSelectedString(studentId, selectedIndexMap["학번"]?.value),
+        "age": int.tryParse(getSelectedString(age, selectedIndexMap["나이"]?.value)),
+        "mbti": getSelectedString(MBTI, selectedIndexMap["MBTI"]?.value),
+        "gender": getSelectedGender(gender, selectedIndexMap["성별"]?.value)
+      },
+    );
+  }
+
+  getSelectedString(List list, int? index) {
+    if (index == null || list.isEmpty) {
+      return null;
+    } else {
+      return list[index];
+    }
+  }
+
+  getSelectedGender(List list, int? index) {
+    if (index == null || list.isEmpty) {
+      return null;
+    } else {
+      return list[index] == "남자" ? "MALE" : "FEMALE";
+    }
+  }
+
+  fetchData() async {
+    ServiceResponse<GetUserResponse> res = await HttpServiceManager().getUserInfo();
+    if (res.result && res.value?.userData != null) {
+      //수정
+      authService.userData.value = res.value!.userData; //update user.info
+      selectedIndexMap["소속 단과 대학"]?.value = college.indexOf(authService.userData.value!.college ?? '');
+      if (selectedIndexMap["소속 단과 대학"]?.value == -1) selectedIndexMap["소속 단과 대학"]?.value = null;
+      selectedIndexMap["소속 학과"]?.value = department[authService.userData.value!.college ?? '']?.indexOf(authService.userData.value!.department ?? '');
+      if (selectedIndexMap["소속 학과"]?.value == -1) selectedIndexMap["소속 학과"]?.value = null;
+      selectedIndexMap["학번"]?.value = studentId.indexOf(authService.userData.value!.studentId ?? '');
+      if (selectedIndexMap["학번"]?.value == -1) selectedIndexMap["학번"]?.value = null;
+      selectedIndexMap["나이"]?.value = age.indexOf((authService.userData.value!.age ?? 0).toString());
+      if (selectedIndexMap["나이"]?.value == -1) selectedIndexMap["나이"]?.value = null;
+      selectedIndexMap["MBTI"]?.value = MBTI.indexOf(authService.userData.value!.mbti ?? "");
+      if (selectedIndexMap["MBTI"]?.value == -1) selectedIndexMap["MBTI"]?.value = null;
+      selectedIndexMap["성별"]?.value = authService.userData.value!.gender != null
+          ? authService.userData.value!.gender == "MALE"
+              ? 0
+              : 1
+          : null;
+    } else {
+      //신규작성
+    }
   }
 }
+// extension MapExtension on List{
+//     String getSelectedString(int index){
+//       return this[index]
+//     }
+//   }

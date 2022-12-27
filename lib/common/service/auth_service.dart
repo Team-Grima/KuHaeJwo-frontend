@@ -18,6 +18,7 @@ class AuthService {
 
   Rxn<UserData> userData = Rxn(null);
   Rxn<DetailData> userDetailData = Rxn(null);
+  Rxn<PreferData> userPreferData = Rxn(null);
 
   static final AuthService _instance = AuthService._internal();
 
@@ -102,4 +103,9 @@ class AuthService {
 //       },
 //     );
 //   }
+}
+
+class PreferData {
+  List<String> preferDataList;
+  PreferData(this.preferDataList);
 }

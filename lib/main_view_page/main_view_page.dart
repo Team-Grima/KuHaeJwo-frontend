@@ -101,7 +101,8 @@ class MainPage extends StatelessWidget {
                 Row(
                   children: [
                     ImageLoader(
-                      url: userDetailData.body ?? "",
+                      // url: userDetailData.userProfileUrl ??''",
+                      url: "https://enter.kku.ac.kr/mbshome/mbs/wwwkr/renewal/images/identity/ui_am.png",
                       height: 38.r,
                       width: 38.r,
                     ),

@@ -6,8 +6,9 @@ import 'package:get/get.dart';
 import 'package:pet_app/edit_my_ku/edit_my_KU_controller.dart';
 
 class EditMyKUViewPage extends StatelessWidget {
-  const EditMyKUViewPage({Key? key}) : super(key: key);
-  static const url = '/edit-my-kue';
+  EditMyKUViewPage({Key? key, required this.isEditForm}) : super(key: key);
+  static const url = '/edit-my-ku';
+  bool isEditForm;
   @override
   Widget build(BuildContext context) {
     EditMyKUController controller = Get.put(EditMyKUController());
@@ -16,7 +17,7 @@ class EditMyKUViewPage extends StatelessWidget {
             backgroundColor: CommonColor.white,
             appBar: CommonAppBar(
               context: context,
-              title: "내 소개 하기",
+              title: isEditForm ? "내 소개 수정하기" : "내 소개 하기",
               hasGetBack: false,
               onTapFunction: Get.back,
             ),
@@ -33,14 +34,18 @@ class EditMyKUViewPage extends StatelessWidget {
                           list: controller.department[controller.college[controller.selectedIndexMap["소속 단과 대학"]!.value ?? 0]] ?? [],
                           v: controller.selectedIndexMap["소속 학과"]!),
                     ),
-                    dropdownButton(hint: controller.hintList[2], list: controller.hak, v: controller.selectedIndexMap["학번"]!),
+                    dropdownButton(hint: controller.hintList[2], list: controller.studentId, v: controller.selectedIndexMap["학번"]!),
                     dropdownButton(hint: controller.hintList[3], list: controller.age, v: controller.selectedIndexMap["나이"]!),
                     dropdownButton(hint: controller.hintList[4], list: controller.MBTI, v: controller.selectedIndexMap["MBTI"]!),
                     dropdownButton(hint: controller.hintList[5], list: controller.gender, v: controller.selectedIndexMap["성별"]!),
                   ],
                 ),
               )),
-              Common.BottomButton(context: context, numberOfButton: 1, buttonText1: '시작하기', button1Function: controller.submit),
+              Common.BottomButton(
+                  context: context,
+                  numberOfButton: 1,
+                  buttonText1: isEditForm ? "저장하기" : "시작하기",
+                  button1Function: isEditForm ? controller.saveConfigs : controller.submit),
             ])));
   }
 
@@ -67,12 +72,12 @@ class EditMyKUViewPage extends StatelessWidget {
                 (listIndex) => DropdownMenuItem(
                     value: listIndex,
                     child: Text(
-                      list[listIndex],
+                      hint == "나이를 선택해주세요" ? "${list[listIndex]}살" : list[listIndex],
                       style: CommonTextStyle(color: CommonColor.black, fontSize: 17),
                     ))),
             onChanged: (value) {
               if (hint == "소속 단과 대학을 선택해주세요") {
-                Get.find<EditMyKUController>().selectedIndexMap["소속 학과"]!.value = null;
+                Get.find<EditMyKUController>().selectedIndexMap["소속 학과"]!.value = null; //단과대 변경시 학과 초기화
               }
               if (value == null) {
               } else {

@@ -21,8 +21,8 @@ class UserPostViewPage extends StatelessWidget {
           context: context,
           // title: controller.post.title ?? "",
           title: "",
-          hasGetBack: false,
-          onTapFunction: Get.back,
+
+          // onTapFunction: Get.back,
         ),
         body: Stack(
           children: [
@@ -123,7 +123,7 @@ class UserPostViewPage extends StatelessWidget {
                 children: [
                   ImageLoader(
                     // url: userDetailData.profileImageUrl ?? "",
-                    url: "",
+                    url: "https://enter.kku.ac.kr/mbshome/mbs/wwwkr/renewal/images/identity/ui_am.png",
                     height: 38.r,
                     width: 38.r,
                   ),

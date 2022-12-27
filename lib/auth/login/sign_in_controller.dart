@@ -61,7 +61,7 @@ class SignInController extends GetxController {
       writeUserSettings();
       isLoading = false;
       if (res.result) {
-        Get.toNamed(HomeViewPage.url);
+        Get.offAllNamed(HomeViewPage.url);
       } else {
         // Common.showSnackbar(message: res.errorMsg);
         Get.dialog(

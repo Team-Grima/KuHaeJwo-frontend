@@ -18,7 +18,8 @@ class GetUserResponse {
         code = json['code'] as int?,
         msg = json['msg'] as String?,
         detailData = (json['detailData'] as Map<String, dynamic>?) != null ? DetailData.fromJson(json['detailData'] as Map<String, dynamic>) : null,
-        userData = (json['userData'] as Map<String, dynamic>?) != null ? UserData.fromJson(json['userData'] as Map<String, dynamic>) : null;
+        userData = (json['data'] as Map<String, dynamic>?) != null ? UserData.fromJson(json['data'] as Map<String, dynamic>) : null;
+  // userData = (json['userData'] as Map<String, dynamic>?) != null ? UserData.fromJson(json['userData'] as Map<String, dynamic>) : null;
 
   Map<String, dynamic> toJson() => {'success': success, 'code': code, 'msg': msg, 'detailData': detailData?.toJson(), 'userData': userData?.toJson()};
 }

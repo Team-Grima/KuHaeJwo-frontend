@@ -338,8 +338,8 @@ class Common {
     gradientVisible = false,
     void Function()? button1Function,
     void Function()? button2Function,
-    double verticalPaddding = 20.0,
-    double horizontalPaddding = 20.0,
+    double verticalPaddding = 12.0,
+    double horizontalPaddding = 16.0,
   }) {
     if (numberOfButton == 1) {
       return Column(
@@ -386,13 +386,13 @@ class Common {
                               child: TextButton(
                                 onPressed: button1Function,
                                 style: TextButton.styleFrom(
-                                  foregroundColor: CommonColor.navy, padding: EdgeInsets.all(14.r), // foreground
+                                  foregroundColor: CommonColor.navy, padding: EdgeInsets.all(10.r), // foreground
                                   backgroundColor: buttonColor1,
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
                                 ),
                                 child: Text(
                                   buttonText1,
-                                  style: CommonTextStyle(color: textColor1, fontSize: 15, fontWeight: FontWeight.w500),
+                                  style: CommonTextStyle(color: textColor1, fontSize: 13, fontWeight: FontWeight.w500),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 ),
@@ -454,13 +454,13 @@ class Common {
                               child: TextButton(
                                 onPressed: button1Function,
                                 style: TextButton.styleFrom(
-                                  foregroundColor: CommonColor.navy, padding: EdgeInsets.all(14.r), // foreground
+                                  foregroundColor: CommonColor.navy, padding: EdgeInsets.all(10.r), // foreground
                                   backgroundColor: buttonColor1,
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
                                 ),
                                 child: Text(
                                   buttonText1,
-                                  style: CommonTextStyle(color: textColor1, fontSize: 15, fontWeight: FontWeight.w500),
+                                  style: CommonTextStyle(color: textColor1, fontSize: 13, fontWeight: FontWeight.w500),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 ),
@@ -472,7 +472,7 @@ class Common {
                                 onPressed: button2Function,
                                 style: TextButton.styleFrom(
                                   foregroundColor: CommonColor.navy,
-                                  padding: EdgeInsets.all(14.r),
+                                  padding: EdgeInsets.all(10.r),
                                   backgroundColor: buttonColor2,
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
                                 ),
@@ -699,7 +699,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     this.shape,
     this.onTapFunction,
-    this.hasGetBack = true,
+    this.hasGetBack = false,
   }) :
         // : preferredSize = Size(1.sw, 88.r),
         super(key: key);
@@ -710,7 +710,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       margin: EdgeInsets.only(left: 16.r),
       child: InkWell(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10.r, horizontal: 14.r),
+          padding: EdgeInsets.symmetric(vertical: 8.r, horizontal: 14.r),
           child: SvgPicture.asset('assets/icon/appbar_close.svg', width: 12.r, height: 20.r),
         ),
       ),
@@ -738,27 +738,27 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(title,
           style: CommonTextStyle(
             color: titleColor,
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
           )),
-      leading: !hasGetBack
-          ? Container(
-              margin: EdgeInsets.only(left: 18.r),
-              child: InkWell(
-                onTap: hasGetBack ? Get.back : onTapFunction!,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20.r, horizontal: 15.r),
-                  child: SvgPicture.asset(
-                    leadingAssetPath,
-                    width: 12.r,
-                    height: 20.r,
-                    color: iconColor,
-                  ),
-                ),
-              ),
-            )
-          : null,
-      actions: actions,
+      // leading: hasGetBack
+      //     ? Container(
+      //         margin: EdgeInsets.only(left: 18.r),
+      //         child: InkWell(
+      //           onTap: hasGetBack ? Get.back : onTapFunction!,
+      //           child: Padding(
+      //             padding: EdgeInsets.symmetric(vertical: 20.r, horizontal: 15.r),
+      //             child: SvgPicture.asset(
+      //               leadingAssetPath,
+      //               width: 12.r,
+      //               height: 20.r,
+      //               color: iconColor,
+      //             ),
+      //           ),
+      //         ),
+      //       )
+      //     : null,
+      // actions: actions,
     );
   }
 }

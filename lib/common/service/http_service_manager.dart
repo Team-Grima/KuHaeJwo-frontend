@@ -69,6 +69,38 @@ class HttpServiceManager {
     }
   }
 
+  Future<ServiceResponse<GetUserResponse>> getUserInfo() async {
+    try {
+      var res = await (await authDio()).get('/api/users/info'.getUrl);
+      GetUserResponse getUserResponse = GetUserResponse.fromJson(res.data);
+      if (getUserResponse.code == 200) {
+        return ServiceResponse(result: true, value: getUserResponse);
+      }
+      return ServiceResponse(result: false, errorMsg: getUserResponse.msg ?? '오류가 발생했습니다');
+    } on dio_lib.DioError catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.response?.data["msg"] ?? '오류가 발생했습니다');
+    } catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.toString());
+    }
+  }
+
+  Future<ServiceResponse<PostLoginResponse>> putUserInfoUpdate(Map data) async {
+    try {
+      var res = await dio_lib.Dio().post('/api/users/info'.getUrl, data: jsonEncode(data));
+      PostLoginResponse postLoginResponse = PostLoginResponse.fromJson(res.data);
+      if (postLoginResponse.code == 200) {
+        CommonStorageKey.accessToken.write(postLoginResponse.data!.accessToken);
+        CommonStorageKey.refreshToken.write(postLoginResponse.data!.refreshToken);
+        return ServiceResponse(result: true, value: postLoginResponse);
+      }
+      return ServiceResponse(result: false, errorMsg: postLoginResponse.msg ?? '오류가 발생했습니다');
+    } on dio_lib.DioError catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.response?.data["msg"] ?? '오류가 발생했습니다');
+    } catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.toString());
+    }
+  }
+
   Future<ServiceResponse<GetUserResponse>> getUser() async {
     try {
       var res = await (await authDio()).get('/api/get-user'.getUrl);

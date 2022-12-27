@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:pet_app/common/image_loader.dart';
 import 'package:pet_app/edit_my_ku/edit_my_KU_view_page.dart';
 import 'package:pet_app/my_page/mypage_controller.dart';
+import 'package:pet_app/survey_steps/room_mate_prefer_survey/roommate_survey_view_page.dart';
+import 'package:pet_app/survey_steps/survey_step_0/survey_step_1_view_page.dart';
 
 class MyPageViewPage extends StatelessWidget {
   const MyPageViewPage({Key? key}) : super(key: key);
@@ -16,18 +18,13 @@ class MyPageViewPage extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
             backgroundColor: CommonColor.white,
-            appBar: AppBar(
+            appBar: CommonAppBar(
               backgroundColor: CommonColor.white,
-              elevation: 0,
-              title: Center(
-                child: Text(
-                  '마이페이지',
-                  style: CommonTextStyle(color: CommonColor.black, fontSize: 20, fontWeight: FontWeight.w500),
-                ),
-              ),
+              title: '마이페이지',
+              context: context,
             ),
             body: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 28.r),
+              padding: EdgeInsets.symmetric(horizontal: 12.r),
               child: Column(
                 children: [
                   SizedBox(height: 20.r),
@@ -59,108 +56,135 @@ class MyPageViewPage extends StatelessWidget {
                                       "건국대학교",
                                       style: CommonTextStyle(color: CommonColor.white, fontSize: 12),
                                     ),
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(5.r),
-                                      child: Material(
-                                        color: const Color.fromRGBO(0, 0, 0, 1).withOpacity(0.6),
-                                        child: InkWell(
-                                          onTap: () {},
-                                          child: Container(
-                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r)),
-                                            padding: EdgeInsets.symmetric(horizontal: 12.r, vertical: 5.r),
-                                            child: Row(
-                                              children: [
-                                                Image.asset(
-                                                  "assets/images/edit_pencil.png",
-                                                  width: 8.r,
-                                                  height: 8.r,
-                                                ),
-                                                SizedBox(width: 5.r),
-                                                Text(
-                                                  "수정",
-                                                  style: CommonTextStyle(
-                                                    color: CommonColor.white,
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
+                                    Obx(
+                                      () => controller.authService.userData.value != null
+                                          ? ClipRRect(
+                                              borderRadius: BorderRadius.circular(5.r),
+                                              child: Material(
+                                                color: const Color.fromRGBO(0, 0, 0, 1).withOpacity(0.6),
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    Get.to(() => EditMyKUViewPage(
+                                                          isEditForm: true,
+                                                        ));
+                                                  },
+                                                  child: Container(
+                                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r)),
+                                                    padding: EdgeInsets.symmetric(horizontal: 12.r, vertical: 5.r),
+                                                    child: Row(
+                                                      children: [
+                                                        Image.asset(
+                                                          "assets/images/edit_pencil.png",
+                                                          width: 8.r,
+                                                          height: 8.r,
+                                                        ),
+                                                        SizedBox(width: 5.r),
+                                                        Text(
+                                                          "수정",
+                                                          style: CommonTextStyle(
+                                                            color: CommonColor.white,
+                                                            fontSize: 10,
+                                                            fontWeight: FontWeight.w500,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
+                                                ),
+                                              ),
+                                            )
+                                          : Container(),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Obx(
+                                () => controller.authService.userData.value != null
+                                    ? Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              ImageLoader(
+                                                // url: controller.authService.userData.value?.profileImageUrl ?? "",
+                                                url: "https://enter.kku.ac.kr/mbshome/mbs/wwwkr/renewal/images/identity/ui_am.png",
+                                                height: 50.r,
+                                                width: 50.r,
+                                              ),
+                                              SizedBox(width: 10.r),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                                    children: [
+                                                      Text(
+                                                        controller.authService.userData.value?.mbti ?? "",
+                                                        style: CommonTextStyle(fontSize: 18.r, color: CommonColor.white),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                                    children: [
+                                                      Text(
+                                                        "${controller.authService.userData.value?.age ?? 1}살",
+                                                        style: CommonTextStyle(fontSize: 12.r, color: CommonColor.gray03),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                          SizedBox(height: 60.r),
+                                          Padding(
+                                            padding: EdgeInsets.only(bottom: 21.r),
+                                            child: Column(
+                                              children: [
+                                                Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                                  children: [
+                                                    Text(
+                                                      controller.authService.userData.value?.college ?? "",
+                                                      style: CommonTextStyle(fontSize: 12.r, color: CommonColor.white),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                                  children: [
+                                                    Text(
+                                                      controller.authService.userData.value?.department ?? "",
+                                                      style: CommonTextStyle(fontSize: 12.r, color: CommonColor.white),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                                  children: [
+                                                    Text(
+                                                      controller.authService.userData.value?.studentId ?? "",
+                                                      style: CommonTextStyle(fontSize: 12.r, color: CommonColor.white),
+                                                    ),
+                                                  ],
                                                 ),
                                               ],
                                             ),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  ImageLoader(
-                                    url: controller.user.value?.profileImageUrl ?? "",
-                                    height: 50.r,
-                                    width: 50.r,
-                                  ),
-                                  SizedBox(width: 10.r),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                          )
+                                        ],
+                                      )
+                                    : Column(
                                         children: [
-                                          Text(
-                                            controller.user.value?.username ?? "",
-                                            style: CommonTextStyle(fontSize: 18.r, color: CommonColor.white),
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 40.r, bottom: 75.r),
+                                            child: Text(
+                                              "로그인이 필요합니다.",
+                                              style: CommonTextStyle(fontSize: 12.r, color: CommonColor.white),
+                                            ),
                                           ),
                                         ],
                                       ),
-                                      Row(
-                                        crossAxisAlignment: CrossAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            "${controller.user.value?.age ?? 1}살",
-                                            style: CommonTextStyle(fontSize: 12.r, color: CommonColor.gray03),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  )
-                                ],
                               ),
-                              SizedBox(height: 60.r),
-                              Padding(
-                                padding: EdgeInsets.only(bottom: 21.r),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          controller.user.value?.upperMajor ?? "",
-                                          style: CommonTextStyle(fontSize: 12.r, color: CommonColor.white),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          controller.user.value?.major ?? "",
-                                          style: CommonTextStyle(fontSize: 12.r, color: CommonColor.white),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          controller.user.value?.major ?? "",
-                                          style: CommonTextStyle(fontSize: 12.r, color: CommonColor.white),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              )
                             ],
                           ),
                         ),
@@ -175,9 +199,14 @@ class MyPageViewPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 30.r),
+                  Container(
+                    height: 16.r,
+                  ),
                   checkbox("내 소개 수정하기", context),
-                  checkbox("내가 원하는 룸메 수정하기", context),
+                  checkbox(
+                    "내가 원하는 룸메 수정하기",
+                    context,
+                  ),
                 ],
               ),
             )));
@@ -185,15 +214,19 @@ class MyPageViewPage extends StatelessWidget {
 
   checkbox(String header, BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 15.r),
+      margin: EdgeInsets.only(bottom: 12.r),
       child: InkWell(
         splashColor: Colors.black.withOpacity(0.05),
         onTap: () {
-          Get.toNamed(EditMyKUViewPage.url);
+          if (header == "내 소개 수정하기") {
+            Get.to(() => SurveyStep1ViewPage(isEditForm: true));
+          } else {
+            Get.to(() => RoomMateSurveyViewPage(isEditForm: true));
+          }
         },
         child: Container(
-          decoration: BoxDecoration(color: CommonColor.disabledGrey, borderRadius: BorderRadius.circular(5.r)),
-          padding: EdgeInsets.symmetric(horizontal: 16.r, vertical: 16.r),
+          decoration: BoxDecoration(color: CommonColor.gray01, borderRadius: BorderRadius.circular(5.r)),
+          padding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 8.r),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
