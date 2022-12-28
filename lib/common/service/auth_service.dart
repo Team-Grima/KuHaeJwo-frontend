@@ -67,12 +67,12 @@ class AuthService {
     await FirebaseAuth.instance.signOut();
   }
 
-  Future<bool> signIn({required String email, required String password}) async {
-    ServiceResponse res = await HttpServiceManager().postSignIn(email: email, password: password);
+  Future<bool> signUp({required String email, required String password, required String name}) async {
+    ServiceResponse res = await HttpServiceManager().postSignUp(email: email, password: password, name: name);
     if (res.result) {
-      return res.value;
+      return true;
     } else {
-      Get.dialog(Common.commonModal(mainText: res.errorMsg));
+      Get.dialog(Common.commonModal(mainText: res.errorMsg, numberOfButton: 1));
       return false;
     }
   }
