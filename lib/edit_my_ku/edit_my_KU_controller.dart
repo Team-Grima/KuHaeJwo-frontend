@@ -122,16 +122,15 @@ class EditMyKUController extends GetxController {
   }
 
   saveConfigs() async {
-    HttpServiceManager().putUserInfoUpdate(
-      {
-        "college": getSelectedString(college, selectedIndexMap["소속 단과 대학"]?.value),
-        "department": getSelectedString(department[getSelectedString(college, selectedIndexMap["소속 단과 대학"]?.value)] ?? [], selectedIndexMap["소속 학과"]?.value),
-        "studentId": getSelectedString(studentId, selectedIndexMap["학번"]?.value),
-        "age": int.tryParse(getSelectedString(age, selectedIndexMap["나이"]?.value)),
-        "mbti": getSelectedString(MBTI, selectedIndexMap["MBTI"]?.value),
-        "gender": getSelectedGender(gender, selectedIndexMap["성별"]?.value)
-      },
-    );
+    AuthService().updateUserInfo({
+      "college": getSelectedString(college, selectedIndexMap["소속 단과 대학"]?.value),
+      "department": getSelectedString(department[getSelectedString(college, selectedIndexMap["소속 단과 대학"]?.value)] ?? [], selectedIndexMap["소속 학과"]?.value),
+      "studentId": getSelectedString(studentId, selectedIndexMap["학번"]?.value),
+      "age": getSelectedString(age, selectedIndexMap["나이"]?.value) == null ? null : int.tryParse(getSelectedString(age, selectedIndexMap["나이"]?.value)),
+      "mbti": getSelectedString(MBTI, selectedIndexMap["MBTI"]?.value),
+      "gender": getSelectedGender(gender, selectedIndexMap["성별"]?.value)
+    }, authService.userData.value == null);
+    Get.back();
   }
 
   getSelectedString(List list, int? index) {

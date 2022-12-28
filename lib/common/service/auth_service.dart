@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:get/get.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:pet_app/auth/login/sign_in_view_page.dart';
 import 'package:pet_app/common/common.dart';
 import 'package:pet_app/common/common_storage.dart';
 import 'package:pet_app/common/http_model/GetUserDetailResponse.dart';
@@ -43,9 +44,24 @@ class AuthService {
     // createFirestoreUser(userCredential);
   }
 
-  setUserDetails(UserData u, DetailData d) {
+  setUserDetails(UserData? u, DetailData? d) {
     userDetailData.value = d;
     userData.value = u;
+  }
+
+  updateUserInfo(Map data, bool isInit) async {
+    var res = await HttpServiceManager().putUserInfoUpdate(data: data, isInit: isInit);
+    if (res.result) {
+      setUserDetails(res.value?.userData, res.value?.detailData);
+    }
+  }
+
+  Future<bool> getUserInfo() async {
+    var res = await HttpServiceManager().getUserInfo();
+    if (res.result) {
+      setUserDetails(res.value?.userData, res.value?.detailData);
+    }
+    return res.result;
   }
 
 // register(){
@@ -65,6 +81,11 @@ class AuthService {
 
   void logout() async {
     await FirebaseAuth.instance.signOut();
+    CommonStorageKey().deleteAll();
+    userData.value = null;
+    userDetailData.value = null;
+    userPreferData.value = null;
+    Get.offAllNamed(SignInViewPage.url);
   }
 
   Future<bool> signUp({required String email, required String password, required String name}) async {

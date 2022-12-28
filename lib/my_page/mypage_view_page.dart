@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pet_app/common/common.dart';
 import 'package:get/get.dart';
+import 'package:pet_app/common/common_storage.dart';
 import 'package:pet_app/common/image_loader.dart';
 import 'package:pet_app/edit_my_ku/edit_my_KU_view_page.dart';
 import 'package:pet_app/my_page/mypage_controller.dart';
@@ -57,7 +58,7 @@ class MyPageViewPage extends StatelessWidget {
                                       style: CommonTextStyle(color: CommonColor.white, fontSize: 12),
                                     ),
                                     Obx(
-                                      () => controller.authService.userData.value != null
+                                      () => CommonStorageKey.accessToken.read.value != null
                                           ? ClipRRect(
                                               borderRadius: BorderRadius.circular(5.r),
                                               child: Material(
@@ -69,7 +70,7 @@ class MyPageViewPage extends StatelessWidget {
                                                         ));
                                                   },
                                                   child: Container(
-                                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r)),
+                                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.r)),
                                                     padding: EdgeInsets.symmetric(horizontal: 12.r, vertical: 5.r),
                                                     child: Row(
                                                       children: [
@@ -80,7 +81,7 @@ class MyPageViewPage extends StatelessWidget {
                                                         ),
                                                         SizedBox(width: 5.r),
                                                         Text(
-                                                          "수정",
+                                                          controller.authService.userData.value != null ? "수정" : "정보 입력하기",
                                                           style: CommonTextStyle(
                                                             color: CommonColor.white,
                                                             fontSize: 10,
@@ -178,7 +179,7 @@ class MyPageViewPage extends StatelessWidget {
                                           Padding(
                                             padding: EdgeInsets.only(top: 40.r, bottom: 75.r),
                                             child: Text(
-                                              "로그인이 필요합니다.",
+                                              CommonStorageKey.accessToken.read.value == null ? "로그인이 필요합니다." : "우측 상단의 정보 입력하기 버튼으로 정보를 입력해주세요",
                                               style: CommonTextStyle(fontSize: 12.r, color: CommonColor.white),
                                             ),
                                           ),
@@ -191,9 +192,11 @@ class MyPageViewPage extends StatelessWidget {
                         Positioned(
                           bottom: 0,
                           right: 0,
-                          child: Image.asset(
-                            "assets/images/konkuk_logo.png",
-                            width: 170.r,
+                          child: IgnorePointer(
+                            child: Image.asset(
+                              "assets/images/konkuk_logo.png",
+                              width: 170.r,
+                            ),
                           ),
                         ),
                       ],
