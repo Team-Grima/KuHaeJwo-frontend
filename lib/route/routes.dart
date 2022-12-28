@@ -1,4 +1,5 @@
 import 'package:pet_app/alarm/alarm_view_page.dart';
+import 'package:pet_app/auth/find_password/find_password_view_page.dart';
 import 'package:pet_app/auth/login/sign_in_view_page.dart';
 import 'package:pet_app/auth/password_change/change_password_view_page.dart';
 import 'package:pet_app/auth/register/register_view_page.dart';
@@ -15,19 +16,23 @@ import 'package:pet_app/survey_steps/survey_step_0/survey_step_0_view_page.dart'
 class GetXRouter {
   static final route = [
     // GetPage(name: MoreHelp.url, page: () => const MoreHelp()),
+    //splash
     GetPage(name: SplashPage.url, page: () => const SplashPage()),
 
     //AUTH
     GetPage(name: SignInViewPage.url, page: () => const SignInViewPage()),
     GetPage(name: RegisterViewPage.url, page: () => const RegisterViewPage()),
+    GetPage(name: FindPasswordViewPage.url, page: () => const FindPasswordViewPage()),
+    GetPage(name: ChangePWViewPage.url, page: () => const ChangePWViewPage()),
 
+    //user
     GetPage(name: HomeViewPage.url, page: () => const HomeViewPage()),
     GetPage(name: MainPage.url, page: () => const MainPage()),
     GetPage(name: UserPostViewPage.url, page: () => const UserPostViewPage()),
     GetPage(name: AlarmViewPage.url, page: () => const AlarmViewPage()),
     GetPage(name: SurveyViewPage.url, page: () => const SurveyViewPage()),
     // GetPage(name: SurveyStep1ViewPage.url, page: () => const SurveyStep1ViewPage()),
-    GetPage(name: ChangePWViewPage.url, page: () => const ChangePWViewPage()),
+    //CHAT
     GetPage(name: ChatRoomListViewPage.url, page: () => const ChatRoomListViewPage()),
     //survey
     // GetPage(name: RoomMateSurveyViewPage.url, page: () => const RoomMateSurveyViewPage()),

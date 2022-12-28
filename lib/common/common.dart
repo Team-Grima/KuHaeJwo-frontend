@@ -102,11 +102,11 @@ class Common {
     required String mainText,
     String subText = '',
     int numberOfButton = 2,
-    Color button1Color = CommonColor.gray01,
+    Color button1Color = CommonColor.mainDarkGreen,
     Color button2Color = CommonColor.redError,
     String button1Text = '이전',
     String button2Text = '확인',
-    Color button1TextColor = CommonColor.gray03,
+    Color button1TextColor = CommonColor.white,
     Color button2TextColor = CommonColor.red,
     String button1RoutePath = '',
     String button2RoutePath = '',
@@ -115,7 +115,7 @@ class Common {
   }) {
     return IntrinsicWidth(
       child: Dialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.r)),
         backgroundColor: CommonColor.white,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.r),
@@ -127,7 +127,7 @@ class Common {
                   padding: EdgeInsets.only(top: 22.r, bottom: 6.r),
                   child: Text(
                     mainText,
-                    style: CommonTextStyle.h05(color: CommonColor.gray06),
+                    style: CommonTextStyle(fontSize: 16, color: CommonColor.gray06, fontWeight: FontWeight.w500),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 30,
                   ),
@@ -157,7 +157,7 @@ class Common {
                                 }
                               },
                               child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 16.r),
+                                padding: EdgeInsets.symmetric(vertical: 12.r),
                                 child: Text(
                                   button1Text,
                                   style: CommonTextStyle.botton02(color: button1TextColor),

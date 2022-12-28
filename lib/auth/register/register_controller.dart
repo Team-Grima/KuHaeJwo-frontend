@@ -53,14 +53,6 @@ class RegisterController extends GetxController {
 
   @override
   void onInit() {
-    // emailController.addListener(emailControllerListener);
-    // nameController.addListener(nameControllerListener);
-
-    // pwdController.addListener(pwdControllerListener);
-    // pwdCheckController.addListener(pwdCheckControllerListener);
-    // phoneNumController.addListener(phoneNumControllerListener);
-    // verifyNumController.addListener(verifyNumControllerListener);
-
     final textEditingControllerList = [emailController, pwdController, pwdCheckController, nameController, phoneNumController, verifyNumController];
     for (var i in textEditingControllerList) {
       isDeleteButtonVisibleMap[i] = false.obs;
@@ -85,12 +77,6 @@ class RegisterController extends GetxController {
     super.onInit();
   }
 
-  @override
-  void onClose() {
-    if (_timer != null) _timer!.cancel();
-    super.onClose();
-  }
-
   void emailControllerListener() {
     if (!EmailFormatHelper.isEmailValid(emailController.text.trim()) || emailController.text.isEmpty) {
       emailWarning.value = '올바른 이메일 형식이 아닙니다.';
@@ -102,8 +88,8 @@ class RegisterController extends GetxController {
   }
 
   void nameControllerListener() {
-    if (nameController.text.isEmpty) {
-      nameWarning.value = '문자만 입력가능합니다.';
+    if (nameController.text.isEmpty || nameController.text.length < 4) {
+      nameWarning.value = '닉네임은 4자 이상이여야 합니다.';
       isNameValid.value = false;
     } else {
       nameWarning.value = '';
@@ -185,11 +171,11 @@ class RegisterController extends GetxController {
     }
   }
 
-  Future<bool> verifyStep1() async {
+  bool verifyStep1() {
     emailControllerListener();
     pwdControllerListener();
     pwdCheckControllerListener();
-
+    nameControllerListener();
     if (isEmailValid.value) {
       // ServiceResponse<bool> res = await AuthService().checkEmailDuplicated(emailController.text);//TODO :: 이메일 중복체크 로직 추가
       ServiceResponse<bool> res;
@@ -205,6 +191,7 @@ class RegisterController extends GetxController {
     }
 
     return (isPwdValid.value &&
+        isNameValid.value &&
         !isEmailDuplicated &&
         isPwdCheckValid.value &&
         isEmailValid.value &&
@@ -252,9 +239,6 @@ class RegisterController extends GetxController {
       }
 
       if (isPhoneNumValid.value && !isWaitingForVerification.value && PhoneFormatHelper.isPhoneNumberValid(phoneNumController.text.trim())) {
-        // var dialog = await dialogService.showCustomDialog(
-        //     variant: DialogType.yesOrNo, description: "인증번호를 전송하시겠습니까?", mainButtonTitle: "예", secondaryButtonTitle: "아니오");
-        // if (dialog.confirmed) {
         if (true) {
           isLoading.value = false;
           // var result = await authService.requestPhoneVerificatioNumber(phoneNumController.text.trim());
@@ -270,83 +254,18 @@ class RegisterController extends GetxController {
             primaryKey.value = '';
 
             Get.defaultDialog(title: '인증번호 실패', middleText: result.errorMsg);
-
-            // var dialog = await dialogService.showCustomDialog(variant: DialogType.yes, description: "인증번호 실패\n${result.errorMsg}", mainButtonTitle: "확인");
           }
         }
         isLoading.value = false;
       } else {
         isLoading.value = false;
-
-        // var dialog = await dialogService.showCustomDialog(variant: DialogType.yes, description: "인증번호 전송 실패\n유효한 전화번호를 입력해주세요", mainButtonTitle: "확인");
       }
       isLoading.value = false;
-    } catch (e) {
-      // setLog.setCrashLog(Routes.signUpViewRoute, "requestVerificatioNumber", e.toString());
-    }
+    } catch (e) {}
   }
 
-  signUp() async {
-    bool isSuccess = await AuthService().signIn(email: emailController.text.trim(), password: pwdController.text.trim());
+  Future<bool> signUp() async {
+    bool isSuccess = await AuthService().signUp(email: emailController.text.trim(), password: pwdController.text.trim(), name: nameController.text.trim());
     return isSuccess;
-  }
-
-  void initPage() {
-    isSendBtnClicked.value = false;
-    isSubmitButton2Clicked.value = false;
-    isPhoneVerified.value = true;
-  }
-
-  Future onSendBtnTap(RxBool isValid) async {
-    if (isValid.value && isSendBtnVisible.value) {
-      isSendBtnClicked.value = true;
-      clickTimer();
-
-      requestVerificatioNumber();
-      verifyNumController.clear();
-    }
-  }
-
-  void clickTimer() {
-    if (isTimerGoing.value == false) {
-      isTimerGoing.value = true;
-      startTimer();
-    } else {
-      stopTimer();
-    }
-  }
-
-  Timer? _timer;
-  Timer? get timer => _timer;
-  int _currntTime = 0;
-  int _time = 180;
-  final _timeResult = "2:59".obs;
-  String get time => _timeResult.value;
-  void startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      _currntTime++;
-      _time = 180 - _currntTime;
-
-      int h, m, s;
-
-      h = _time ~/ 3600;
-      m = ((_time - h * 3600)) ~/ 60;
-      s = _time - (h * 3600) - (m * 60);
-      String sStr = s.toString().padLeft(2, '0');
-      _timeResult.value = "$m:$sStr";
-
-      if (_currntTime == 180) {
-        //timer is endded
-        isTimerGoing.value == false;
-        initPage();
-        stopTimer();
-      }
-    });
-  }
-
-  void stopTimer() {
-    _timer!.cancel();
-    _currntTime = 0;
-    startTimer();
   }
 }

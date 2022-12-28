@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pet_app/auth/login/sign_in_controller.dart';
 
 import 'package:pet_app/auth/register/register_controller.dart';
 import 'package:pet_app/common/common.dart';
@@ -40,6 +41,14 @@ class RegisterViewPage extends StatelessWidget {
               textInputWidget('아이디(이메일)를 입력하세요', controller.emailController, controller.isEmailValid, false, 4.r, controller),
               Row(
                 children: [
+                  _infoMessage('닉네임', CommonTextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: CommonColor.gray03), 22.r),
+                  const Expanded(child: SizedBox()),
+                  _errorMessage(controller.nameWarning, CommonTextStyle.b14(color: CommonColor.red), 17.r)
+                ],
+              ),
+              textInputWidget('닉네임를 입력하세요', controller.nameController, controller.isEmailValid, false, 4.r, controller),
+              Row(
+                children: [
                   _infoMessage('비밀번호', CommonTextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: CommonColor.gray03), 22.r),
                   const Expanded(child: SizedBox()),
                   _errorMessage(controller.pwdWarning, CommonTextStyle.b14(color: CommonColor.red), 17.r)
@@ -59,11 +68,13 @@ class RegisterViewPage extends StatelessWidget {
                 context: context,
                 numberOfButton: 1,
                 buttonText1: "회원가입",
-                button1Function: () {
-                  controller.verifyStep1();
-                  if (controller.isPwdValid.value && controller.isPwdCheckValid.value && controller.isEmailValid.value) {
+                button1Function: () async {
+                  if (controller.verifyStep1()) {
                     // Get.toNamed('/register-step2');
-                    controller.signUp();
+                    if (await controller.signUp()) {
+                      Get.dialog(Common.commonModal(mainText: "회원가입 완료", numberOfButton: 1, button1Function: Get.back, button1Text: "로그인하러 가기"));
+                      Get.find<SignInController>().idController.text = "";
+                    }
                     Common.logger.d("all pass");
                   }
                 },
