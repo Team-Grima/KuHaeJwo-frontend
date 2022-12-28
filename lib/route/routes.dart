@@ -1,6 +1,7 @@
 import 'package:pet_app/alarm/alarm_view_page.dart';
 import 'package:pet_app/auth/login/sign_in_view_page.dart';
 import 'package:pet_app/auth/password_change/change_password_view_page.dart';
+import 'package:pet_app/auth/register/register_view_page.dart';
 import 'package:pet_app/chat/chat_room_list/chat_room_list_view_page.dart';
 import 'package:pet_app/common/http_model/GetMateOfferListResponse.dart';
 
@@ -15,7 +16,10 @@ class GetXRouter {
   static final route = [
     // GetPage(name: MoreHelp.url, page: () => const MoreHelp()),
     GetPage(name: SplashPage.url, page: () => const SplashPage()),
+
+    //AUTH
     GetPage(name: SignInViewPage.url, page: () => const SignInViewPage()),
+    GetPage(name: RegisterViewPage.url, page: () => const RegisterViewPage()),
 
     GetPage(name: HomeViewPage.url, page: () => const HomeViewPage()),
     GetPage(name: MainPage.url, page: () => const MainPage()),

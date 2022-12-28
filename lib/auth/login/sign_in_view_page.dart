@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pet_app/auth/login/sign_in_controller.dart';
+import 'package:pet_app/auth/register/register_view_page.dart';
 import 'package:pet_app/common/common.dart';
 
 /*
@@ -34,7 +35,8 @@ class SignInViewPage extends StatelessWidget {
                 // ),
                 Padding(padding: EdgeInsets.only(top: 12.r), child: SvgPicture.asset('assets/images/logo.svg')),
                 _divider(CommonColor.gray02, 24.r), //Top padding
-                _infoMessage('쿠해줘\n시작하기', CommonTextStyle(fontSize: 30, color: CommonColor.gray05, fontWeight: FontWeight.w400), 30.r),
+                _infoMessage('쿠해줘', CommonTextStyle(fontSize: 30, color: CommonColor.mainDarkGreen, fontWeight: FontWeight.w600), 30.r),
+                _infoMessage('시작하기', CommonTextStyle(fontSize: 30, color: CommonColor.gray05, fontWeight: FontWeight.w400), 0.r),
                 _infoMessage('로그인', CommonTextStyle(fontSize: 20, color: CommonColor.gray05, fontWeight: FontWeight.w400), 90.r),
                 _idInput('아이디(이메일)', controller, 20.r, 12.r), //bottom padding
                 _passwordInput('비밀번호', controller, 12.r), //bottom padding
@@ -64,7 +66,7 @@ Widget _infoMessage(String text, TextStyle style, double top) {
 
 Widget _idInput(String hintText, SignInController controller, double top, double bottom) {
   return Padding(
-    padding: EdgeInsets.fromLTRB(24.r, top, 24.r, bottom),
+    padding: EdgeInsets.fromLTRB(16.r, top, 16.r, bottom),
     child: TextField(
       textInputAction: TextInputAction.done,
       style: CommonTextStyle.b04(),
@@ -72,11 +74,11 @@ Widget _idInput(String hintText, SignInController controller, double top, double
       controller: controller.idController,
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: CommonColor.gray02), borderRadius: BorderRadius.circular(5.r)),
-        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: CommonColor.mainMidGreen, width: 1.5.r), borderRadius: BorderRadius.circular(5.r)),
-        contentPadding: EdgeInsets.symmetric(vertical: 15.5.r, horizontal: 24.r),
+        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: CommonColor.mainMidGreen, width: 1.r), borderRadius: BorderRadius.circular(5.r)),
+        contentPadding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 16.r),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.r)),
         hintText: hintText,
-        hintStyle: CommonTextStyle.b03(color: CommonColor.gray03),
+        hintStyle: CommonTextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: CommonColor.gray03),
       ),
     ),
   );
@@ -84,7 +86,7 @@ Widget _idInput(String hintText, SignInController controller, double top, double
 
 Widget _passwordInput(String hintText, SignInController controller, double bottom) {
   return Padding(
-    padding: EdgeInsets.fromLTRB(24.r, 0.0, 24.r, bottom),
+    padding: EdgeInsets.fromLTRB(16.r, 0.0, 16.r, bottom),
     child: TextField(
       textInputAction: TextInputAction.done,
       style: CommonTextStyle.b04(),
@@ -93,11 +95,11 @@ Widget _passwordInput(String hintText, SignInController controller, double botto
       controller: controller.pwdController,
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: CommonColor.gray02), borderRadius: BorderRadius.circular(5.r)),
-        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: CommonColor.mainMidGreen, width: 1.5.r), borderRadius: BorderRadius.circular(5.r)),
-        contentPadding: EdgeInsets.symmetric(vertical: 15.5.r, horizontal: 24.r),
+        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: CommonColor.mainMidGreen, width: 1.r), borderRadius: BorderRadius.circular(5.r)),
+        contentPadding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 16.r),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.r)),
         hintText: hintText,
-        hintStyle: CommonTextStyle.b03(color: CommonColor.gray03),
+        hintStyle: CommonTextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: CommonColor.gray03),
       ),
     ),
   );
@@ -176,7 +178,7 @@ Widget _checkBoxLine(SignInController controller) {
 
 Widget _submitButton(SignInController controller, double top) {
   return Padding(
-    padding: EdgeInsets.fromLTRB(24.r, top, 24.r, 0.0),
+    padding: EdgeInsets.fromLTRB(16.r, top, 16.r, 0.0),
     child: ClipRRect(
       borderRadius: BorderRadius.circular(5.r),
       child: Material(
@@ -184,10 +186,10 @@ Widget _submitButton(SignInController controller, double top) {
         child: InkWell(
           onTap: controller.submit,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 14.r, vertical: 16.r),
+            padding: EdgeInsets.symmetric(horizontal: 12.r, vertical: 16.r),
             child: Text(
               "로그인",
-              style: CommonTextStyle.b05(color: Colors.white),
+              style: CommonTextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white),
             ).c,
           ),
         ),
@@ -218,7 +220,7 @@ Widget _findBar() {
         ),
         InkWell(
           onTap: () {
-            Get.toNamed('/register-step1');
+            Get.toNamed(RegisterViewPage.url);
           },
           child: Container(
               padding: const EdgeInsets.all(2.0),

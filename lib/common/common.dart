@@ -478,7 +478,7 @@ class Common {
                                 ),
                                 child: Text(
                                   buttonText2,
-                                  style: CommonTextStyle(color: textColor2, fontSize: 15, fontWeight: FontWeight.w500),
+                                  style: CommonTextStyle(color: textColor1, fontSize: 14, fontWeight: FontWeight.w500),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 ),

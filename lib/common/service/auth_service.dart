@@ -67,6 +67,16 @@ class AuthService {
     await FirebaseAuth.instance.signOut();
   }
 
+  Future<bool> signIn({required String email, required String password}) async {
+    ServiceResponse res = await HttpServiceManager().postSignIn(email: email, password: password);
+    if (res.result) {
+      return res.value;
+    } else {
+      Get.dialog(Common.commonModal(mainText: res.errorMsg));
+      return false;
+    }
+  }
+
 //   Future<dynamic> registerDevice({String? id, int? alertSettings, bool isLogout = false}) async {
 //     id ??= CommonStorageKey.userId.read.value;
 //     if (id == null) {

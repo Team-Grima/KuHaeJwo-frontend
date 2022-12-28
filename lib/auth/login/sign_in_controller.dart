@@ -66,8 +66,8 @@ class SignInController extends GetxController {
         // Common.showSnackbar(message: res.errorMsg);
         Get.dialog(
           Common.commonModal(
-            mainText: '로그인 오류',
-            subText: '올바른 아이디(이메일) 또는 비밀번호를 입력하세요.',
+            mainText: res.errorMsg == "Connection refused" ? "서버 연결 실패" : '로그인 오류',
+            subText: res.errorMsg == "Connection refused" ? "관리자에게 문의해주세요." : '올바른 아이디(이메일) 또는 비밀번호를 입력하세요.',
             button1Color: CommonColor.mainMidGreen,
             button1TextColor: CommonColor.white,
             button1Text: '확인',

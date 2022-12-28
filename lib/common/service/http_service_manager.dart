@@ -48,7 +48,24 @@ class HttpServiceManager {
       }
       return ServiceResponse(result: false, errorMsg: postLoginResponse.msg ?? '오류가 발생했습니다');
     } on dio_lib.DioError catch (e) {
-      return ServiceResponse(result: false, errorMsg: e.response?.data["msg"] ?? '오류가 발생했습니다');
+      return ServiceResponse(result: false, errorMsg: e.response?.data["msg"] ?? e.error.message ?? "");
+    } catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.toString());
+    }
+  }
+
+  Future<ServiceResponse<PostLoginResponse>> postSignIn({required String email, required String password}) async {
+    try {
+      var res = await dio_lib.Dio().post('/api/signin'.getUrl, data: jsonEncode({"email": email, "password": password}));
+      PostLoginResponse postLoginResponse = PostLoginResponse.fromJson(res.data);
+      // if (postLoginResponse.code == 200) {
+      //   CommonStorageKey.accessToken.write(postLoginResponse.data!.accessToken);
+      //   CommonStorageKey.refreshToken.write(postLoginResponse.data!.refreshToken);
+      //   return ServiceResponse(result: true, value: postLoginResponse);
+      // }
+      return ServiceResponse(result: false, errorMsg: postLoginResponse.msg ?? '오류가 발생했습니다');
+    } on dio_lib.DioError catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.response?.data["msg"] ?? e.error.message ?? "");
     } catch (e) {
       return ServiceResponse(result: false, errorMsg: e.toString());
     }
