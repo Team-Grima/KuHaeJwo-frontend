@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:get/get.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-import 'package:pet_app/auth/login/sign_in_view_page.dart';
 import 'package:pet_app/common/common.dart';
 import 'package:pet_app/common/common_storage.dart';
 import 'package:pet_app/common/http_model/GetUserResponse.dart';
@@ -10,6 +9,7 @@ import 'package:pet_app/common/http_model/PostLoginResponse.dart';
 import 'package:pet_app/common/service/http_service_manager.dart';
 
 import 'package:pet_app/common/service_response.dart';
+import 'package:pet_app/pages/auth/login/sign_in_view_page.dart';
 
 class AuthService {
   bool get authed => CommonStorageKey.userId.read.value != null;
@@ -48,10 +48,10 @@ class AuthService {
     userBasicInfo.value = u;
   }
 
-  updateUserInfo(Map data, bool isInit) async {
-    var res = await HttpServiceManager().putUserInfoUpdate(data: data, isInit: isInit);
+  updateUserBasicInfo(Map data, bool isInit) async {
+    var res = await HttpServiceManager().userBasicInfoUpdate(data: data, isInit: isInit);
     if (res.result) {
-      setUserDetails(res.value?.userBasicInfoResponse, res.value?.userInfoDetailResponse, null); //TODO:: prefer 추가
+      setUserDetails(res.value, null, null); //TODO:: prefer 추가
     }
   }
 

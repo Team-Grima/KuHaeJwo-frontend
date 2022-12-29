@@ -6,8 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pet_app/common/service/auth_service.dart';
 import 'package:pet_app/firebase_options.dart';
-import 'package:pet_app/splash/splash_page.dart';
+
 import 'package:get_storage/get_storage.dart';
+import 'package:pet_app/pages/splash/splash_page.dart';
 
 import 'route/routes.dart';
 

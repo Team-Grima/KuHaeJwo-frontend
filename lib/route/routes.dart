@@ -1,17 +1,17 @@
-import 'package:pet_app/alarm/alarm_view_page.dart';
-import 'package:pet_app/auth/find_password/find_password_view_page.dart';
-import 'package:pet_app/auth/login/sign_in_view_page.dart';
-import 'package:pet_app/auth/password_change/change_password_view_page.dart';
-import 'package:pet_app/auth/register/register_view_page.dart';
-import 'package:pet_app/chat/chat_room_list/chat_room_list_view_page.dart';
+import 'package:pet_app/pages/alarm/alarm_view_page.dart';
+import 'package:pet_app/pages/auth/find_password/find_password_view_page.dart';
+import 'package:pet_app/pages/auth/login/sign_in_view_page.dart';
+import 'package:pet_app/pages/auth/password_change/change_password_view_page.dart';
+import 'package:pet_app/pages/auth/register/register_view_page.dart';
+import 'package:pet_app/pages/chat/chat_room_list/chat_room_list_view_page.dart';
 import 'package:pet_app/common/http_model/GetUserResponse.dart';
 
-import 'package:pet_app/main_view_page/main_view_page.dart';
-import 'package:pet_app/home/home_view_page.dart';
-import 'package:pet_app/user_post_view_page/user_post_view_page.dart';
-import 'package:pet_app/splash/splash_page.dart';
+import 'package:pet_app/pages/main_view_page/main_view_page.dart';
+import 'package:pet_app/pages/home/home_view_page.dart';
+import 'package:pet_app/pages/splash/splash_page.dart';
+import 'package:pet_app/pages/user_post_view_page/user_post_view_page.dart';
 import 'package:get/get.dart';
-import 'package:pet_app/survey_steps/survey_step_0/survey_step_0_view_page.dart';
+import 'package:pet_app/pages/survey_steps/survey_step_0/survey_step_0_view_page.dart';
 
 class GetXRouter {
   static final route = [
