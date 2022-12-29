@@ -4,7 +4,7 @@ import 'package:pet_app/auth/login/sign_in_view_page.dart';
 import 'package:pet_app/auth/password_change/change_password_view_page.dart';
 import 'package:pet_app/auth/register/register_view_page.dart';
 import 'package:pet_app/chat/chat_room_list/chat_room_list_view_page.dart';
-import 'package:pet_app/common/http_model/GetMateOfferListResponse.dart';
+import 'package:pet_app/common/http_model/GetUserResponse.dart';
 
 import 'package:pet_app/main_view_page/main_view_page.dart';
 import 'package:pet_app/home/home_view_page.dart';
@@ -46,8 +46,14 @@ class GetXRouter {
   ];
 }
 
-class UserDetailDataRouteParams {
-  UserDetailData userDetailData;
+class UserInfoDetailDataRouteParams {
+  UserInfoDetailResponse userInfoDetail;
 
-  UserDetailDataRouteParams({required this.userDetailData});
+  UserInfoDetailDataRouteParams({required this.userInfoDetail});
+}
+
+class MateOfferUserParams {
+  MateOfferResponse mateOffer;
+
+  MateOfferUserParams({required this.mateOffer});
 }

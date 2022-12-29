@@ -42,9 +42,21 @@ Widget listButton({required String title, required String route, double? topPadd
     margin: EdgeInsets.only(top: topPadding ?? 0),
     color: CommonColor.white,
     child: InkWell(
-      onTap: () {
+      onTap: () async {
         if (route == "log-out") {
-          AuthService().logout();
+          if (await Get.dialog(Common.commonModal(
+                mainText: "로그아웃",
+                subText: "로그아웃 하시겠습니까?",
+                button1Text: "아니오",
+                button2Text: "예",
+                button2Function: null,
+                numberOfButton: 2,
+                button2Color: CommonColor.disabledGrey,
+                button2TextColor: CommonColor.black,
+              )) ??
+              false) {
+            AuthService().logout();
+          }
         } else if (route == "log-in") {
           Get.offAllNamed(SignInViewPage.url);
         } else {

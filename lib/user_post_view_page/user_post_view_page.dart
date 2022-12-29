@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pet_app/common/common.dart';
 
 import 'package:get/get.dart';
-import 'package:pet_app/common/http_model/GetMateOfferListResponse.dart';
+import 'package:pet_app/common/http_model/GetUserResponse.dart';
 import 'package:pet_app/common/image_loader.dart';
 import 'package:pet_app/user_post_view_page/user_post_controller.dart';
 
@@ -27,7 +27,7 @@ class UserPostViewPage extends StatelessWidget {
         body: Stack(
           children: [
             SingleChildScrollView(
-              child: IntrinsicHeight(child: _bodyFragment(controller.userDetailData)),
+              child: IntrinsicHeight(child: _bodyFragment(controller.mateOffer)),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -110,7 +110,7 @@ class UserPostViewPage extends StatelessWidget {
     );
   }
 
-  static Widget _bodyFragment(UserDetailData userDetailData) {
+  static Widget _bodyFragment(MateOfferResponse mateOffer) {
     return Column(
       children: [
         Padding(
@@ -134,7 +134,7 @@ class UserPostViewPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            userDetailData.title ?? "",
+                            mateOffer.title ?? "",
                             style: CommonTextStyle(
                               fontSize: 13.r,
                             ),
@@ -150,7 +150,7 @@ class UserPostViewPage extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        "${userDetailData.userProfile?.department ?? ""}·${userDetailData.userProfile?.age ?? -1}살",
+                        "${mateOffer.userProfile?.department ?? ""}·${mateOffer.userProfile?.age ?? -1}살",
                         style: CommonTextStyle(fontSize: 11, color: CommonColor.gray03),
                       ),
                     ],
@@ -161,13 +161,13 @@ class UserPostViewPage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 0.r),
                 // child: Expanded(
                 child: Text(
-                  userDetailData.title ?? "",
+                  mateOffer.title ?? "",
                   style: CommonTextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
               ),
               // ),
               Text(
-                userDetailData.body ?? "",
+                mateOffer.body ?? "",
                 overflow: TextOverflow.visible,
                 style: CommonTextStyle(fontSize: 14, color: CommonColor.gray03),
               ),

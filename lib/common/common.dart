@@ -8,7 +8,7 @@ import 'package:logger/logger.dart';
 
 class Common {
   static final f = NumberFormat('###,###,###,###');
-  static const String baseUrl = "http://13.209.48.23:8080";
+  static const String baseUrl = "http://13.209.48.23";
 
   static const double defaultMarginHor = 24.0;
   static const double defaultMarginVer = 24.0;
@@ -151,7 +151,7 @@ class Common {
                             color: button1Color,
                             child: InkWell(
                               onTap: () {
-                                button1RoutePath == '' ? Get.back() : Get.toNamed(button1RoutePath);
+                                button1RoutePath == '' ? Get.back(result: false) : Get.toNamed(button1RoutePath);
                                 if (button1Function != null) {
                                   button1Function();
                                 }
@@ -160,7 +160,7 @@ class Common {
                                 padding: EdgeInsets.symmetric(vertical: 12.r),
                                 child: Text(
                                   button1Text,
-                                  style: CommonTextStyle.botton02(color: button1TextColor),
+                                  style: CommonTextStyle(fontSize: 16, color: button1TextColor, fontWeight: FontWeight.w500),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 30,
                                 ).c,
@@ -171,25 +171,27 @@ class Common {
                       ),
                       numberOfButton == 2 ? SizedBox(width: 8.r) : const SizedBox(),
                       numberOfButton == 2
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(16.r),
-                              child: Material(
-                                color: button2Color,
-                                child: InkWell(
-                                  onTap: () {
-                                    button2RoutePath == '' ? Get.back() : Get.toNamed(button2RoutePath);
-                                    if (button2Function != null) {
-                                      button2Function();
-                                    }
-                                  },
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 16.r),
-                                    child: Text(
-                                      button2Text,
-                                      style: CommonTextStyle.botton02(color: button2TextColor),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 30,
-                                    ).c,
+                          ? Expanded(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(5.r),
+                                child: Material(
+                                  color: button2Color,
+                                  child: InkWell(
+                                    onTap: () {
+                                      button2RoutePath == '' ? Get.back(result: true) : Get.toNamed(button2RoutePath);
+                                      if (button2Function != null) {
+                                        button2Function();
+                                      }
+                                    },
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(vertical: 12.r),
+                                      child: Text(
+                                        button2Text,
+                                        style: CommonTextStyle(fontSize: 16, color: button2TextColor, fontWeight: FontWeight.w500),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 30,
+                                      ).c,
+                                    ),
                                   ),
                                 ),
                               ),

@@ -81,7 +81,7 @@ class MyPageViewPage extends StatelessWidget {
                                                         ),
                                                         SizedBox(width: 5.r),
                                                         Text(
-                                                          controller.authService.userData.value != null ? "수정" : "정보 입력하기",
+                                                          controller.authService.userBasicInfo.value != null ? "수정" : "정보 입력하기",
                                                           style: CommonTextStyle(
                                                             color: CommonColor.white,
                                                             fontSize: 10,
@@ -100,7 +100,7 @@ class MyPageViewPage extends StatelessWidget {
                                 ),
                               ),
                               Obx(
-                                () => controller.authService.userData.value != null
+                                () => controller.authService.userBasicInfo.value != null
                                     ? Column(
                                         children: [
                                           Row(
@@ -119,7 +119,7 @@ class MyPageViewPage extends StatelessWidget {
                                                     crossAxisAlignment: CrossAxisAlignment.end,
                                                     children: [
                                                       Text(
-                                                        controller.authService.userData.value?.mbti ?? "",
+                                                        controller.authService.userBasicInfo.value?.mbti ?? "",
                                                         style: CommonTextStyle(fontSize: 18.r, color: CommonColor.white),
                                                       ),
                                                     ],
@@ -128,7 +128,7 @@ class MyPageViewPage extends StatelessWidget {
                                                     crossAxisAlignment: CrossAxisAlignment.end,
                                                     children: [
                                                       Text(
-                                                        "${controller.authService.userData.value?.age ?? 1}살",
+                                                        "${controller.authService.userBasicInfo.value?.age ?? 1}살",
                                                         style: CommonTextStyle(fontSize: 12.r, color: CommonColor.gray03),
                                                       ),
                                                     ],
@@ -146,7 +146,7 @@ class MyPageViewPage extends StatelessWidget {
                                                   crossAxisAlignment: CrossAxisAlignment.end,
                                                   children: [
                                                     Text(
-                                                      controller.authService.userData.value?.college ?? "",
+                                                      controller.authService.userBasicInfo.value?.college ?? "",
                                                       style: CommonTextStyle(fontSize: 12.r, color: CommonColor.white),
                                                     ),
                                                   ],
@@ -155,7 +155,7 @@ class MyPageViewPage extends StatelessWidget {
                                                   crossAxisAlignment: CrossAxisAlignment.end,
                                                   children: [
                                                     Text(
-                                                      controller.authService.userData.value?.department ?? "",
+                                                      controller.authService.userBasicInfo.value?.department ?? "",
                                                       style: CommonTextStyle(fontSize: 12.r, color: CommonColor.white),
                                                     ),
                                                   ],
@@ -164,7 +164,7 @@ class MyPageViewPage extends StatelessWidget {
                                                   crossAxisAlignment: CrossAxisAlignment.end,
                                                   children: [
                                                     Text(
-                                                      controller.authService.userData.value?.studentId ?? "",
+                                                      controller.authService.userBasicInfo.value?.studentId ?? "",
                                                       style: CommonTextStyle(fontSize: 12.r, color: CommonColor.white),
                                                     ),
                                                   ],

@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:pet_app/common/common.dart';
-import 'package:pet_app/common/http_model/GetUserDetailResponse.dart';
+import 'package:pet_app/common/http_model/GetUserResponse.dart';
 import 'package:pet_app/common/service/auth_service.dart';
 import 'package:pet_app/common/service_response.dart';
 

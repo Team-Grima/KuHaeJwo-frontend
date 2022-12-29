@@ -5,7 +5,7 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:pet_app/auth/login/sign_in_view_page.dart';
 import 'package:pet_app/common/common.dart';
 import 'package:pet_app/common/common_storage.dart';
-import 'package:pet_app/common/http_model/GetUserDetailResponse.dart';
+import 'package:pet_app/common/http_model/GetUserResponse.dart';
 import 'package:pet_app/common/http_model/PostLoginResponse.dart';
 import 'package:pet_app/common/service/http_service_manager.dart';
 
@@ -13,12 +13,11 @@ import 'package:pet_app/common/service_response.dart';
 
 class AuthService {
   bool get authed => CommonStorageKey.userId.read.value != null;
-  // Rxn<UserModel> user = Rxn(null);
-  // Rxn<StoreModel> store = Rxn(null);
   Rxn<User> fbUser = Rxn(null);
 
-  Rxn<UserData> userData = Rxn(null);
-  Rxn<DetailData> userDetailData = Rxn(null);
+  Rxn<GetUserResponse> user = Rxn(null);
+  Rxn<UserBasicInfoResponse> userBasicInfo = Rxn(null);
+  Rxn<UserInfoDetailResponse> userInfoDetail = Rxn(null);
   Rxn<PreferData> userPreferData = Rxn(null);
 
   static final AuthService _instance = AuthService._internal();
@@ -44,22 +43,22 @@ class AuthService {
     // createFirestoreUser(userCredential);
   }
 
-  setUserDetails(UserData? u, DetailData? d) {
-    userDetailData.value = d;
-    userData.value = u;
+  setUserDetails(UserBasicInfoResponse? u, UserInfoDetailResponse? d, UserPr) {
+    userInfoDetail.value = d;
+    userBasicInfo.value = u;
   }
 
   updateUserInfo(Map data, bool isInit) async {
     var res = await HttpServiceManager().putUserInfoUpdate(data: data, isInit: isInit);
     if (res.result) {
-      setUserDetails(res.value?.userData, res.value?.detailData);
+      setUserDetails(res.value?.userBasicInfoResponse, res.value?.userInfoDetailResponse, null); //TODO:: prefer 추가
     }
   }
 
   Future<bool> getUserInfo() async {
     var res = await HttpServiceManager().getUserInfo();
     if (res.result) {
-      setUserDetails(res.value?.userData, res.value?.detailData);
+      setUserDetails(res.value?.userBasicInfoResponse, res.value?.userInfoDetailResponse, null); //TODO:: Prefer 추가
     }
     return res.result;
   }
@@ -82,8 +81,8 @@ class AuthService {
   void logout() async {
     await FirebaseAuth.instance.signOut();
     CommonStorageKey().deleteAll();
-    userData.value = null;
-    userDetailData.value = null;
+    userBasicInfo.value = null;
+    userInfoDetail.value = null;
     userPreferData.value = null;
     Get.offAllNamed(SignInViewPage.url);
   }

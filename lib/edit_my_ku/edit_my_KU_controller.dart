@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:pet_app/common/http_model/GetUserDetailResponse.dart';
-import 'package:pet_app/common/model/user_model.dart';
+import 'package:pet_app/common/http_model/GetUserResponse.dart';
+
 import 'package:pet_app/common/service/auth_service.dart';
 import 'package:pet_app/common/service/http_service_manager.dart';
 import 'package:pet_app/common/service_response.dart';
@@ -100,7 +100,7 @@ class EditMyKUController extends GetxController {
     "MBTI": RxnInt(null),
     "성별": RxnInt(null),
   };
-  Rxn<UserModel> user = Rxn(null);
+
   AuthService authService = AuthService();
   @override
   void onInit() {
@@ -129,7 +129,7 @@ class EditMyKUController extends GetxController {
       "age": getSelectedString(age, selectedIndexMap["나이"]?.value) == null ? null : int.tryParse(getSelectedString(age, selectedIndexMap["나이"]?.value)),
       "mbti": getSelectedString(MBTI, selectedIndexMap["MBTI"]?.value),
       "gender": getSelectedGender(gender, selectedIndexMap["성별"]?.value)
-    }, authService.userData.value == null);
+    }, authService.userBasicInfo.value == null);
     Get.back();
   }
 
@@ -151,21 +151,21 @@ class EditMyKUController extends GetxController {
 
   fetchData() async {
     ServiceResponse<GetUserResponse> res = await HttpServiceManager().getUserInfo();
-    if (res.result && res.value?.userData != null) {
+    if (res.result && res.value?.userBasicInfoResponse != null) {
       //수정
-      authService.userData.value = res.value!.userData; //update user.info
-      selectedIndexMap["소속 단과 대학"]?.value = college.indexOf(authService.userData.value!.college ?? '');
+      authService.userBasicInfo.value = res.value!.userBasicInfoResponse; //update user.info
+      selectedIndexMap["소속 단과 대학"]?.value = college.indexOf(authService.userBasicInfo.value!.college ?? '');
       if (selectedIndexMap["소속 단과 대학"]?.value == -1) selectedIndexMap["소속 단과 대학"]?.value = null;
-      selectedIndexMap["소속 학과"]?.value = department[authService.userData.value!.college ?? '']?.indexOf(authService.userData.value!.department ?? '');
+      selectedIndexMap["소속 학과"]?.value = department[authService.userBasicInfo.value!.college ?? '']?.indexOf(authService.userBasicInfo.value!.department ?? '');
       if (selectedIndexMap["소속 학과"]?.value == -1) selectedIndexMap["소속 학과"]?.value = null;
-      selectedIndexMap["학번"]?.value = studentId.indexOf(authService.userData.value!.studentId ?? '');
+      selectedIndexMap["학번"]?.value = studentId.indexOf(authService.userBasicInfo.value!.studentId ?? '');
       if (selectedIndexMap["학번"]?.value == -1) selectedIndexMap["학번"]?.value = null;
-      selectedIndexMap["나이"]?.value = age.indexOf((authService.userData.value!.age ?? 0).toString());
+      selectedIndexMap["나이"]?.value = age.indexOf((authService.userBasicInfo.value!.age ?? 0).toString());
       if (selectedIndexMap["나이"]?.value == -1) selectedIndexMap["나이"]?.value = null;
-      selectedIndexMap["MBTI"]?.value = MBTI.indexOf(authService.userData.value!.mbti ?? "");
+      selectedIndexMap["MBTI"]?.value = MBTI.indexOf(authService.userBasicInfo.value!.mbti ?? "");
       if (selectedIndexMap["MBTI"]?.value == -1) selectedIndexMap["MBTI"]?.value = null;
-      selectedIndexMap["성별"]?.value = authService.userData.value!.gender != null
-          ? authService.userData.value!.gender == "MALE"
+      selectedIndexMap["성별"]?.value = authService.userBasicInfo.value!.gender != null
+          ? authService.userBasicInfo.value!.gender == "MALE"
               ? 0
               : 1
           : null;
