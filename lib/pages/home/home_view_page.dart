@@ -7,6 +7,7 @@ import 'package:pet_app/common/common.dart';
 
 import 'package:pet_app/pages/main_view_page/main_view_page.dart';
 import 'package:pet_app/pages/home/home_controller.dart';
+import 'package:pet_app/pages/mate_offer/mate_offer_create/mate_offer_view_page.dart';
 import 'package:pet_app/pages/my_page/mypage_view_page.dart';
 import 'package:pet_app/pages/settings/settings_view_page.dart';
 
@@ -18,7 +19,7 @@ class HomeViewPage extends StatelessWidget {
     List<Widget> pageList = [
       const MainPage(),
       const ChatRoomListViewPage(),
-      const MainPage(),
+      const MateOfferViewPage(),
       const MyPageViewPage(),
       const SettingsViewPage(),
       // const ChatPage(),

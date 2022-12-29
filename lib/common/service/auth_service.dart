@@ -3,13 +3,13 @@ import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:get/get.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:pet_app/common/common.dart';
-import 'package:pet_app/common/common_storage.dart';
+import 'package:pet_app/common/utils/common_storage.dart';
 import 'package:pet_app/common/http_model/GetUserResponse.dart';
 import 'package:pet_app/common/http_model/PostLoginResponse.dart';
 import 'package:pet_app/common/http_model/UserAuthInfo.dart';
 import 'package:pet_app/common/service/http_service_manager.dart';
 
-import 'package:pet_app/common/service_response.dart';
+import 'package:pet_app/common/utils/service_response.dart';
 import 'package:pet_app/pages/auth/login/sign_in_view_page.dart';
 
 class AuthService {
@@ -21,7 +21,7 @@ class AuthService {
   Rxn<UserInfoDetailResponse> userInfoDetail = Rxn(null);
   Rxn<UserPreferResponse> userPrefer = Rxn(null);
   Rxn<UserAuthInfo> userAuthInfo = Rxn(null);
-
+  Rxn<MateOfferResponse> myMateOffer = Rxn(null);
   static final AuthService _instance = AuthService._internal();
 
   static AuthService get instance => Get.find<AuthService>();
@@ -61,6 +61,14 @@ class AuthService {
     var res = await HttpServiceManager().getUserInfo();
     if (res.result) {
       setUserDetails(b: res.value?.userBasicInfoResponse, d: res.value?.userInfoDetailResponse, p: res.value?.userPreferResponse);
+      userAuthInfo.value = UserAuthInfo(
+        mobileNumber: res.value?.dormitory,
+        name: res.value?.name,
+        email: res.value?.email,
+        emailAuth: res.value?.emailAuth,
+        dormitory: res.value?.dormitory,
+      ); //추가로 auth 관련하여 로직생성
+
     }
     return res.result;
   }
@@ -104,6 +112,29 @@ class AuthService {
       setUserDetails(p: res.value);
     }
     return res.result;
+  }
+
+  //MateOffer
+  Future<bool> getMyMateOffer() async {
+    var res = await HttpServiceManager().getMyMateOffer();
+    if (res.result) {
+      setMyMateOffer(m: res.value);
+    }
+    return res.result;
+  }
+
+  Future<bool> updateMateOffer(Map data, bool isInit) async {
+    var res = await HttpServiceManager().mateOfferUpdate(data: data, isInit: isInit);
+    if (res.result) {
+      setMyMateOffer(m: res.value);
+    }
+    return res.result;
+  }
+
+  setMyMateOffer({MateOfferResponse? m}) {
+    if (m != null) {
+      myMateOffer.value = m;
+    }
   }
 
 // register(){

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_app/common/service/auth_service.dart';
-import 'package:pet_app/common/service_response.dart';
+import 'package:pet_app/common/utils/service_response.dart';
 import 'package:pet_app/common/utils/email_format_helper.dart';
 
 class FindPasswordController extends GetxController {

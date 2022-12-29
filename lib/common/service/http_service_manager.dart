@@ -4,13 +4,11 @@ import 'package:dio/dio.dart' as dio_lib;
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:pet_app/common/common.dart';
-import 'package:pet_app/common/common_storage.dart';
+import 'package:pet_app/common/utils/common_storage.dart';
 import 'package:pet_app/common/http_model/GetMateOfferListResponse.dart';
 import 'package:pet_app/common/http_model/GetUserResponse.dart';
 import 'package:pet_app/common/http_model/PostLoginResponse.dart';
-import 'package:pet_app/common/http_model/UserAuthInfo.dart';
-import 'package:pet_app/common/service/auth_service.dart';
-import 'package:pet_app/common/service_response.dart';
+import 'package:pet_app/common/utils/service_response.dart';
 
 class HttpServiceManager {
   // dio instance
@@ -86,7 +84,6 @@ class HttpServiceManager {
     try {
       var res = await (await authDio()).get('/api/users'.getUrl);
       GetUserResponse getUserResponse = GetUserResponse.fromJson(res.data["data"]);
-      AuthService().userAuthInfo.value = UserAuthInfo.fromJson(res.data["data"]);
       if (res.data["code"] == 200) {
         return ServiceResponse(result: true, value: getUserResponse);
       }
@@ -195,6 +192,38 @@ class HttpServiceManager {
     }
   }
 
+  Future<ServiceResponse<MateOfferResponse>> getMyMateOffer() async {
+    try {
+      var res = await (await authDio()).get('/api/mateoffer'.getUrl);
+
+      MateOfferResponse myMateOffer = MateOfferResponse.fromJson(res.data["data"]);
+      if (res.data["code"] == 200) {
+        return ServiceResponse(result: true, value: myMateOffer);
+      }
+      return ServiceResponse(result: false, errorMsg: res.data["msg"] ?? '오류가 발생했습니다');
+    } on dio_lib.DioError catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.response?.data["msg"] ?? '오류가 발생했습니다');
+    } catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.toString());
+    }
+  }
+
+  Future<ServiceResponse<MateOfferResponse>> mateOfferUpdate({required Map data, bool isInit = false}) async {
+    try {
+      var res = isInit
+          ? await (await authDio()).post('/api/mateoffer'.getUrl, data: jsonEncode(data))
+          : await (await authDio()).put('/api/mateoffer'.getUrl, data: jsonEncode(data));
+      MateOfferResponse mateOfferResponse = MateOfferResponse.fromJson(res.data["data"]);
+      if (res.data["code"] == 200) {
+        return ServiceResponse(result: true, value: mateOfferResponse);
+      }
+      return ServiceResponse(result: false, errorMsg: res.data["msg"] ?? '오류가 발생했습니다');
+    } on dio_lib.DioError catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.response?.data["msg"] ?? '오류가 발생했습니다');
+    } catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.toString());
+    }
+  }
   // Future<ServiceResponse<GetUserResponse>> getUser() async {
   //   try {
   //     var res = await (await authDio()).get('/api/get-user'.getUrl);

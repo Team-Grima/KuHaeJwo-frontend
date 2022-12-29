@@ -1,6 +1,6 @@
 import 'package:get_storage/get_storage.dart';
 
-import 'package:pet_app/common/service_response.dart';
+import 'package:pet_app/common/utils/service_response.dart';
 
 class CommonStorageKey {
   static const String userAlertSettings = 'userAlertSettings';
@@ -27,7 +27,7 @@ extension StringExtension on String {
     }
   }
 
-  Future<void> write(dynamic? value) {
+  Future<void> write(dynamic value) {
     return GetStorage().write(this, value);
   }
 }

@@ -107,7 +107,7 @@ class EditMyKUController extends GetxController {
   // }
   @override
   onReady() {
-    restoreConfigs();
+    fetchData();
   }
 
   routeToSurvey() {
@@ -117,10 +117,6 @@ class EditMyKUController extends GetxController {
   void submit() {
     saveConfigs();
     routeToSurvey();
-  }
-
-  restoreConfigs() {
-    fetchData();
   }
 
   saveConfigs() async {

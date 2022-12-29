@@ -8,6 +8,8 @@ import 'package:pet_app/common/http_model/GetUserResponse.dart';
 
 import 'package:pet_app/pages/main_view_page/main_view_page.dart';
 import 'package:pet_app/pages/home/home_view_page.dart';
+import 'package:pet_app/pages/mate_offer/mate_offer_create/mate_offer_view_page.dart';
+import 'package:pet_app/pages/mate_offer/mate_offer_edit/mate_offer_edit_view_page.dart';
 import 'package:pet_app/pages/splash/splash_page.dart';
 import 'package:pet_app/pages/user_post_view_page/user_post_view_page.dart';
 import 'package:get/get.dart';
@@ -35,6 +37,11 @@ class GetXRouter {
     //CHAT
     GetPage(name: ChatRoomListViewPage.url, page: () => const ChatRoomListViewPage()),
     //survey
+
+    //MATE_OFFER
+    GetPage(name: MateOfferViewPage.url, page: () => const MateOfferViewPage()),
+    GetPage(name: MateOfferEditViewPage.url, page: () => const MateOfferEditViewPage()),
+
     // GetPage(name: RoomMateSurveyViewPage.url, page: () => const RoomMateSurveyViewPage()),
     // GetPage(name: ChatRoomViewPage.url, page: () => ChatRoomViewPage(room: )),
     // GetPage(name: ChatPage.url, page: () => const ChatPage()),
