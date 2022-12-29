@@ -45,7 +45,7 @@ class RegisterViewPage extends StatelessWidget {
                   _errorMessage(controller.nameWarning, CommonTextStyle.b14(color: CommonColor.red), 17.r)
                 ],
               ),
-              textInputWidget('닉네임를 입력하세요', controller.nameController, controller.isEmailValid, false, 4.r, controller),
+              textInputWidget('닉네임를 입력하세요', controller.nameController, controller.isNameValid, false, 4.r, controller),
               Row(
                 children: [
                   _infoMessage('비밀번호', CommonTextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: CommonColor.gray03), 22.r),

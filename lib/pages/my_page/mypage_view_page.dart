@@ -119,7 +119,7 @@ class MyPageViewPage extends StatelessWidget {
                                                     crossAxisAlignment: CrossAxisAlignment.end,
                                                     children: [
                                                       Text(
-                                                        controller.authService.userBasicInfo.value?.mbti ?? "",
+                                                        controller.authService.userAuthInfo.value?.name ?? "삭제된 닉네임",
                                                         style: CommonTextStyle(fontSize: 18.r, color: CommonColor.white),
                                                       ),
                                                     ],

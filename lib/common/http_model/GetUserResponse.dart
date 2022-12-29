@@ -3,6 +3,7 @@ class GetUserResponse {
   final UserInfoDetailResponse? userInfoDetailResponse;
   final UserBasicInfoResponse? userBasicInfoResponse;
   final MateOfferResponse? mateOfferResponse;
+  final UserPreferResponse? userPreferResponse;
   final dynamic mobileNumber;
   final String? name;
   final String? email;
@@ -14,6 +15,7 @@ class GetUserResponse {
     this.userInfoDetailResponse,
     this.userBasicInfoResponse,
     this.mateOfferResponse,
+    this.userPreferResponse,
     this.mobileNumber,
     this.name,
     this.email,
@@ -31,6 +33,9 @@ class GetUserResponse {
             : null,
         mateOfferResponse =
             (json['mateOfferResponse'] as Map<String, dynamic>?) != null ? MateOfferResponse.fromJson(json['mateOfferResponse'] as Map<String, dynamic>) : null,
+        userPreferResponse = (json['userPreferResponse'] as Map<String, dynamic>?) != null
+            ? UserPreferResponse.fromJson(json['userPreferResponse'] as Map<String, dynamic>)
+            : null,
         mobileNumber = json['mobileNumber'],
         name = json['name'] as String?,
         email = json['email'] as String?,
@@ -42,6 +47,7 @@ class GetUserResponse {
         'userInfoDetailResponse': userInfoDetailResponse?.toJson(),
         'userBasicInfoResponse': userBasicInfoResponse?.toJson(),
         'mateOfferResponse': mateOfferResponse?.toJson(),
+        'userPreferResponse': userPreferResponse?.toJson(),
         'mobileNumber': mobileNumber,
         'name': name,
         'email': email,
@@ -197,4 +203,16 @@ class UserProfile {
         userId = json['userId'] as int?;
 
   Map<String, dynamic> toJson() => {'department': department, 'age': age, 'userId': userId};
+}
+
+class UserPreferResponse {
+  final List<String>? preferList;
+
+  UserPreferResponse({
+    this.preferList,
+  });
+
+  UserPreferResponse.fromJson(Map<String, dynamic> json) : preferList = (json['preferList'] as List?)?.map((dynamic e) => e as String).toList();
+
+  Map<String, dynamic> toJson() => {'preferList': preferList};
 }

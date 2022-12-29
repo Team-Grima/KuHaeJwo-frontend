@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pet_app/common/common.dart';
 import 'package:pet_app/common/service/auth_service.dart';
 import 'package:pet_app/common/service_response.dart';
 import 'package:pet_app/common/utils/email_format_helper.dart';
@@ -265,7 +266,8 @@ class RegisterController extends GetxController {
   }
 
   Future<bool> signUp() async {
-    bool isSuccess = await AuthService().signUp(email: emailController.text.trim(), password: pwdController.text.trim(), name: nameController.text.trim());
+    bool isSuccess =
+        await AuthService().signUp(email: emailController.text.trim(), password: pwdController.text.trim(), name: nameController.text.trim()).load();
     return isSuccess;
   }
 }

@@ -1,9 +1,6 @@
 import 'package:get/get.dart';
 import 'package:pet_app/common/common.dart';
-import 'package:pet_app/common/http_model/GetUserResponse.dart';
 import 'package:pet_app/common/service/auth_service.dart';
-import 'package:pet_app/common/service/http_service_manager.dart';
-import 'package:pet_app/common/service_response.dart';
 
 class RoomMateSurveyController extends GetxController {
   AuthService authService = AuthService();
@@ -22,6 +19,11 @@ class RoomMateSurveyController extends GetxController {
   ];
   RxList<String> selectedPrefer = <String>[].obs;
   RxBool isPass = false.obs;
+  @override
+  onReady() {
+    fetchData();
+  }
+
   addSelectedPrefer(String item) {
     if (isSelectedPrefer(item)) {
       selectedPrefer.remove(item);
@@ -48,26 +50,29 @@ class RoomMateSurveyController extends GetxController {
     }
   }
 
-  submit() {
+  submit() async {
     if (isPass.value) {
-      // var res = HttpServiceManager().updateUserPrefer({"data": selectedPrefer.toString()});
-      // authService.userPreferData.value = res.data;
-
+      var res = await authService.updateUserPrefer({"preferList": selectedPrefer.toList()}, authService.userPrefer.value == null).load();
+      if (res) {
+        Get.back();
+      } else {
+        Common.showSnackbar(message: "오류가 발생했습니다");
+      }
       Get.back();
     }
     // if(selectedPrefer)
   }
 
   fetchData() async {
-    ServiceResponse<GetUserResponse> res = await HttpServiceManager().getUserInfo();
-    // if (res.result && res.value?.userPreferData != null) {
-    // authService.userPreferData.value = res.value!.userPreferData;
-    for (String s in authService.userPreferData.value?.preferDataList ?? []) {
-      addSelectedPrefer(s);
-    }
+    bool res = await authService.getUserPrefer().load();
+    if (res && authService.userPrefer.value != null) {
+      for (String s in authService.userPrefer.value?.preferList ?? []) {
+        addSelectedPrefer(s);
+      }
 
-    // } else {
-    //신규작성
-    // }
+      // } else {
+      //신규작성
+      // }
+    }
   }
 }

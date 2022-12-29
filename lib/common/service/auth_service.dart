@@ -6,6 +6,7 @@ import 'package:pet_app/common/common.dart';
 import 'package:pet_app/common/common_storage.dart';
 import 'package:pet_app/common/http_model/GetUserResponse.dart';
 import 'package:pet_app/common/http_model/PostLoginResponse.dart';
+import 'package:pet_app/common/http_model/UserAuthInfo.dart';
 import 'package:pet_app/common/service/http_service_manager.dart';
 
 import 'package:pet_app/common/service_response.dart';
@@ -18,7 +19,8 @@ class AuthService {
   Rxn<GetUserResponse> user = Rxn(null);
   Rxn<UserBasicInfoResponse> userBasicInfo = Rxn(null);
   Rxn<UserInfoDetailResponse> userInfoDetail = Rxn(null);
-  Rxn<PreferData> userPreferData = Rxn(null);
+  Rxn<UserPreferResponse> userPrefer = Rxn(null);
+  Rxn<UserAuthInfo> userAuthInfo = Rxn(null);
 
   static final AuthService _instance = AuthService._internal();
 
@@ -43,22 +45,63 @@ class AuthService {
     // createFirestoreUser(userCredential);
   }
 
-  setUserDetails(UserBasicInfoResponse? u, UserInfoDetailResponse? d, UserPr) {
-    userInfoDetail.value = d;
-    userBasicInfo.value = u;
-  }
-
-  updateUserBasicInfo(Map data, bool isInit) async {
-    var res = await HttpServiceManager().userBasicInfoUpdate(data: data, isInit: isInit);
-    if (res.result) {
-      setUserDetails(res.value, null, null); //TODO:: prefer 추가
+  setUserDetails({UserBasicInfoResponse? b, UserInfoDetailResponse? d, UserPreferResponse? p}) {
+    if (b != null) {
+      userBasicInfo.value = b;
+    }
+    if (d != null) {
+      userInfoDetail.value = d;
+    }
+    if (p != null) {
+      userPrefer.value = p;
     }
   }
 
   Future<bool> getUserInfo() async {
     var res = await HttpServiceManager().getUserInfo();
     if (res.result) {
-      setUserDetails(res.value?.userBasicInfoResponse, res.value?.userInfoDetailResponse, null); //TODO:: Prefer 추가
+      setUserDetails(b: res.value?.userBasicInfoResponse, d: res.value?.userInfoDetailResponse, p: res.value?.userPreferResponse);
+    }
+    return res.result;
+  }
+
+  //TODO:: Get user basic info
+  Future<bool> updateUserBasicInfo(Map data, bool isInit) async {
+    var res = await HttpServiceManager().userBasicInfoUpdate(data: data, isInit: isInit);
+    if (res.result) {
+      setUserDetails(b: res.value);
+    }
+    return res.result;
+  }
+
+  Future<bool> getUserDetailInfo() async {
+    var res = await HttpServiceManager().getUserDetailInfo();
+    if (res.result) {
+      setUserDetails(d: res.value);
+    }
+    return res.result;
+  }
+
+  Future<bool> updateUserDetailInfo(Map data, bool isInit) async {
+    var res = await HttpServiceManager().userDetailInfoUpdate(data: data, isInit: isInit);
+    if (res.result) {
+      setUserDetails(d: res.value);
+    }
+    return res.result;
+  }
+
+  Future<bool> getUserPrefer() async {
+    var res = await HttpServiceManager().getUserPrefer();
+    if (res.result) {
+      setUserDetails(p: res.value);
+    }
+    return res.result;
+  }
+
+  Future<bool> updateUserPrefer(Map data, bool isInit) async {
+    var res = await HttpServiceManager().userPreferUpdate(data: data, isInit: isInit);
+    if (res.result) {
+      setUserDetails(p: res.value);
     }
     return res.result;
   }
@@ -83,12 +126,12 @@ class AuthService {
     CommonStorageKey().deleteAll();
     userBasicInfo.value = null;
     userInfoDetail.value = null;
-    userPreferData.value = null;
+    userPrefer.value = null;
     Get.offAllNamed(SignInViewPage.url);
   }
 
   Future<bool> signUp({required String email, required String password, required String name}) async {
-    ServiceResponse res = await HttpServiceManager().postSignUp(email: email, password: password, name: name);
+    ServiceResponse res = await HttpServiceManager().postSignUp(email: email, password: password, name: name).load();
     if (res.result) {
       return true;
     } else {
@@ -115,7 +158,7 @@ class AuthService {
 //         try {
 //           CommonStorageKey.userId.write(id!);
 //           return await Dio().post(
-//             "http://34.64.132.27:1337/api/devices",
+//             "/api/devices".getUrl,
 //             data: jsonEncode(
 //               {
 //                 "data": {
@@ -133,9 +176,4 @@ class AuthService {
 //       },
 //     );
 //   }
-}
-
-class PreferData {
-  List<String> preferDataList;
-  PreferData(this.preferDataList);
 }

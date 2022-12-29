@@ -44,12 +44,6 @@ class SignInController extends GetxController {
   void submit() async {
     // Get.offAllNamed(HomeViewPage.url);
     try {
-      if (isLoading) {
-        return;
-      }
-
-      isLoading = true;
-
       if (idController.text.isEmpty || pwdController.text.isEmpty) {
         isLoading = false;
         return;
@@ -57,7 +51,7 @@ class SignInController extends GetxController {
 
       var email = idController.text.trim();
       var pwd = pwdController.text.trim();
-      ServiceResponse res = await AuthService().login(email, pwd);
+      ServiceResponse res = await AuthService().login(email, pwd).load();
       writeUserSettings();
       isLoading = false;
       if (res.result) {

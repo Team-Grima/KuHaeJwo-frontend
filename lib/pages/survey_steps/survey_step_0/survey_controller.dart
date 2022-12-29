@@ -1,7 +1,10 @@
 import 'package:get/get.dart';
+import 'package:pet_app/common/common.dart';
 import 'package:pet_app/common/enum/survey_enums.dart';
+import 'package:pet_app/common/service/auth_service.dart';
 
 class SurveyController extends GetxController {
+  AuthService authService = AuthService();
   List<SurveyInfo> surveyList = [
     SurveyInfo(
       question: "나의 청소 습관은?",
@@ -61,56 +64,83 @@ class SurveyController extends GetxController {
       icon: "😪",
       index: 5,
       enumList: SleepingHabit.values,
-      ansMap: {},
+      ansMap: {
+        SleepingHabit.BRUXISM: "이갈이",
+        SleepingHabit.SNORE: "코골이",
+        SleepingHabit.NO: "거의 없음",
+      },
     ),
     SurveyInfo(
       question: "나의 잠귀는?",
       icon: "👂🏻",
       index: 6,
       enumList: Sleeper.values,
-      ansMap: {},
+      ansMap: {
+        Sleeper.LIGHT: "많이 예민한 편",
+        Sleeper.HEAVY: "누가 업어가도 모름",
+      },
     ),
     SurveyInfo(
       question: "나의 기상시간은?",
       icon: "🌞",
       index: 7,
       enumList: WakeUpTime.values,
-      ansMap: {},
+      ansMap: {
+        WakeUpTime.AFTER_PM: "오후",
+        WakeUpTime.AROUND_AM12: "낮 12 전후",
+        WakeUpTime.BEFORE_AM09: "오전 9시 이전",
+      },
     ),
     SurveyInfo(
       question: "나는 알람을?",
       icon: "⏰",
       index: 8,
       enumList: Alarm.values,
-      ansMap: {},
+      ansMap: {
+        Alarm.NO: "잘 듣고 일어나는 편",
+        Alarm.YES: "잘 못듣는 편",
+      },
     ),
     SurveyInfo(
       question: "나는 밖에 있는 시간이?",
       icon: "🤡",
       index: 9,
       enumList: Outing.values,
-      ansMap: {},
+      ansMap: {
+        Outing.LESS: "나는 집이좋아..",
+        Outing.MORE: "완전 대문자 E! 밖이 좋아요",
+      },
     ),
     SurveyInfo(
       question: "나는 벌레를?",
       icon: "🪳",
       index: 10,
       enumList: Bug.values,
-      ansMap: {},
+      ansMap: {
+        Bug.NO: "무서워한다(못잡음).",
+        Bug.YES: "잡을 수 있다.",
+      },
     ),
     SurveyInfo(
       question: "나의 온도는?",
       icon: "🌡️",
       index: 11,
       enumList: Temperature.values,
-      ansMap: {},
+      ansMap: {
+        Temperature.COLD: "추위를 많이 탄다.",
+        Temperature.HEAT: "더위를 많이 탄다.",
+        Temperature.NO: "노상관",
+      },
     ),
     SurveyInfo(
       question: "나는 룸메와?",
       icon: "🤝🏻",
       index: 12,
       enumList: Friend.values,
-      ansMap: {},
+      ansMap: {
+        Friend.BEST_FRIEND: "베프가 되고 싶다.",
+        Friend.FRIEND_WITH_BENEFIT: "공간공유(진지)",
+      },
     ),
   ];
   RxInt currentStep = (0).obs;
@@ -119,6 +149,11 @@ class SurveyController extends GetxController {
   void onInit() {
     super.onInit();
     maxStep = surveyList.length;
+  }
+
+  @override
+  onReady() {
+    fetchData();
   }
 
   nextStep() {
@@ -137,9 +172,51 @@ class SurveyController extends GetxController {
     }
   }
 
-  saveConfigs() {
+  saveConfigs() async {
     // HttpServiceManager().saveUserDetailConfigs();
-    Get.back();
+
+    var res = await authService.updateUserDetailInfo({
+      "cleanHabit": surveyList[0].getSelectedValue(),
+      "washingTime": surveyList[1].getSelectedValue(),
+      "alcohol": surveyList[2].getSelectedValue(),
+      "smoking": surveyList[3].getSelectedValue(),
+      "sleepingTime": surveyList[4].getSelectedValue(),
+      "sleepingHabit": surveyList[5].getSelectedValue(),
+      "sleeper": surveyList[6].getSelectedValue(),
+      "wakeUpTime": surveyList[7].getSelectedValue(),
+      "alarm": surveyList[8].getSelectedValue(),
+      "outing": surveyList[9].getSelectedValue(),
+      "bug": surveyList[10].getSelectedValue(),
+      "temperature": surveyList[11].getSelectedValue(),
+      "friend": surveyList[12].getSelectedValue(),
+    }, authService.userInfoDetail.value == null).load();
+    if (res) {
+      Get.back();
+    } else {
+      Common.showSnackbar(message: "오류가 발생했습니다");
+    }
+  }
+
+  fetchData() async {
+    bool res = await authService.getUserDetailInfo().load();
+    if (res && authService.userInfoDetail.value != null) {
+      surveyList[0].setSelectValue(authService.userInfoDetail.value!.cleanHabit);
+      surveyList[1].setSelectValue(authService.userInfoDetail.value!.washingTime);
+      surveyList[2].setSelectValue(authService.userInfoDetail.value!.alcohol);
+      surveyList[3].setSelectValue(authService.userInfoDetail.value!.smoking);
+      surveyList[4].setSelectValue(authService.userInfoDetail.value!.sleepingTime);
+      surveyList[5].setSelectValue(authService.userInfoDetail.value!.sleepingHabit);
+      surveyList[6].setSelectValue(authService.userInfoDetail.value!.sleeper);
+      surveyList[7].setSelectValue(authService.userInfoDetail.value!.wakeUpTime);
+      surveyList[8].setSelectValue(authService.userInfoDetail.value!.alarm);
+      surveyList[9].setSelectValue(authService.userInfoDetail.value!.outing);
+      surveyList[10].setSelectValue(authService.userInfoDetail.value!.bug);
+      surveyList[11].setSelectValue(authService.userInfoDetail.value!.temperature);
+      surveyList[12].setSelectValue(authService.userInfoDetail.value!.friend);
+      update();
+    } else {
+      //신규작성
+    }
   }
 
   SurveyInfo getCurrent() {
@@ -159,5 +236,30 @@ class SurveyInfo<T> {
   int index;
   List<T> enumList;
   Map<T, String> ansMap;
+  getSelectedValue() {
+    if (userSelect == null) {
+      return null;
+    } else {
+      return userSelect.toString().split(".")[1];
+    }
+  }
+
+  setSelectValue(String? sel) {
+    if (sel != null) {
+      for (var i in enumList) {
+        if (sel == i.toString().split(".")[1]) {
+          userSelect = i;
+          return;
+        }
+      }
+
+      userSelect = null;
+      return;
+    } else {
+      userSelect = null;
+      return;
+    }
+  }
+
   SurveyInfo({required this.question, this.userSelect, required this.icon, required this.index, required this.enumList, required this.ansMap});
 }

@@ -776,9 +776,10 @@ extension IntegerExtension on int {
 extension FutureExtension<T> on Future<T> {
   Future<T> load() async {
     Get.dialog(
-      const Center(
+      Center(
         child: CupertinoActivityIndicator(
-          color: Colors.white,
+          radius: 22.r,
+          color: CommonColor.mainDarkGreen,
         ),
       ),
       barrierDismissible: false,

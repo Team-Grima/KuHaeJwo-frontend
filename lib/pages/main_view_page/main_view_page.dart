@@ -225,14 +225,3 @@ class MainPage extends StatelessWidget {
     );
   }
 }
-
-class Post {
-  String? nickname;
-  String? profileImageUrl;
-  String? time;
-  String? major;
-  int? age;
-  String? detailString;
-  String? title;
-  Post({this.nickname, this.profileImageUrl, this.time, this.major, this.age, this.detailString, this.title});
-}

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pet_app/common/common.dart';
 
 import 'package:pet_app/common/service/auth_service.dart';
 import 'package:pet_app/pages/survey_steps/survey_step_0/survey_step_0_view_page.dart';
@@ -100,9 +101,13 @@ class EditMyKUController extends GetxController {
 
   AuthService authService = AuthService();
   @override
-  void onInit() {
+  // void onInit() {
+  //   restoreConfigs();
+  //   super.onInit();
+  // }
+  @override
+  onReady() {
     restoreConfigs();
-    super.onInit();
   }
 
   routeToSurvey() {
@@ -119,15 +124,19 @@ class EditMyKUController extends GetxController {
   }
 
   saveConfigs() async {
-    AuthService().updateUserBasicInfo({
+    var res = await AuthService().updateUserBasicInfo({
       "college": getSelectedString(college, selectedIndexMap["소속 단과 대학"]?.value),
       "department": getSelectedString(department[getSelectedString(college, selectedIndexMap["소속 단과 대학"]?.value)] ?? [], selectedIndexMap["소속 학과"]?.value),
       "studentId": getSelectedString(studentId, selectedIndexMap["학번"]?.value),
       "age": getSelectedString(age, selectedIndexMap["나이"]?.value) == null ? null : int.tryParse(getSelectedString(age, selectedIndexMap["나이"]?.value)),
       "mbti": getSelectedString(MBTI, selectedIndexMap["MBTI"]?.value),
       "gender": getSelectedGender(gender, selectedIndexMap["성별"]?.value)
-    }, authService.userBasicInfo.value == null);
-    Get.back();
+    }, authService.userBasicInfo.value == null).load();
+    if (res) {
+      Get.back();
+    } else {
+      Common.showSnackbar(message: "오류가 발생했습니다");
+    }
   }
 
   getSelectedString(List list, int? index) {
@@ -147,7 +156,7 @@ class EditMyKUController extends GetxController {
   }
 
   fetchData() async {
-    bool res = await authService.getUserInfo();
+    bool res = await authService.getUserInfo().load();
     if (res && authService.userBasicInfo.value != null) {
       //수정
       selectedIndexMap["소속 단과 대학"]?.value = college.indexOf(authService.userBasicInfo.value!.college ?? '');

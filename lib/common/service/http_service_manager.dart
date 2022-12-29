@@ -8,6 +8,8 @@ import 'package:pet_app/common/common_storage.dart';
 import 'package:pet_app/common/http_model/GetMateOfferListResponse.dart';
 import 'package:pet_app/common/http_model/GetUserResponse.dart';
 import 'package:pet_app/common/http_model/PostLoginResponse.dart';
+import 'package:pet_app/common/http_model/UserAuthInfo.dart';
+import 'package:pet_app/common/service/auth_service.dart';
 import 'package:pet_app/common/service_response.dart';
 
 class HttpServiceManager {
@@ -68,7 +70,7 @@ class HttpServiceManager {
   Future<ServiceResponse<GetMateOfferListResponse>> getMateOfferListResponse() async {
     try {
       var res = await dio_lib.Dio().get('/api/mateoffer/list'.getUrl);
-      GetMateOfferListResponse getMateOfferListResponse = GetMateOfferListResponse.fromJson(res.data["data"]);
+      GetMateOfferListResponse getMateOfferListResponse = GetMateOfferListResponse.fromJson(res.data);
       if (res.data["code"] == 200) {
         return ServiceResponse(result: true, value: getMateOfferListResponse);
       }
@@ -84,6 +86,7 @@ class HttpServiceManager {
     try {
       var res = await (await authDio()).get('/api/users'.getUrl);
       GetUserResponse getUserResponse = GetUserResponse.fromJson(res.data["data"]);
+      AuthService().userAuthInfo.value = UserAuthInfo.fromJson(res.data["data"]);
       if (res.data["code"] == 200) {
         return ServiceResponse(result: true, value: getUserResponse);
       }
@@ -118,9 +121,37 @@ class HttpServiceManager {
           : await (await authDio()).put('/api/users/info'.getUrl, data: jsonEncode(data));
       UserBasicInfoResponse basicInfoResponse = UserBasicInfoResponse.fromJson(res.data["data"]);
       if (res.data["code"] == 200) {
-        // CommonStorageKey.accessToken.write(postLoginResponse.data!.accessToken);
-        // CommonStorageKey.refreshToken.write(postLoginResponse.data!.refreshToken);
         return ServiceResponse(result: true, value: basicInfoResponse);
+      }
+      return ServiceResponse(result: false, errorMsg: res.data["msg"] ?? '오류가 발생했습니다');
+    } on dio_lib.DioError catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.response?.data["msg"] ?? '오류가 발생했습니다');
+    } catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.toString());
+    }
+  }
+
+  Future<ServiceResponse<UserInfoDetailResponse>> getUserDetailInfo() async {
+    try {
+      var res = await (await authDio()).get('/api/users/infoDetail'.getUrl);
+      UserInfoDetailResponse userInfoDetailResponse = UserInfoDetailResponse.fromJson(res.data["data"]);
+      if (res.data["code"] == 200) {
+        return ServiceResponse(result: true, value: userInfoDetailResponse);
+      }
+      return ServiceResponse(result: false, errorMsg: res.data["msg"] ?? '오류가 발생했습니다');
+    } on dio_lib.DioError catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.response?.data["msg"] ?? '오류가 발생했습니다');
+    } catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.toString());
+    }
+  }
+
+  Future<ServiceResponse<UserPreferResponse>> getUserPrefer() async {
+    try {
+      var res = await (await authDio()).get('/api/users/prefer'.getUrl);
+      UserPreferResponse userPreferResponse = UserPreferResponse.fromJson(res.data["data"]);
+      if (res.data["code"] == 200) {
+        return ServiceResponse(result: true, value: userPreferResponse);
       }
       return ServiceResponse(result: false, errorMsg: res.data["msg"] ?? '오류가 발생했습니다');
     } on dio_lib.DioError catch (e) {
@@ -137,8 +168,6 @@ class HttpServiceManager {
           : await (await authDio()).put('/api/users/infoDetail'.getUrl, data: jsonEncode(data));
       UserInfoDetailResponse userInfoDetailResponse = UserInfoDetailResponse.fromJson(res.data["data"]);
       if (res.data["code"] == 200) {
-        // CommonStorageKey.accessToken.write(postLoginResponse.data!.accessToken);
-        // CommonStorageKey.refreshToken.write(postLoginResponse.data!.refreshToken);
         return ServiceResponse(result: true, value: userInfoDetailResponse);
       }
       return ServiceResponse(result: false, errorMsg: res.data["msg"] ?? '오류가 발생했습니다');
@@ -149,16 +178,13 @@ class HttpServiceManager {
     }
   }
 
-  Future<ServiceResponse<UserInfoDetailResponse>> userPreferUpdate({required Map data, bool isInit = false}) async {
+  Future<ServiceResponse<UserPreferResponse>> userPreferUpdate({required Map data, bool isInit = false}) async {
     try {
-      //TODO :: prefer dto 생성 ㅇ및 적용 필요
       var res = isInit
           ? await (await authDio()).post('/api/users/prefer'.getUrl, data: jsonEncode(data))
           : await (await authDio()).put('/api/users/prefer'.getUrl, data: jsonEncode(data));
-      UserInfoDetailResponse userInfoDetailResponse = UserInfoDetailResponse.fromJson(res.data[""]);
+      UserPreferResponse userInfoDetailResponse = UserPreferResponse.fromJson(res.data["data"]);
       if (res.data["code"] == 200) {
-        // CommonStorageKey.accessToken.write(postLoginResponse.data!.accessToken);
-        // CommonStorageKey.refreshToken.write(postLoginResponse.data!.refreshToken);
         return ServiceResponse(result: true, value: userInfoDetailResponse);
       }
       return ServiceResponse(result: false, errorMsg: res.data["msg"] ?? '오류가 발생했습니다');

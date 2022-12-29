@@ -9,14 +9,14 @@ class MainController extends GetxController {
   HttpServiceManager httpServiceManager = HttpServiceManager();
 
   RxList<MateOfferResponse> mateOfferList = <MateOfferResponse>[].obs;
+
   @override
-  void onInit() {
-    super.onInit();
+  void onReady() {
     fetchData();
   }
 
   fetchData() async {
-    var res = await HttpServiceManager().getMateOfferListResponse();
+    var res = await HttpServiceManager().getMateOfferListResponse().load();
     if (res.result) {
       mateOfferList.value = res.value?.data ?? [];
     } else {
