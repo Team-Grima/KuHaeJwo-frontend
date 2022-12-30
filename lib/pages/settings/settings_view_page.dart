@@ -73,7 +73,7 @@ Widget listButton({required String title, required String route, double? topPadd
                 Text(title,
                     style: CommonTextStyle(
                       fontSize: 16,
-                      fontWeight: FontWeight.w200,
+                      fontWeight: FontWeight.w300,
                       color: CommonColor.black,
                     )),
               ],

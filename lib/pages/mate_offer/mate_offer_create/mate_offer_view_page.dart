@@ -5,7 +5,6 @@ import 'package:pet_app/common/common.dart';
 
 import 'package:get/get.dart';
 import 'package:pet_app/common/http_model/GetUserResponse.dart';
-import 'package:pet_app/common/service/auth_service.dart';
 import 'package:pet_app/common/utils/image_loader.dart';
 import 'package:pet_app/pages/mate_offer/mate_offer_create/mate_offer_controller.dart';
 import 'package:pet_app/pages/mate_offer/mate_offer_edit/mate_offer_edit_view_page.dart';
@@ -19,10 +18,8 @@ class MateOfferViewPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: CommonColor.white,
-        appBar: CommonAppBar(
-            context: context,
-            // title: controller.post.title ?? "",
-            title: "내 쿠해줘 게시글 미리보기",
+        appBar: CommonAppBar(context: context, title: controller.authService.myMateOffer.value?.title ?? "제목이 없어요",
+            // title: "내 쿠해줘 게시글 미리보기",
             actions: [
               Container(
                 margin: EdgeInsets.only(left: 18.r),
@@ -44,10 +41,9 @@ class MateOfferViewPage extends StatelessWidget {
           children: [
             SingleChildScrollView(
               child: Obx(
-                () => controller.authService.myMateOffer.value == null && controller.authService.userBasicInfo.value != null
+                () => controller.authService.myMateOffer.value == null || controller.authService.userBasicInfo.value == null
                     ? const Text("신규작성 필요.. 로그인필요..")
-                    : IntrinsicHeight(
-                        child: _bodyFragment(controller.authService.myMateOffer.value!, controller.authService.userBasicInfo.value!, controller.authService)),
+                    : IntrinsicHeight(child: _bodyFragment(controller.authService.myMateOffer.value!, controller.authService.userBasicInfo.value!, controller)),
               ),
             ),
           ],
@@ -56,7 +52,7 @@ class MateOfferViewPage extends StatelessWidget {
     );
   }
 
-  static Widget _bodyFragment(MateOfferResponse mateOffer, UserBasicInfoResponse userBasicInfoResponse, AuthService authService) {
+  static Widget _bodyFragment(MateOfferResponse mateOffer, UserBasicInfoResponse userBasicInfoResponse, MateOfferController controller) {
     return Column(
       children: [
         Padding(
@@ -83,7 +79,7 @@ class MateOfferViewPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            authService.userAuthInfo.value?.name ?? "",
+                            controller.authService.userAuthInfo.value?.name ?? "",
                             style: CommonTextStyle(
                               fontSize: 13.r,
                             ),
@@ -110,16 +106,64 @@ class MateOfferViewPage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 0.r),
                 // child: Expanded(
                 child: Text(
-                  mateOffer.title ?? "",
-                  style: CommonTextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  mateOffer.body ?? "하고싶은말이 없어요",
+                  style: CommonTextStyle(fontSize: 14, fontWeight: FontWeight.w400),
                 ),
               ),
               // ),
+              Text(
+                "🙋🏻‍♀️ 저는요 !",
+                overflow: TextOverflow.visible,
+                style: CommonTextStyle(fontSize: 14, color: CommonColor.black),
+              ),
+              Text(
+                "\n\n✅ 청소는 이틀에 한번 정도해요\n✅ 음주는 3일에 한번 정도 하는 편이에요\n✅ 주사는 귀여운 정도!\n✅ 흡연은 하지 않아요\n✅ 취침시간은 보통 오후 10~12시에요\n✅ 기상시간은 보통 오전 9~11시에요\n",
+                overflow: TextOverflow.visible,
+                style: CommonTextStyle(fontSize: 14, color: CommonColor.black),
+              ),
               Text(
                 mateOffer.body ?? "",
                 overflow: TextOverflow.visible,
                 style: CommonTextStyle(fontSize: 14, color: CommonColor.gray03),
               ),
+              Text(
+                "👭🏻 이런 룸메를 원해요 !",
+                overflow: TextOverflow.visible,
+                style: CommonTextStyle(fontSize: 14, color: CommonColor.black),
+              ),
+              Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: controller.selectedPrefer.map((item) {
+                    return Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(right: 6.0.r),
+                          child: Padding(
+                            padding: EdgeInsets.all(5.r),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20.r),
+                              child: Material(
+                                color: CommonColor.gray01,
+                                child: InkWell(
+                                  // onTap: () {
+                                  //   controller.addSelectedPrefer(item);
+                                  // },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 6.r, vertical: 4.r),
+                                    child: Text(
+                                      "# $item",
+                                      style: CommonTextStyle(fontSize: 13, color: Colors.black),
+                                    ).c,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  }).toList())
             ],
           ),
         ),
