@@ -42,17 +42,42 @@ class HomeViewPage extends StatelessWidget {
               backgroundColor: CommonColor.gray01,
               type: BottomNavigationBarType.fixed,
               currentIndex: controller.selectedIndex.value,
-              showSelectedLabels: true,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              // showSelectedLabels: true,
               selectedItemColor: CommonColor.gray02,
               onTap: (value) => controller.selectedIndex.value = value,
               items: [
-                BottomNavigationBarItem(
-                  icon: SvgPicture.asset("assets/icons/bottom_main.svg", color: CommonColor.gray03),
-                  activeIcon: SvgPicture.asset("assets/icons/bottom_main.svg", color: CommonColor.mainDarkGreen),
+                const BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.home,
+                    color: CommonColor.gray03,
+                    size: 30,
+                  ),
+                  activeIcon: Icon(
+                    Icons.home,
+                    color: CommonColor.mainDarkGreen,
+                    size: 30,
+                  ),
+                  // icon: SvgPicture.asset("assets/icons/bottom_main.svg",
+                  //     color: CommonColor.gray03),
+                  // activeIcon: SvgPicture.asset("assets/icons/bottom_main.svg",
+                  //     color: CommonColor.mainDarkGreen),
                   label: "",
                 ),
                 BottomNavigationBarItem(
-                  icon: SvgPicture.asset("assets/icons/bottom_chat.svg", color: CommonColor.gray03),
+                  // icon: Icon(
+                  //   Icons.chat,
+                  //   size: 30,
+                  //   color: CommonColor.gray03,
+                  // ),
+                  // activeIcon: Icon(
+                  //   Icons.chat,
+                  //   size: 30,
+                  //   color: CommonColor.mainDarkGreen,
+                  // ),
+                  icon: SvgPicture.asset("assets/icons/bottom_chat.svg",
+                      color: CommonColor.gray03),
                   activeIcon: SvgPicture.asset(
                     "assets/icons/bottom_chat.svg",
                     color: CommonColor.mainDarkGreen,
@@ -60,26 +85,51 @@ class HomeViewPage extends StatelessWidget {
                   label: "",
                 ),
                 BottomNavigationBarItem(
-                  icon: SvgPicture.asset("assets/icons/bottom_add.svg", color: CommonColor.gray03),
-                  activeIcon: SvgPicture.asset("assets/icons/bottom_add.svg"),
-                  label: "",
-                ),
-                BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                    "assets/icons/bottom_3dot.svg",
-                  ),
+                  icon: SvgPicture.asset("assets/icons/bottom_add.svg",
+                      color: CommonColor.gray03),
                   activeIcon: SvgPicture.asset(
-                    "assets/icons/bottom_3dot.svg",
+                    "assets/icons/bottom_add.svg",
                     color: CommonColor.mainDarkGreen,
                   ),
                   label: "",
                 ),
-                BottomNavigationBarItem(
-                  icon: SvgPicture.asset("assets/icons/bottom_main.svg", color: CommonColor.disabledGrey),
-                  activeIcon: SvgPicture.asset(
-                    "assets/icons/bottom_main.svg",
-                    color: CommonColor.mainDarkGreen,
+                const BottomNavigationBarItem(
+                  // icon: SvgPicture.asset(
+                  //   "assets/icons/bottom_3dot.svg",
+                  // ),
+                  icon: Icon(
+                    Icons.more_horiz,
+                    color: CommonColor.gray03,
+                    size: 30,
                   ),
+                  // activeIcon: SvgPicture.asset(
+                  //   "assets/icons/bottom_3dot.svg",
+                  //   color: CommonColor.mainDarkGreen,
+                  // ),
+                  activeIcon: Icon(
+                    Icons.more_horiz_outlined,
+                    color: CommonColor.mainDarkGreen,
+                    size: 30,
+                  ),
+                  label: "",
+                ),
+                const BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.settings,
+                    color: CommonColor.gray03,
+                    size: 30,
+                  ),
+                  activeIcon: Icon(
+                    Icons.settings,
+                    color: CommonColor.mainDarkGreen,
+                    size: 30,
+                  ),
+                  // icon: SvgPicture.asset("assets/icons/bottom_main.svg",
+                  //     color: CommonColor.disabledGrey),
+                  // activeIcon: SvgPicture.asset(
+                  //   "assets/icons/bottom_main.svg",
+                  //   color: CommonColor.mainDarkGreen,
+                  // ),
                   label: "",
                 ),
               ],
