@@ -5,6 +5,7 @@ import 'package:pet_app/common/common.dart';
 import 'package:get/get.dart';
 import 'package:pet_app/common/utils/common_storage.dart';
 import 'package:pet_app/common/utils/image_loader.dart';
+import 'package:pet_app/pages/auth/school_auth/school_auth_view_page.dart';
 import 'package:pet_app/pages/edit_my_ku/edit_my_KU_view_page.dart';
 import 'package:pet_app/pages/my_page/mypage_controller.dart';
 import 'package:pet_app/pages/survey_steps/room_mate_prefer_survey/roommate_survey_view_page.dart';
@@ -210,6 +211,10 @@ class MyPageViewPage extends StatelessWidget {
                     "내가 원하는 룸메 수정하기",
                     context,
                   ),
+                  checkbox(
+                    "계정 인증 확인하기",
+                    context,
+                  ),
                 ],
               ),
             )));
@@ -224,8 +229,10 @@ class MyPageViewPage extends StatelessWidget {
           if (header == "내 소개 수정하기") {
             // Get.to(() => SurveyStep1ViewPage(isEditForm: true));
             Get.to(() => EditUserDetailInfoViewPage(isEditForm: true));
-          } else {
+          } else if (header == "내가 원하는 룸메 수정하기") {
             Get.to(() => RoomMateSurveyViewPage(isEditForm: true));
+          } else if (header == "계정 인증 확인하기") {
+            Get.to(() => const SchoolAuthViewPage());
           }
         },
         child: Container(
