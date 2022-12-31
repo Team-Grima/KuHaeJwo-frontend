@@ -33,11 +33,6 @@ class ChatRoomListViewPage extends StatelessWidget {
         ],
         backgroundColor: CommonColor.white,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.logout),
-          onPressed: AuthService().fbUser.value == null ? null : null,
-        ),
-        // systemOverlayStyle: SystemUiOverlayStyle.light,
         title: Center(
           child: Text(
             '채팅',

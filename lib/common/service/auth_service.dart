@@ -32,18 +32,33 @@ class AuthService {
     Common.logger.d('AuthService._internal() called!!!');
   }
 
+  Future chatLogin() async {
+    UserCredential userCredential;
+    if (CommonStorageKey.savedId.read.result) {
+      try {
+        userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: CommonStorageKey.savedId.read.value, password: "asdfasdf");
+        fbUser.value = userCredential.user;
+      } catch (e) {
+        userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: CommonStorageKey.savedId.read.value, password: "asdfasdf");
+        fbUser.value = userCredential.user;
+      }
+      if (userCredential.user != null) {
+        return await FirebaseChatCore.instance.createUserInFirestore(
+          types.User(
+            firstName: userCredential.user!.email,
+            id: userCredential.user!.uid, // UID from Firebase Authentication
+            imageUrl: 'https://i.pravatar.cc/300',
+          ),
+        );
+      }
+    } else {
+      return;
+    }
+  }
+
   Future<ServiceResponse> login(String email, String password) async {
     ServiceResponse<PostLoginResponse> loginResponse = await HttpServiceManager().postLogin(email: email, password: password);
     return loginResponse;
-    // UserCredential userCredential;
-    // try {
-    //   userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-    //   fbUser.value = userCredential.user;
-    // } catch (e) {
-    //   userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
-    //   fbUser.value = userCredential.user;
-    // }
-    // createFirestoreUser(userCredential);
   }
 
   userBasicInfoIsNeverAdded() {
@@ -156,21 +171,6 @@ class AuthService {
       }
     }
     return false;
-  }
-
-// register(){
-//   FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password)
-// }
-  void createFirestoreUser(UserCredential userCredential) async {
-    if (userCredential.user != null) {
-      return await FirebaseChatCore.instance.createUserInFirestore(
-        types.User(
-          firstName: userCredential.user!.email,
-          id: userCredential.user!.uid, // UID from Firebase Authentication
-          imageUrl: 'https://i.pravatar.cc/300',
-        ),
-      );
-    }
   }
 
   void logout() async {
