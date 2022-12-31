@@ -100,7 +100,7 @@ class MyPageViewPage extends StatelessWidget {
                                 ),
                               ),
                               Obx(
-                                () => controller.authService.userBasicInfo.value != null
+                                () => !controller.authService.userBasicInfoIsNeverAdded()
                                     ? Column(
                                         children: [
                                           Row(

@@ -46,6 +46,14 @@ class AuthService {
     // createFirestoreUser(userCredential);
   }
 
+  userBasicInfoIsNeverAdded() {
+    UserBasicInfoResponse? u = userBasicInfo.value;
+    if (u == null) {
+      return true;
+    }
+    return (u.age == null && u.college == null && u.department == null && u.gender == null && u.mbti == null && u.studentId == null);
+  }
+
   setUserDetails({UserBasicInfoResponse? b, UserInfoDetailResponse? d, UserPreferResponse? p}) {
     if (b != null) {
       userBasicInfo.value = b;
