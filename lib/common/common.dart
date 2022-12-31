@@ -353,27 +353,26 @@ class Common {
             child: Stack(
               children: [
                 gradientVisible == true
-                    ? Expanded(
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                height: 24.r,
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: <Color>[
-                                      Colors.white.withOpacity(0),
-                                      Colors.white.withOpacity(1),
-                                    ], // red to yellow
-                                  ),
+                    ? Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              height: 72.5.r,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: <Color>[
+                                    Colors.white.withOpacity(0),
+                                    Colors.white.withOpacity(0.7),
+                                    Colors.white.withOpacity(1),
+                                  ], // red to yellow
                                 ),
                               ),
                             ),
-                            const SizedBox(),
-                          ],
-                        ),
+                          ),
+                          const SizedBox(),
+                        ],
                       )
                     : const SizedBox(),
                 Row(
@@ -421,27 +420,25 @@ class Common {
             child: Stack(
               children: [
                 gradientVisible == true
-                    ? Expanded(
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                height: 24.r,
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: <Color>[
-                                      Colors.white.withOpacity(0),
-                                      Colors.white.withOpacity(1),
-                                    ], // red to yellow
-                                  ),
+                    ? Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              height: 24.r,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: <Color>[
+                                    Colors.white.withOpacity(0),
+                                    Colors.white.withOpacity(1),
+                                  ], // red to yellow
                                 ),
                               ),
                             ),
-                            const SizedBox(),
-                          ],
-                        ),
+                          ),
+                          const SizedBox(),
+                        ],
                       )
                     : const SizedBox(),
                 Row(

@@ -10,7 +10,7 @@ import 'package:pet_app/pages/edit_my_ku/edit_my_KU_view_page.dart';
 import 'package:pet_app/pages/mate_offer/mate_offer_create/mate_offer_controller.dart';
 import 'package:pet_app/pages/mate_offer/mate_offer_edit/mate_offer_edit_view_page.dart';
 import 'package:pet_app/pages/survey_steps/room_mate_prefer_survey/roommate_survey_view_page.dart';
-import 'package:pet_app/pages/survey_steps/survey_step_0/survey_step_1_view_page.dart';
+import 'package:pet_app/pages/survey_steps/user_detail_info/survey_step_1_view_page.dart';
 
 class MateOfferViewPage extends StatelessWidget {
   const MateOfferViewPage({Key? key}) : super(key: key);
@@ -170,7 +170,7 @@ class MateOfferViewPage extends StatelessWidget {
     );
   }
 
-  generateDetailString(UserInfoDetailResponse detail) {
+  static generateDetailString(UserInfoDetailResponse detail) {
     String res = "";
     res += "✅ ";
     res += detail.cleanHabit == "LAZY" ? "몰아서 치워요" : "바로 바로 치워요";
@@ -292,19 +292,22 @@ class MateOfferViewPage extends StatelessWidget {
   }
 
   Widget makeContainer(Widget widget, Function() function) {
-    return Material(
-      color: CommonColor.gray01,
-      child: Row(
-        children: [
-          Expanded(
-            child: InkWell(
-                onTap: function,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.r, vertical: 8.r),
-                  child: widget,
-                )),
-          )
-        ],
+    return ClipRRect(
+      borderRadius: BorderRadius.all(Radius.circular(5.r)),
+      child: Material(
+        color: CommonColor.gray01,
+        child: Row(
+          children: [
+            Expanded(
+              child: InkWell(
+                  onTap: function,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8.r, vertical: 8.r),
+                    child: widget,
+                  )),
+            )
+          ],
+        ),
       ),
     );
   }

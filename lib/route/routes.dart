@@ -13,7 +13,7 @@ import 'package:pet_app/pages/mate_offer/mate_offer_edit/mate_offer_edit_view_pa
 import 'package:pet_app/pages/splash/splash_page.dart';
 import 'package:pet_app/pages/user_post_view_page/user_post_view_page.dart';
 import 'package:get/get.dart';
-import 'package:pet_app/pages/survey_steps/survey_step_0/survey_step_0_view_page.dart';
+import 'package:pet_app/pages/survey_steps/user_detail_info/survey_step_0_view_page.dart';
 
 class GetXRouter {
   static final route = [

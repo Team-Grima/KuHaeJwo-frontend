@@ -34,7 +34,7 @@ class SignInViewPage extends StatelessWidget {
                 //   shadowColor: Colors.transparent,
                 //   leadingAssetPath: 'assets/icon/appbar_close.svg',
                 // ),
-                Padding(padding: EdgeInsets.only(top: 12.r), child: SvgPicture.asset('assets/images/logo.svg')),
+                // Padding(padding: EdgeInsets.only(top: 12.r), child: SvgPicture.asset('assets/images/logo.svg')),
                 _divider(CommonColor.gray02, 24.r), //Top padding
                 _infoMessage('쿠해줘', CommonTextStyle(fontSize: 30, color: CommonColor.mainDarkGreen, fontWeight: FontWeight.w600), 30.r),
                 _infoMessage('시작하기', CommonTextStyle(fontSize: 30, color: CommonColor.gray05, fontWeight: FontWeight.w400), 0.r),

@@ -12,6 +12,7 @@ class MateOfferController extends GetxController {
 
   fetchMateOfferData() async {
     bool res = await authService.getMyMateOffer().load();
+    res = await authService.getUserInfo().load();
     if (res && authService.myMateOffer.value != null) {
       // } else {
       //신규작성

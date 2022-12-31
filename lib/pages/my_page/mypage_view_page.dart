@@ -8,7 +8,7 @@ import 'package:pet_app/common/utils/image_loader.dart';
 import 'package:pet_app/pages/edit_my_ku/edit_my_KU_view_page.dart';
 import 'package:pet_app/pages/my_page/mypage_controller.dart';
 import 'package:pet_app/pages/survey_steps/room_mate_prefer_survey/roommate_survey_view_page.dart';
-import 'package:pet_app/pages/survey_steps/survey_step_0/survey_step_1_view_page.dart';
+import 'package:pet_app/pages/survey_steps/user_detail_info/edit_user_detail_info_view_page.dart';
 
 class MyPageViewPage extends StatelessWidget {
   const MyPageViewPage({Key? key}) : super(key: key);
@@ -222,7 +222,8 @@ class MyPageViewPage extends StatelessWidget {
         splashColor: Colors.black.withOpacity(0.05),
         onTap: () {
           if (header == "내 소개 수정하기") {
-            Get.to(() => SurveyStep1ViewPage(isEditForm: true));
+            // Get.to(() => SurveyStep1ViewPage(isEditForm: true));
+            Get.to(() => EditUserDetailInfoViewPage(isEditForm: true));
           } else {
             Get.to(() => RoomMateSurveyViewPage(isEditForm: true));
           }

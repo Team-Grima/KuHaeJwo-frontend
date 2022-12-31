@@ -22,6 +22,7 @@ class AuthService {
   Rxn<UserPreferResponse> userPrefer = Rxn(null);
   Rxn<UserAuthInfo> userAuthInfo = Rxn(null);
   Rxn<MateOfferResponse> myMateOffer = Rxn(null);
+
   static final AuthService _instance = AuthService._internal();
 
   static AuthService get instance => Get.find<AuthService>();
@@ -73,7 +74,7 @@ class AuthService {
     return res.result;
   }
 
-  //TODO:: Get user basic info
+  //TODO:: Get user basic info 추가하기
   Future<bool> updateUserBasicInfo(Map data, bool isInit) async {
     var res = await HttpServiceManager().userBasicInfoUpdate(data: data, isInit: isInit);
     if (res.result) {
@@ -135,6 +136,18 @@ class AuthService {
     if (m != null) {
       myMateOffer.value = m;
     }
+  }
+
+  userHasMateOffer() {
+    if (myMateOffer.value == null) {
+      return false;
+    } else {
+      MateOfferResponse m = myMateOffer.value!;
+      if (m.body == null) {
+        return true;
+      }
+    }
+    return false;
   }
 
 // register(){

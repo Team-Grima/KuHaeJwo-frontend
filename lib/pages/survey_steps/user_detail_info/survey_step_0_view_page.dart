@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pet_app/common/common.dart';
 import 'package:get/get.dart';
-import 'package:pet_app/pages/survey_steps/survey_step_0/survey_controller.dart';
-
-import 'survey_step_1_view_page.dart';
+import 'package:pet_app/pages/survey_steps/user_detail_info/survey_controller.dart';
+import 'package:pet_app/pages/survey_steps/user_detail_info/survey_step_1_view_page.dart';
 
 class SurveyViewPage extends StatelessWidget {
   const SurveyViewPage({Key? key}) : super(key: key);

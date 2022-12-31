@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:linear_progress_bar/linear_progress_bar.dart';
 import 'package:pet_app/common/common.dart';
 import 'package:get/get.dart';
-import 'package:pet_app/pages/survey_steps/survey_step_0/survey_controller.dart';
+import 'package:pet_app/pages/survey_steps/user_detail_info/survey_controller.dart';
 
 class SurveyStep1ViewPage extends StatelessWidget {
   SurveyStep1ViewPage({Key? key, this.isEditForm = false}) : super(key: key);
