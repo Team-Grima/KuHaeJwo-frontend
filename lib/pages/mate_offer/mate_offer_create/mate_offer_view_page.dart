@@ -6,8 +6,11 @@ import 'package:pet_app/common/common.dart';
 import 'package:get/get.dart';
 import 'package:pet_app/common/http_model/GetUserResponse.dart';
 import 'package:pet_app/common/utils/image_loader.dart';
+import 'package:pet_app/pages/edit_my_ku/edit_my_KU_view_page.dart';
 import 'package:pet_app/pages/mate_offer/mate_offer_create/mate_offer_controller.dart';
 import 'package:pet_app/pages/mate_offer/mate_offer_edit/mate_offer_edit_view_page.dart';
+import 'package:pet_app/pages/survey_steps/room_mate_prefer_survey/roommate_survey_view_page.dart';
+import 'package:pet_app/pages/survey_steps/survey_step_0/survey_step_1_view_page.dart';
 
 class MateOfferViewPage extends StatelessWidget {
   const MateOfferViewPage({Key? key}) : super(key: key);
@@ -18,9 +21,7 @@ class MateOfferViewPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: CommonColor.white,
-        appBar: CommonAppBar(
-            context: context,
-            title: controller.authService.myMateOffer.value?.title ?? "제목이 없어요",
+        appBar: CommonAppBar(context: context, title: controller.authService.myMateOffer.value?.title ?? "제목이 없어요",
             // title: "내 쿠해줘 게시글 미리보기",
             actions: [
               Container(
@@ -30,8 +31,7 @@ class MateOfferViewPage extends StatelessWidget {
                     Get.toNamed(MateOfferEditViewPage.url);
                   },
                   child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 18.r, horizontal: 12.r),
+                    padding: EdgeInsets.symmetric(vertical: 18.r, horizontal: 12.r),
                     child: SvgPicture.asset(
                       "assets/icons/edit_mate_offer_button.svg",
                       color: CommonColor.black,
@@ -44,33 +44,43 @@ class MateOfferViewPage extends StatelessWidget {
           children: [
             SingleChildScrollView(
               child: Obx(
-                () => controller.authService.userPrefer.value != null &&
-                        controller.authService.myMateOffer.value != null
+                () => controller.authService.userPrefer.value != null && controller.authService.myMateOffer.value != null
                     ? IntrinsicHeight(
                         child: Column(
                         children: [
                           Padding(
                             // padding: EdgeInsets.only(top: 16.r, left: 24.r, right: 24.r),
-                            padding: EdgeInsets.symmetric(
-                                vertical: 12.r, horizontal: 24.r),
+                            padding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 16.r),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                userProfileFragment(controller),
-                                mateOfferBodyFragment(controller
-                                    .authService.myMateOffer.value!.body),
-                                userDetailInfoFragment(controller
-                                    .authService.userInfoDetail.value!),
-                                userPreferFragment(controller
-                                    .authService.userPrefer.value!.preferList),
-                                Text(
-                                  controller.authService.myMateOffer.value!
-                                          .body ??
-                                      "",
-                                  overflow: TextOverflow.visible,
-                                  style: CommonTextStyle(
-                                      fontSize: 14, color: CommonColor.gray03),
+                                makeContainer(
+                                  userProfileFragment(controller),
+                                  () => Get.to(
+                                    () => EditMyKUViewPage(isEditForm: true),
+                                  ),
                                 ),
+                                mateOfferBodyFragment(controller.authService.myMateOffer.value!.body),
+                                makeContainer(
+                                  userDetailInfoFragment(controller.authService.userInfoDetail.value!),
+                                  () => Get.to(
+                                    () => SurveyStep1ViewPage(isEditForm: true),
+                                  ),
+                                ),
+                                SizedBox(height: 16.r),
+                                makeContainer(
+                                  userPreferFragment(controller.authService.userPrefer.value!.preferList),
+                                  () => Get.to(
+                                    () => RoomMateSurveyViewPage(isEditForm: true),
+                                  ),
+                                ),
+                                SizedBox(height: 16.r),
+                                // makeContainer(
+                                userDetialExtraWordFragment(controller.authService.myMateOffer.value?.body ?? "내용이 없어요"),
+                                // () => Get.to(
+                                // () => RoomMateSurveyViewPage(isEditForm: true),
+                                // ),
+                                // ),
                               ],
                             ),
                           ),
@@ -90,8 +100,7 @@ class MateOfferViewPage extends StatelessWidget {
       children: [
         ImageLoader(
           // url: userDetailData.profileImageUrl ?? "",
-          url:
-              "https://enter.kku.ac.kr/mbshome/mbs/wwwkr/renewal/images/identity/ui_am.png",
+          url: "https://enter.kku.ac.kr/mbshome/mbs/wwwkr/renewal/images/identity/ui_am.png",
           height: 38.r,
           width: 38.r,
         ),
@@ -116,13 +125,16 @@ class MateOfferViewPage extends StatelessWidget {
                 Text(
                   // post.time ?? "" == ,
                   "방금",
-                  style: CommonTextStyle(
-                      fontSize: 10, color: CommonColor.disabledGrey),
+                  style: CommonTextStyle(fontSize: 10, color: CommonColor.disabledGrey),
                 ),
               ],
             ),
+            // Text(
+            //   "${controller.authService.myMateOffer.value!.userProfile?.department ?? ""}·${controller.authService.myMateOffer.value!.userProfile?.age ?? -1}살",
+            //   style: CommonTextStyle(fontSize: 11, color: CommonColor.gray03),
+            // ),
             Text(
-              "${controller.authService.myMateOffer.value!.userProfile?.department ?? ""}·${controller.authService.myMateOffer.value!.userProfile?.age ?? -1}살",
+              "${controller.authService.userBasicInfo.value!.department ?? ""}·${controller.authService.userBasicInfo.value!.age ?? -1}살",
               style: CommonTextStyle(fontSize: 11, color: CommonColor.gray03),
             ),
           ],
@@ -131,12 +143,12 @@ class MateOfferViewPage extends StatelessWidget {
     );
   }
 
-  mateOfferBodyFragment(String? body) {
+  mateOfferBodyFragment(String? title) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 0.r),
       child: Text(
-        body ?? "하고싶은말이 없어요",
-        style: CommonTextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+        title ?? "제목이 없어요",
+        style: CommonTextStyle(fontSize: 14, fontWeight: FontWeight.w500),
       ),
     );
   }
@@ -235,18 +247,16 @@ class MateOfferViewPage extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20.r),
                           child: Material(
-                            color: CommonColor.gray01,
+                            color: CommonColor.disabledGrey,
                             child: InkWell(
                               // onTap: () {
                               //   controller.addSelectedPrefer(item);
                               // },
                               child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 6.r, vertical: 4.r),
+                                padding: EdgeInsets.symmetric(horizontal: 6.r, vertical: 4.r),
                                 child: Text(
                                   "# $item",
-                                  style: CommonTextStyle(
-                                      fontSize: 13, color: Colors.black),
+                                  style: CommonTextStyle(fontSize: 13, color: Colors.black),
                                 ).c,
                               ),
                             ),
@@ -260,6 +270,42 @@ class MateOfferViewPage extends StatelessWidget {
               [],
         ),
       ],
+    );
+  }
+
+  Widget userDetialExtraWordFragment(String body) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "👭🏻 하고 싶은 말",
+          overflow: TextOverflow.visible,
+          style: CommonTextStyle(fontSize: 14, color: CommonColor.black),
+        ),
+        Text(
+          body,
+          overflow: TextOverflow.visible,
+          style: CommonTextStyle(fontSize: 14, color: CommonColor.black),
+        ),
+      ],
+    );
+  }
+
+  Widget makeContainer(Widget widget, Function() function) {
+    return Material(
+      color: CommonColor.gray01,
+      child: Row(
+        children: [
+          Expanded(
+            child: InkWell(
+                onTap: function,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8.r, vertical: 8.r),
+                  child: widget,
+                )),
+          )
+        ],
+      ),
     );
   }
 }

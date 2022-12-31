@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
@@ -44,7 +45,6 @@ class HomeViewPage extends StatelessWidget {
               currentIndex: controller.selectedIndex.value,
               showSelectedLabels: false,
               showUnselectedLabels: false,
-              // showSelectedLabels: true,
               selectedItemColor: CommonColor.gray02,
               onTap: (value) => controller.selectedIndex.value = value,
               items: [
@@ -76,8 +76,7 @@ class HomeViewPage extends StatelessWidget {
                   //   size: 30,
                   //   color: CommonColor.mainDarkGreen,
                   // ),
-                  icon: SvgPicture.asset("assets/icons/bottom_chat.svg",
-                      color: CommonColor.gray03),
+                  icon: SvgPicture.asset("assets/icons/bottom_chat.svg", color: CommonColor.gray03),
                   activeIcon: SvgPicture.asset(
                     "assets/icons/bottom_chat.svg",
                     color: CommonColor.mainDarkGreen,
@@ -85,8 +84,7 @@ class HomeViewPage extends StatelessWidget {
                   label: "",
                 ),
                 BottomNavigationBarItem(
-                  icon: SvgPicture.asset("assets/icons/bottom_add.svg",
-                      color: CommonColor.gray03),
+                  icon: SvgPicture.asset("assets/icons/bottom_add.svg", color: CommonColor.gray03),
                   activeIcon: SvgPicture.asset(
                     "assets/icons/bottom_add.svg",
                     color: CommonColor.mainDarkGreen,
@@ -94,18 +92,11 @@ class HomeViewPage extends StatelessWidget {
                   label: "",
                 ),
                 const BottomNavigationBarItem(
-                  // icon: SvgPicture.asset(
-                  //   "assets/icons/bottom_3dot.svg",
-                  // ),
                   icon: Icon(
                     Icons.more_horiz,
                     color: CommonColor.gray03,
                     size: 30,
                   ),
-                  // activeIcon: SvgPicture.asset(
-                  //   "assets/icons/bottom_3dot.svg",
-                  //   color: CommonColor.mainDarkGreen,
-                  // ),
                   activeIcon: Icon(
                     Icons.more_horiz_outlined,
                     color: CommonColor.mainDarkGreen,
@@ -113,16 +104,16 @@ class HomeViewPage extends StatelessWidget {
                   ),
                   label: "",
                 ),
-                const BottomNavigationBarItem(
+                BottomNavigationBarItem(
                   icon: Icon(
                     Icons.settings,
                     color: CommonColor.gray03,
-                    size: 30,
+                    size: 25.r,
                   ),
                   activeIcon: Icon(
                     Icons.settings,
                     color: CommonColor.mainDarkGreen,
-                    size: 30,
+                    size: 25.r,
                   ),
                   // icon: SvgPicture.asset("assets/icons/bottom_main.svg",
                   //     color: CommonColor.disabledGrey),

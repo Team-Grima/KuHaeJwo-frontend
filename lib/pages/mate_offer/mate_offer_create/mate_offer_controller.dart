@@ -1,13 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_app/common/common.dart';
-import 'package:pet_app/common/http_model/GetUserResponse.dart';
 import 'package:pet_app/common/service/auth_service.dart';
 
 class MateOfferController extends GetxController {
-  TextEditingController searchTextEditingController = TextEditingController();
-
-  late MateOfferResponse mateOffer;
   AuthService authService = AuthService();
   @override
   void onReady() {
