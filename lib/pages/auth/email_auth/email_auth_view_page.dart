@@ -1,11 +1,9 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:pet_app/common/common.dart';
 import 'package:pet_app/pages/auth/email_auth/email_auth_controller.dart';
-
-import '../school_auth/school_auth_view_page.dart';
 
 /*
 기본 left, right padding값: 24.r
@@ -13,7 +11,7 @@ import '../school_auth/school_auth_view_page.dart';
 
 class EmailAuthViewPage extends StatelessWidget {
   const EmailAuthViewPage({Key? key}) : super(key: key);
-  static const url = "/email_auth";
+  static const url = "/email-auth";
 
   @override
   Widget build(BuildContext context) {
@@ -33,62 +31,124 @@ class EmailAuthViewPage extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(
-                    height: 30,
+                  SizedBox(
+                    height: 30.r,
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 30),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 30.r),
                     child: Icon(
                       Icons.mail_outline_rounded,
-                      size: 100,
+                      size: 100.r,
                     ),
                   ),
                   _infoMessage(
                     '인증 메일이',
-                    CommonTextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: CommonColor.gray03),
-                    0,
+                    CommonTextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: CommonColor.gray03,
+                    ),
+                    0.r,
                   ),
-                  _infoMessage(
-                    Get.arguments,
-                    CommonTextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: CommonColor.black),
-                    0,
+                  GestureDetector(
+                    onTap: controller.onEmailTap,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: CommonColor.black,
+                            width: 1.r,
+                          ),
+                        ),
+                      ),
+                      child: _infoMessage(
+                        Get.arguments,
+                        CommonTextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          color: CommonColor.black,
+                        ),
+                        0.r,
+                      ),
+                    ),
                   ),
                   _infoMessage(
                     '(으)로 전송되었습니다',
-                    CommonTextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: CommonColor.gray03),
-                    0,
+                    CommonTextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: CommonColor.gray03,
+                    ),
+                    0.r,
                   ),
                   _infoMessage(
                     '받으신 이메일을 열어 링크를 클릭해주세요',
-                    CommonTextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: CommonColor.gray03),
-                    20,
+                    CommonTextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: CommonColor.gray03,
+                    ),
+                    20.r,
                   ),
-                  const SizedBox(
-                    height: 50,
+                  SizedBox(
+                    height: 50.r,
                   ),
-                  RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      children: [
-                        const TextSpan(
-                          text: '이메일을 확인할 수 없나요?\n스팸편지함 확인 또는 ',
-                          style: TextStyle(
-                            color: CommonColor.gray03,
-                          ),
+                  _infoMessage(
+                    '이메일을 확인할 수 없나요?',
+                    CommonTextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: CommonColor.gray03,
+                    ),
+                    0.r,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      _infoMessage(
+                        '스팸편지함 확인 또는 ',
+                        CommonTextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                          color: CommonColor.gray03,
                         ),
-                        TextSpan(
-                          text: '인증 메일 다시 보내기',
-                          style: const TextStyle(
+                        0.r,
+                      ),
+                      GestureDetector(
+                        onTap: controller.onResendTap,
+                        child: _infoMessage(
+                          '인증 메일 다시 보내기',
+                          CommonTextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
                             color: CommonColor.black,
                           ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () => Get.to(
-                                  () => const SchoolAuthViewPage(),
-                                ),
+                          0.r,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
+
+                  // RichText(
+                  //   textAlign: TextAlign.center,
+                  //   text: TextSpan(
+                  //     children: [
+                  //       TextSpan(
+                  //         text: '이메일을 확인할 수 없나요?\n스팸편지함 확인 또는 ',
+                  //         style: CommonTextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: CommonColor.gray03),
+                  //       ),
+                  //       TextSpan(
+                  //         text: '인증 메일 다시 보내기',
+                  //         style: CommonTextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: CommonColor.black),
+                  //         recognizer: TapGestureRecognizer()
+                  //           ..onTap = () => Get.to(
+                  //                 () => const SchoolAuthViewPage(),
+                  //               ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             ],
@@ -101,7 +161,7 @@ class EmailAuthViewPage extends StatelessWidget {
 
 Widget _infoMessage(String text, TextStyle style, double top) {
   return Padding(
-    padding: EdgeInsets.fromLTRB(0, top, 0.0, 0.0),
+    padding: EdgeInsets.only(top: top),
     child: Text(
       text,
       style: style,

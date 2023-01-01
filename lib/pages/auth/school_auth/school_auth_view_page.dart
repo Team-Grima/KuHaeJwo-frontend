@@ -13,7 +13,7 @@ import '../certificate_auth/certificate_auth_view_page.dart';
 
 class SchoolAuthViewPage extends StatelessWidget {
   const SchoolAuthViewPage({Key? key}) : super(key: key);
-  static const url = "/school_auth";
+  static const url = "/school-auth";
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class SchoolAuthViewPage extends StatelessWidget {
                   _errorMessage(controller.emailWarning, CommonTextStyle.b14(color: CommonColor.red), 17.r)
                 ],
               ),
-              _emailInput("kimkonkuk@konkuk.ac.kr", controller, 16.r, 12.r),
+              _emailInput("kimkonkuk@konkuk.ac.kr", controller.emailController, 16.r, 12.r),
               _authButton("인증하기", controller),
               const SizedBox(
                 height: 30,
@@ -98,14 +98,14 @@ Widget _errorMessage(RxString text, TextStyle style, double top) {
       ));
 }
 
-Widget _emailInput(String hintText, SchoolAuthController controller, double top, double bottom) {
+Widget _emailInput(String hintText, TextEditingController controller, double top, double bottom) {
   return Padding(
     padding: EdgeInsets.fromLTRB(16.r, top, 16.r, bottom),
     child: TextField(
       textInputAction: TextInputAction.done,
       style: CommonTextStyle.b04(),
       keyboardType: TextInputType.emailAddress,
-      // controller: controller.idController,
+      controller: controller,
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: CommonColor.gray02), borderRadius: BorderRadius.circular(5.r)),
         focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: CommonColor.mainMidGreen, width: 1.r), borderRadius: BorderRadius.circular(5.r)),
@@ -126,7 +126,7 @@ Widget _authButton(String text, SchoolAuthController controller) {
       child: Material(
         color: CommonColor.mainDarkGreen,
         child: InkWell(
-          onTap: text == "인증하기" ? controller.submit : () => Get.to(() => const CertificateAuthViewPage()),
+          onTap: text == "인증하기" ? controller.emailAuth : () => Get.to(() => const CertificateAuthViewPage()),
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 12.r, vertical: 16.r),
             child: Text(

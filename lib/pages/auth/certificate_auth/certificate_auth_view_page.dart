@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:pet_app/common/common.dart';
-import 'package:pet_app/pages/auth/school_auth/school_auth_controller.dart';
+import 'package:pet_app/pages/auth/certificate_auth/certificate_auth_controller.dart';
 
 /*
 기본 left, right padding값: 24.r
@@ -11,11 +11,11 @@ import 'package:pet_app/pages/auth/school_auth/school_auth_controller.dart';
 
 class CertificateAuthViewPage extends StatelessWidget {
   const CertificateAuthViewPage({Key? key}) : super(key: key);
-  static const url = "/certificate_auth";
+  static const url = "/certificate-auth";
 
   @override
   Widget build(BuildContext context) {
-    final SchoolAuthController controller = Get.put(SchoolAuthController());
+    final CertificateAuthController controller = Get.put(CertificateAuthController());
     return DefaultTextHeightBehavior(
       textHeightBehavior: const TextHeightBehavior(leadingDistribution: TextLeadingDistribution.even),
       child: GestureDetector(
@@ -54,7 +54,7 @@ Widget _infoMessage(String text, TextStyle style, double top) {
   );
 }
 
-Widget _uploadButton(String text, SchoolAuthController controller) {
+Widget _uploadButton(String text, CertificateAuthController controller) {
   return Padding(
     padding: EdgeInsets.all(20.r),
     child: ClipRRect(
@@ -62,7 +62,7 @@ Widget _uploadButton(String text, SchoolAuthController controller) {
       child: Material(
         color: CommonColor.mainDarkGreen,
         child: InkWell(
-          onTap: text == "인증하기" ? controller.submit : () => Get.to(() => const CertificateAuthViewPage()),
+          onTap: controller.fileUpload,
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 12.r, vertical: 16.r),
             child: Text(
