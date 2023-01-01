@@ -241,6 +241,23 @@ class HttpServiceManager {
       return ServiceResponse(result: false, errorMsg: e.toString());
     }
   }
+
+  Future<ServiceResponse<bool>> getIsAccountConfirmed() async {
+    try {
+      var res = await (await authDio()).get('/api/auth'.getUrl);
+
+      bool isConfirmed = (res.data["data"]);
+      if (res.data["code"] == 200) {
+        return ServiceResponse(result: true, value: isConfirmed);
+      }
+      return ServiceResponse(result: false, errorMsg: res.data["msg"] ?? '오류가 발생했습니다');
+    } on dio_lib.DioError catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.response?.data["msg"] ?? '오류가 발생했습니다');
+    } catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.toString());
+    }
+  }
+
   // Future<ServiceResponse<GetUserResponse>> getUser() async {
   //   try {
   //     var res = await (await authDio()).get('/api/get-user'.getUrl);

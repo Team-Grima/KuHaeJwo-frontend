@@ -22,6 +22,7 @@ class AuthService {
   Rxn<UserPreferResponse> userPrefer = Rxn(null);
   Rxn<UserAuthInfo> userAuthInfo = Rxn(null);
   Rxn<MateOfferResponse> myMateOffer = Rxn(null);
+  RxBool isUserConfirmed = false.obs;
 
   static final AuthService _instance = AuthService._internal();
 
@@ -58,6 +59,7 @@ class AuthService {
 
   Future<ServiceResponse> login(String email, String password) async {
     ServiceResponse<PostLoginResponse> loginResponse = await HttpServiceManager().postLogin(email: email, password: password);
+    await checkUserConfirmed();
     return loginResponse;
   }
 
@@ -176,9 +178,21 @@ class AuthService {
   sendConfirmEmail({required String email}) async {
     ServiceResponse<String> res = await HttpServiceManager().postsendConfirmEmail(email: email);
     if (res.result) {
-      return res.value;
+      // return res.value;
+      return res.result; //성공여부 리턴
     } else {
       return null;
+    }
+  }
+
+  checkUserConfirmed() async {
+    ServiceResponse<bool> res = await HttpServiceManager().getIsAccountConfirmed();
+    if (res.result) {
+      isUserConfirmed.value = true;
+      return true;
+    } else {
+      isUserConfirmed.value = false;
+      return false;
     }
   }
 
