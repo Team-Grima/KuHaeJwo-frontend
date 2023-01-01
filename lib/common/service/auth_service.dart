@@ -173,6 +173,15 @@ class AuthService {
     return false;
   }
 
+  sendConfirmEmail({required String email}) async {
+    ServiceResponse<String> res = await HttpServiceManager().postsendConfirmEmail(email: email);
+    if (res.result) {
+      return res.value;
+    } else {
+      return null;
+    }
+  }
+
   void logout() async {
     await FirebaseAuth.instance.signOut();
     CommonStorageKey().deleteAll();
