@@ -175,13 +175,13 @@ class AuthService {
     return false;
   }
 
-  sendConfirmEmail({required String email}) async {
+  Future<bool> sendConfirmEmail({required String email}) async {
     ServiceResponse<String> res = await HttpServiceManager().postsendConfirmEmail(email: email);
     if (res.result) {
       // return res.value;
-      return res.result; //성공여부 리턴
+      return true; //성공여부 리턴
     } else {
-      return null;
+      return false;
     }
   }
 

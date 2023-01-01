@@ -1,9 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:pet_app/common/common.dart';
+
 import 'package:get/get.dart';
 import '../../../common/service/auth_service.dart';
 import '../../../common/utils/email_format_helper.dart';
-import '../../../common/utils/service_response.dart';
 
 class SchoolAuthController extends GetxController {
   bool isLoading = false;
@@ -46,9 +47,9 @@ class SchoolAuthController extends GetxController {
 
       var email = emailController.text.trim();
       var parsingEmail = email.split("@")[0];
-      ServiceResponse res = await AuthService().sendConfirmEmail(email: parsingEmail).load();
+      bool? res = await AuthService().sendConfirmEmail(email: parsingEmail).load();
       isLoading = false;
-      if (res.result) {
+      if (res) {
         Get.toNamed("/email-auth", arguments: email);
       } else {
         emailWarning.value = '인증 오류. 관리자에게 문의해주세요';
