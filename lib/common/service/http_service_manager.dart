@@ -228,7 +228,7 @@ class HttpServiceManager {
   Future<ServiceResponse<String>> postsendConfirmEmail({required String email}) async {
     try {
       var data = {"email": email};
-      var res = await (await authDio()).post('/api/confirm-email'.getUrl, data: jsonEncode(data));
+      var res = await (await authDio()).post('/confirm-email'.getUrl, data: jsonEncode(data));
 
       String returnEmail = res.data["data"];
       if (res.data["code"] == 200) {
