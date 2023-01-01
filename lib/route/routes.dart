@@ -15,6 +15,8 @@ import 'package:pet_app/pages/user_post_view_page/user_post_view_page.dart';
 import 'package:get/get.dart';
 import 'package:pet_app/pages/survey_steps/user_detail_info/survey_step_0_view_page.dart';
 
+import '../pages/auth/certificate_auth/certificate_auth_view_page.dart';
+import '../pages/auth/email_auth/email_auth_view_page.dart';
 import '../pages/auth/school_auth/school_auth_view_page.dart';
 
 class GetXRouter {
@@ -29,6 +31,8 @@ class GetXRouter {
     GetPage(name: FindPasswordViewPage.url, page: () => const FindPasswordViewPage()),
     GetPage(name: ChangePWViewPage.url, page: () => const ChangePWViewPage()),
     GetPage(name: SchoolAuthViewPage.url, page: () => const SchoolAuthViewPage()),
+    GetPage(name: CertificateAuthViewPage.url, page: () => const CertificateAuthViewPage()),
+    GetPage(name: EmailAuthViewPage.url, page: () => const EmailAuthViewPage()),
 
     //user
     GetPage(name: HomeViewPage.url, page: () => const HomeViewPage()),
