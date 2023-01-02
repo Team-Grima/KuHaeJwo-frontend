@@ -152,7 +152,8 @@ class SurveyController extends GetxController {
   }
 
   @override
-  onReady() {
+  void onReady() {
+    super.onReady();
     fetchData();
   }
 
@@ -175,14 +176,13 @@ class SurveyController extends GetxController {
   }
 
   skip() {
-    selectSurveyItem(getCurrent(), null);
+    // selectSurveyItem(getCurrent(), null);
     Future.delayed(const Duration(milliseconds: 200)).then((value) {
       nextStep();
     });
   }
 
   saveConfigs() async {
-    // HttpServiceManager().saveUserDetailConfigs();
     var res = await authService.updateUserDetailInfo({
       "cleanHabit": surveyList[0].getSelectedValue(),
       "washingTime": surveyList[1].getSelectedValue(),
@@ -209,19 +209,19 @@ class SurveyController extends GetxController {
   fetchData() async {
     bool res = await authService.getUserDetailInfo().load();
     if (res && authService.userInfoDetail.value != null) {
-      surveyList[0].setSelectValue(authService.userInfoDetail.value!.cleanHabit);
-      surveyList[1].setSelectValue(authService.userInfoDetail.value!.washingTime);
-      surveyList[2].setSelectValue(authService.userInfoDetail.value!.alcohol);
-      surveyList[3].setSelectValue(authService.userInfoDetail.value!.smoking);
-      surveyList[4].setSelectValue(authService.userInfoDetail.value!.sleepingTime);
-      surveyList[5].setSelectValue(authService.userInfoDetail.value!.sleepingHabit);
-      surveyList[6].setSelectValue(authService.userInfoDetail.value!.sleeper);
-      surveyList[7].setSelectValue(authService.userInfoDetail.value!.wakeUpTime);
-      surveyList[8].setSelectValue(authService.userInfoDetail.value!.alarm);
-      surveyList[9].setSelectValue(authService.userInfoDetail.value!.outing);
-      surveyList[10].setSelectValue(authService.userInfoDetail.value!.bug);
-      surveyList[11].setSelectValue(authService.userInfoDetail.value!.temperature);
-      surveyList[12].setSelectValue(authService.userInfoDetail.value!.friend);
+      surveyList[0].setSelectValue(authService.userInfoDetail.value?.cleanHabit);
+      surveyList[1].setSelectValue(authService.userInfoDetail.value?.washingTime);
+      surveyList[2].setSelectValue(authService.userInfoDetail.value?.alcohol);
+      surveyList[3].setSelectValue(authService.userInfoDetail.value?.smoking);
+      surveyList[4].setSelectValue(authService.userInfoDetail.value?.sleepingTime);
+      surveyList[5].setSelectValue(authService.userInfoDetail.value?.sleepingHabit);
+      surveyList[6].setSelectValue(authService.userInfoDetail.value?.sleeper);
+      surveyList[7].setSelectValue(authService.userInfoDetail.value?.wakeUpTime);
+      surveyList[8].setSelectValue(authService.userInfoDetail.value?.alarm);
+      surveyList[9].setSelectValue(authService.userInfoDetail.value?.outing);
+      surveyList[10].setSelectValue(authService.userInfoDetail.value?.bug);
+      surveyList[11].setSelectValue(authService.userInfoDetail.value?.temperature);
+      surveyList[12].setSelectValue(authService.userInfoDetail.value?.friend);
       update();
     } else {
       //신규작성
@@ -262,7 +262,7 @@ class SurveyInfo<T> {
         }
       }
 
-      userSelect = null;
+      // userSelect = null;
       return;
     } else {
       userSelect = null;
