@@ -22,25 +22,28 @@ class SurveyViewPage extends StatelessWidget {
         body: Stack(
           children: [
             Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              // crossAxisAlignment: CrossAxisAlignment.center,
-
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                const SizedBox(
+                  height: 100,
+                ),
                 Text('🙋🏻\n', style: CommonTextStyle(color: CommonColor.gray03, fontSize: 50)),
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text.rich(
-                      TextSpan(
+                    RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
                         children: <TextSpan>[
                           TextSpan(text: ' 지금부터 나의 ', style: CommonTextStyle(color: CommonColor.gray03, fontSize: 18)),
-                          TextSpan(text: '생활 패턴', style: CommonTextStyle(color: CommonColor.black, fontSize: 18, fontWeight: FontWeight.w600)),
+                          TextSpan(text: '생활 패턴', style: CommonTextStyle(color: CommonColor.black, fontSize: 18, fontWeight: FontWeight.w500)),
                           TextSpan(text: "에 대한\n", style: CommonTextStyle(color: CommonColor.gray03, fontSize: 18)),
                           TextSpan(text: '문항을 선택합니다\n\n', style: CommonTextStyle(color: CommonColor.gray03, fontSize: 18)),
-                          TextSpan(text: '대답한 문항은 게시글을 올릴 때나', style: CommonTextStyle(color: CommonColor.gray03, fontSize: 18)),
-                          // TextSpan(text: '대답한 문항은 게시글을 올릴 때나', style: CommonTextStyle(color: CommonColor.gray03, fontSize: 18)),
+                          TextSpan(text: '대답한 문항은 게시글을 올릴 때나\n', style: CommonTextStyle(color: CommonColor.gray03, fontSize: 18)),
+                          TextSpan(text: '마이페이지에서\n', style: CommonTextStyle(color: CommonColor.gray03, fontSize: 18)),
+                          TextSpan(text: '수정 / 삭제가 가능', style: CommonTextStyle(color: CommonColor.black, fontSize: 18, fontWeight: FontWeight.w500)),
+                          TextSpan(text: '하니\n 편하게 답해주세요!', style: CommonTextStyle(color: CommonColor.gray03, fontSize: 18)),
                         ],
                       ),
                     ),
@@ -53,7 +56,7 @@ class SurveyViewPage extends StatelessWidget {
               numberOfButton: 1,
               buttonText1: '시작하기',
               button1Function: () {
-                Get.toNamed(SurveyStep1ViewPage.url);
+                Get.to(() => SurveyStep1ViewPage());
               },
             )
             // Common.BottomButton(

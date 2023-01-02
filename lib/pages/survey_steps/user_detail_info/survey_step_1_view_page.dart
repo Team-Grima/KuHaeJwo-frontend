@@ -51,16 +51,14 @@ class SurveyStep1ViewPage extends StatelessWidget {
                     ],
                   ),
           ),
-          Obx(
-            () => Common.BottomButton(
-              context: context,
-              numberOfButton: 1,
-
-              buttonText1: controller.currentStep.value == controller.maxStep - 1 ? "저장하기" : '이전',
-              // buttonText2: '다음',
-              button1Function: controller.currentStep.value == controller.maxStep - 1 ? controller.saveConfigs : controller.prevStep,
-              // button2Function: controller.nextStep,
-            ),
+          Common.BottomButton(
+            context: context,
+            // buttonText1: controller.currentStep.value == controller.maxStep - 1 ? "저장하기" : '이전',
+            buttonText1: '이전',
+            buttonText2: '건너뛰기',
+            // button1Function: controller.currentStep.value == controller.maxStep - 1 ? controller.saveConfigs : controller.prevStep,
+            button1Function: controller.prevStep,
+            button2Function: controller.skip,
           ),
         ]),
       ),

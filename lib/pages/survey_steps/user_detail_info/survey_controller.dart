@@ -161,6 +161,7 @@ class SurveyController extends GetxController {
       currentStep.value++;
     } else {
       //저장하기
+      saveConfigs();
     }
   }
 
@@ -168,13 +169,20 @@ class SurveyController extends GetxController {
     if (currentStep.value > 0) {
       currentStep.value--;
     } else {
+      return;
       //저장하기
     }
   }
 
+  skip() {
+    selectSurveyItem(getCurrent(), null);
+    Future.delayed(const Duration(milliseconds: 200)).then((value) {
+      nextStep();
+    });
+  }
+
   saveConfigs() async {
     // HttpServiceManager().saveUserDetailConfigs();
-
     var res = await authService.updateUserDetailInfo({
       "cleanHabit": surveyList[0].getSelectedValue(),
       "washingTime": surveyList[1].getSelectedValue(),
@@ -191,7 +199,8 @@ class SurveyController extends GetxController {
       "friend": surveyList[12].getSelectedValue(),
     }, authService.userInfoDetail.value == null).load();
     if (res) {
-      Get.back();
+      currentStep.value = 0;
+      Get.toNamed('/home');
     } else {
       Common.showSnackbar(message: "오류가 발생했습니다");
     }

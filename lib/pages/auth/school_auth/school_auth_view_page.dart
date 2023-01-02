@@ -128,7 +128,7 @@ Widget _authButton(String text, SchoolAuthController controller) {
         child: InkWell(
           onTap: text == "인증하기" ? controller.emailAuth : () => Get.to(() => const CertificateAuthViewPage()),
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 12.r, vertical: 16.r),
+            padding: EdgeInsets.symmetric(horizontal: 12.r, vertical: 12.r),
             child: Text(
               text,
               style: CommonTextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white),

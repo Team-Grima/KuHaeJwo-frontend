@@ -64,7 +64,7 @@ Widget _uploadButton(String text, CertificateAuthController controller) {
         child: InkWell(
           onTap: controller.fileUpload,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 12.r, vertical: 16.r),
+            padding: EdgeInsets.symmetric(horizontal: 12.r, vertical: 12.r),
             child: Text(
               text,
               style: CommonTextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white),
