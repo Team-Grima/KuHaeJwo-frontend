@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pet_app/common/common.dart';
 import 'package:get/get.dart';
 import 'package:pet_app/pages/survey_steps/user_detail_info/survey_controller.dart';
@@ -25,8 +26,8 @@ class SurveyViewPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(
-                  height: 100,
+                SizedBox(
+                  height: 100.r,
                 ),
                 Text('🙋🏻\n', style: CommonTextStyle(color: CommonColor.gray03, fontSize: 50)),
                 Row(

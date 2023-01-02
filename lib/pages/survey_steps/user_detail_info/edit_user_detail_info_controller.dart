@@ -227,7 +227,7 @@ class EditUserDetailController extends GetxController {
   }
 
   selectSurveyItem(SurveyInfo current, item) {
-    current.userSelect = item;
+    current.userSelect == item ? current.userSelect = null : current.userSelect = item;
     scrollController.animateTo(scrollController.position.pixels + 90.r, duration: const Duration(milliseconds: 500), curve: Curves.ease);
     print(scrollController.position.pixels);
 

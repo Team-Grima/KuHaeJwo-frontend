@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pet_app/common/common.dart';
 import 'package:get/get.dart';
-import 'package:pet_app/pages/survey_steps/user_detail_info/%08edit_user_detail_info_controller.dart';
+import 'package:pet_app/pages/survey_steps/user_detail_info/edit_user_detail_info_controller.dart';
 
 class EditUserDetailInfoViewPage extends StatelessWidget {
   EditUserDetailInfoViewPage({Key? key, this.isEditForm = false}) : super(key: key);
@@ -33,17 +33,12 @@ class EditUserDetailInfoViewPage extends StatelessWidget {
               ],
             ),
           ),
-          Obx(
-            () => Common.BottomButton(
-              gradientVisible: true,
-              context: context,
-              numberOfButton: 1,
-
-              buttonText1: controller.currentStep.value == controller.maxStep - 1 ? "저장하기" : '이전',
-              // buttonText2: '다음',
-              button1Function: controller.currentStep.value == controller.maxStep - 1 ? controller.saveConfigs : controller.prevStep,
-              // button2Function: controller.nextStep,
-            ),
+          Common.BottomButton(
+            gradientVisible: true,
+            context: context,
+            numberOfButton: 1,
+            buttonText1: '저장하기',
+            button1Function: controller.saveConfigs,
           ),
         ]),
       ),
