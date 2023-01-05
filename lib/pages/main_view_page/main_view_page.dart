@@ -22,7 +22,7 @@ class MainPage extends StatelessWidget {
         child: Scaffold(
       body: Column(children: [
         Padding(
-          padding: EdgeInsets.symmetric(vertical: 24.r, horizontal: 24.r),
+          padding: EdgeInsets.fromLTRB(20.r, 24.r, 4.r, 24.r),
           child: Column(
             children: [
               Row(
@@ -38,29 +38,26 @@ class MainPage extends StatelessWidget {
                       )),
                   Expanded(child: searchBar(textEditingController: controller.searchTextEditingController)),
                   if (!Get.find<AuthService>().authed)
-                    Padding(
-                      padding: const EdgeInsets.only(right: 0),
-                      child: IconButton(
-                        splashRadius: 20.0.r,
-                        onPressed: () {
-                          Get.toNamed('/alarm');
-                          // print("alert");
-                        },
-                        icon: GetBuilder<MainController>(builder: (homeController) {
-                          return FutureBuilder(
-                            builder: (context, AsyncSnapshot<ServiceResponse<bool>> snapshot) {
-                              if (snapshot.hasData && (snapshot.data?.result ?? false) && snapshot.data?.value == true) {
-                                return SvgPicture.asset('assets/icons/bell.svg');
-                              } else if (snapshot.hasError || (snapshot.data?.result ?? false) == false) {
-                                return SvgPicture.asset('assets/icons/nored_bell.svg');
-                              } else {
-                                return SvgPicture.asset('assets/icons/nored_bell.svg');
-                              }
-                            },
-                            // future: HttpServiceManager().checkUnreadNotification(),
-                          );
-                        }),
-                      ),
+                    IconButton(
+                      splashRadius: 20.0.r,
+                      onPressed: () {
+                        Get.toNamed('/alarm');
+                        // print("alert");
+                      },
+                      icon: GetBuilder<MainController>(builder: (homeController) {
+                        return FutureBuilder(
+                          builder: (context, AsyncSnapshot<ServiceResponse<bool>> snapshot) {
+                            if (snapshot.hasData && (snapshot.data?.result ?? false) && snapshot.data?.value == true) {
+                              return SvgPicture.asset('assets/icons/bell.svg');
+                            } else if (snapshot.hasError || (snapshot.data?.result ?? false) == false) {
+                              return SvgPicture.asset('assets/icons/nored_bell.svg');
+                            } else {
+                              return SvgPicture.asset('assets/icons/nored_bell.svg');
+                            }
+                          },
+                          // future: HttpServiceManager().checkUnreadNotification(),
+                        );
+                      }),
                     )
                 ],
               ),
@@ -173,7 +170,7 @@ class MainPage extends StatelessWidget {
   static Widget searchBar({required textEditingController}) {
     return IntrinsicHeight(
       child: Padding(
-        padding: EdgeInsets.only(bottom: 0.r, top: 0.r, left: 12.r),
+        padding: EdgeInsets.only(left: 12.r),
         child: Row(
           children: [
             Expanded(
