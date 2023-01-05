@@ -37,7 +37,10 @@ class MainPage extends StatelessWidget {
                         color: CommonColor.mainBGGreen.withAlpha(70),
                       )),
                   Expanded(
-                    child: searchBar(textEditingController: controller.searchTextEditingController),
+                    child: GestureDetector(
+                      onTap: () => Get.toNamed("/search"),
+                      child: searchBar(textEditingController: controller.searchTextEditingController),
+                    ),
                   ),
                   if (!Get.find<AuthService>().authed)
                     IconButton(
@@ -140,22 +143,76 @@ class MainPage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 0.r),
                   // child: Expanded(
                   child: Text(
-                    mateOffer.title ?? "",
+                    // mateOffer.title ?? "",
+                    "레이크홀 여자 룸메이트 구해요",
                     style: CommonTextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                   ),
                 ),
                 // ),
                 Text(
                   overflow: TextOverflow.visible,
-                  mateOffer.body ?? "",
+                  "이런 룸메를 원해요!",
+                  // mateOffer.body ?? "",
+                  maxLines: 4,
+                  style: CommonTextStyle(fontSize: 11, color: CommonColor.gray03),
+                ),
+                Text(
+                  overflow: TextOverflow.visible,
+                  "#담배를 안피는",
+                  // mateOffer.body ?? "",
+                  maxLines: 4,
+                  style: CommonTextStyle(fontSize: 11, color: CommonColor.gray03),
+                ),
+                Text(
+                  overflow: TextOverflow.visible,
+                  "#술을 마시지 않는",
+                  // mateOffer.body ?? "",
+                  maxLines: 4,
+                  style: CommonTextStyle(fontSize: 11, color: CommonColor.gray03),
+                ),
+                Text(
+                  overflow: TextOverflow.visible,
+                  "#술을 마시지 않는",
+                  // mateOffer.body ?? "",
                   maxLines: 4,
                   style: CommonTextStyle(fontSize: 11, color: CommonColor.gray03),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    TextButton(onPressed: () => print('scrap'), child: const Text('스크랩')),
-                    TextButton(onPressed: () => print('chat'), child: const Text('채팅하기')),
+                    InkWell(
+                      onTap: () => Get.toNamed("search"),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.bookmark_border_rounded,
+                            size: 18.r,
+                          ),
+                          const Text(
+                            "스크랩",
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: InkWell(
+                        onTap: () => Get.toNamed("search"),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.chat,
+                              size: 18.r,
+                            ),
+                            const Text(
+                              "채팅하기",
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 )
               ],
@@ -181,42 +238,45 @@ class MainPage extends StatelessWidget {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                        color: Colors.transparent, borderRadius: BorderRadius.circular(20.r), border: Border.all(color: Colors.transparent, width: 0.r)),
-                    child: const Center(
-                      child: Text("게시물 검색"),
-                      // child: TextField(
-                      //   style: CommonTextStyle(color: const Color(0xFF000000), fontSize: 16, fontWeight: FontWeight.w400),
-                      //   keyboardType: TextInputType.text,
-                      //   textAlign: TextAlign.start,
-                      //   controller: textEditingController,
-                      //   decoration: InputDecoration(
-                      //       fillColor: CommonColor.gray01,
-                      //       filled: true,
-                      //       enabledBorder: OutlineInputBorder(
-                      //         borderSide: BorderSide(color: Colors.transparent, width: 0.r),
-                      //         borderRadius: BorderRadius.circular(20.r),
-                      //       ),
-                      //       focusedBorder: OutlineInputBorder(
-                      //         borderSide: BorderSide(color: Colors.transparent, width: 0.r),
-                      //         borderRadius: BorderRadius.circular(20.r),
-                      //       ),
-                      //       contentPadding: EdgeInsets.only(left: 64.r, right: 24.r, top: 11.r, bottom: 11.r),
-                      //       border:
-                      //           OutlineInputBorder(borderRadius: BorderRadius.circular(20.r), borderSide: BorderSide(color: Colors.transparent, width: 0.r)),
-                      //       isDense: true,
-                      //       hintText: "게시물 검색",
-                      //       hintStyle: CommonTextStyle(color: const Color(0xFF000000).withOpacity(0.5), fontSize: 16, fontWeight: FontWeight.w400)),
-                      // ),
+                      color: CommonColor.gray01,
+                      borderRadius: BorderRadius.circular(20.r),
+                      border: Border.all(color: Colors.transparent, width: 0.r),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: Text(
+                          "게시물 검색",
+                          style: CommonTextStyle(color: CommonColor.gray03, fontSize: 16, fontWeight: FontWeight.w400),
+                          // keyboardType: TextInputType.text,
+                          textAlign: TextAlign.start,
+                          // controller: textEditingController,
+                          // decoration: InputDecoration(
+                          //     fillColor: CommonColor.gray01,
+                          //     filled: true,
+                          //     enabledBorder: OutlineInputBorder(
+                          //       borderSide: BorderSide(color: Colors.transparent, width: 0.r),
+                          //       borderRadius: BorderRadius.circular(20.r),
+                          //     ),
+                          //     focusedBorder: OutlineInputBorder(
+                          //       borderSide: BorderSide(color: Colors.transparent, width: 0.r),
+                          //       borderRadius: BorderRadius.circular(20.r),
+                          //     ),
+                          //     contentPadding: EdgeInsets.only(left: 64.r, right: 24.r, top: 11.r, bottom: 11.r),
+                          //     border:
+                          //         OutlineInputBorder(borderRadius: BorderRadius.circular(20.r), borderSide: BorderSide(color: Colors.transparent, width: 0.r)),
+                          //     isDense: true,
+                          //     hintText: "게시물 검색",
+                          //     hintStyle: CommonTextStyle(color: const Color(0xFF000000).withOpacity(0.5), fontSize: 16, fontWeight: FontWeight.w400)),
+                        ),
+                      ),
                     ),
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Container(
-                      margin: EdgeInsets.only(left: 14.r),
-                      child: InkWell(
-                        onTap: () => Get.toNamed("/search"),
-                        child: SvgPicture.asset('assets/icons/search.svg', color: CommonColor.black),
-                      ),
+                      margin: EdgeInsets.only(left: 18.r),
+                      child: SvgPicture.asset('assets/icons/search.svg', color: CommonColor.black),
                     ),
                   ),
                 ],

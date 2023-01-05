@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pet_app/common/common.dart';
 
 import 'package:get/get.dart';
-import 'package:pet_app/pages/search/search_controller.dart';
+import 'package:kuhaejwo_app/common/common.dart';
+import 'package:kuhaejwo_app/pages/search/search_controller.dart';
 
 class SearchViewPage extends StatelessWidget {
   const SearchViewPage({Key? key}) : super(key: key);
@@ -25,6 +25,24 @@ class SearchViewPage extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+            SizedBox(
+              height: 100.r,
+            ),
+            Center(
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.search,
+                    size: 50.r,
+                    color: CommonColor.gray02,
+                  ),
+                  const Text(
+                    "게시물을 검색해보세요",
+                    style: TextStyle(color: CommonColor.gray02, fontSize: 14),
+                  )
+                ],
+              ),
             )
           ],
         ),
@@ -35,7 +53,7 @@ class SearchViewPage extends StatelessWidget {
   static Widget searchBar({required textEditingController}) {
     return IntrinsicHeight(
       child: Padding(
-        padding: EdgeInsets.only(left: 12.r),
+        padding: EdgeInsets.all(12.r),
         child: Row(
           children: [
             Expanded(
@@ -51,6 +69,7 @@ class SearchViewPage extends StatelessWidget {
                         keyboardType: TextInputType.text,
                         textAlign: TextAlign.start,
                         controller: textEditingController,
+                        autofocus: true,
                         decoration: InputDecoration(
                             fillColor: CommonColor.gray01,
                             filled: true,
@@ -71,13 +90,16 @@ class SearchViewPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // Align(
-                  //   alignment: Alignment.centerLeft,
-                  //   child: Container(
-                  //     margin: EdgeInsets.only(left: 14.r),
-                  //     child: SvgPicture.asset('assets/icons/search.svg', color: CommonColor.black),
-                  //   ),
-                  // ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: InkWell(
+                      onTap: () => Get.back(),
+                      child: Container(
+                        margin: EdgeInsets.only(left: 14.r),
+                        child: const Icon(Icons.arrow_back),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
