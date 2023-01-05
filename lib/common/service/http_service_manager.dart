@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
+import 'package:cross_file/cross_file.dart';
 import 'package:dio/dio.dart' as dio_lib;
 import 'package:flutter/foundation.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:logger/logger.dart';
 import 'package:pet_app/common/common.dart';
 import 'package:pet_app/common/utils/common_storage.dart';
@@ -254,6 +257,27 @@ class HttpServiceManager {
     } on dio_lib.DioError catch (e) {
       return ServiceResponse(result: false, errorMsg: e.response?.data["msg"] ?? '오류가 발생했습니다');
     } catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.toString());
+    }
+  }
+
+  Future<ServiceResponse<String>> postUpdateUserProfile(XFile file) async {
+    try {
+      dio_lib.FormData data = dio_lib.FormData.fromMap({
+        'file':
+            await dio_lib.MultipartFile.fromFile(file.path, filename: 'userprofile_${file.name}', contentType: MediaType('image', file.name.split('.').last))
+      });
+
+      dio_lib.Dio dio = await authDio();
+      dio.options.contentType = 'multipart/form-data';
+      dio.options.maxRedirects.isFinite;
+      var res = await (dio).post('/api/users/profileImage'.getUrl, data: File(file.toString()));
+
+      return ServiceResponse(result: true, value: res.data["data"]);
+    } on dio_lib.DioError catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.response?.data["msg"] ?? '오류가 발생했습니다');
+    } catch (e) {
+      logv(e);
       return ServiceResponse(result: false, errorMsg: e.toString());
     }
   }

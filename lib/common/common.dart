@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 
@@ -30,6 +31,78 @@ class Common {
 
   static double get sbBorderRadius {
     return 5.r;
+  }
+
+  Future<XFile?> onAddTap() async {
+    String? select = await Get.bottomSheet(
+      Container(
+        color: Colors.white,
+        child: SafeArea(
+          child: ClipRRect(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(32.r)),
+            child: IntrinsicHeight(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: () {
+                          Get.back(result: 'camera');
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(vertical: 24.r),
+                          child: Text('카메라', style: CommonTextStyle(fontSize: 16)),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 12.r),
+                    child: VerticalDivider(
+                      thickness: 1.r,
+                      width: 1.r,
+                    ),
+                  ),
+                  Expanded(
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: () {
+                          Get.back(result: 'photo');
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(vertical: 24.r),
+                          child: Text(
+                            '갤러리',
+                            style: CommonTextStyle(fontSize: 16),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    if (select == 'camera') {
+      XFile? image = await ImagePicker().pickImage(source: ImageSource.camera);
+      if (image != null) {
+        return image;
+      }
+    } else if (select == 'photo') {
+      var image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        return image;
+      }
+    }
+    return null;
   }
 
   static showSnackbar({required String message}) {

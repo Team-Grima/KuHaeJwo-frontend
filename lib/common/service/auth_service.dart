@@ -1,3 +1,4 @@
+import 'package:cross_file/cross_file.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:get/get.dart';
@@ -192,6 +193,17 @@ class AuthService {
       return true;
     } else {
       isUserConfirmed.value = false;
+      return false;
+    }
+  }
+
+  Future<bool> updateUserProfile(XFile file) async {
+    ServiceResponse<String> res = await HttpServiceManager().postUpdateUserProfile(file);
+    if (res.result) {
+      //업로드 성공
+      //getUserBasicInfo
+      return true;
+    } else {
       return false;
     }
   }

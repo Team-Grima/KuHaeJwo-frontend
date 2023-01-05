@@ -108,11 +108,16 @@ class MyPageViewPage extends StatelessWidget {
                                         children: [
                                           Row(
                                             children: [
-                                              ImageLoader(
-                                                // url: controller.authService.userData.value?.profileImageUrl ?? "",
-                                                url: "https://enter.kku.ac.kr/mbshome/mbs/wwwkr/renewal/images/identity/ui_am.png",
-                                                height: 50.r,
-                                                width: 50.r,
+                                              InkWell(
+                                                onTap: () {
+                                                  controller.changeProfile();
+                                                },
+                                                child: ImageLoader(
+                                                  // url: controller.authService.userData.value?.profileImageUrl ?? "",
+                                                  url: "https://enter.kku.ac.kr/mbshome/mbs/wwwkr/renewal/images/identity/ui_am.png",
+                                                  height: 50.r,
+                                                  width: 50.r,
+                                                ),
                                               ),
                                               SizedBox(width: 10.r),
                                               Column(
