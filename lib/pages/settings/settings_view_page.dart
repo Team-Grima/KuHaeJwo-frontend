@@ -1,10 +1,10 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:pet_app/pages/auth/login/sign_in_view_page.dart';
-import 'package:pet_app/common/common.dart';
+import 'package:kuhaejwo_app/pages/auth/login/sign_in_view_page.dart';
+import 'package:kuhaejwo_app/common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pet_app/common/service/auth_service.dart';
+import 'package:kuhaejwo_app/common/service/auth_service.dart';
 
 class SettingsViewPage extends StatelessWidget {
   const SettingsViewPage({Key? key}) : super(key: key);

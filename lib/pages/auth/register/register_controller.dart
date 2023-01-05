@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pet_app/common/common.dart';
-import 'package:pet_app/common/service/auth_service.dart';
-import 'package:pet_app/common/utils/service_response.dart';
-import 'package:pet_app/common/utils/email_format_helper.dart';
-import 'package:pet_app/common/utils/phone_format_helper.dart';
+import 'package:kuhaejwo_app/common/common.dart';
+import 'package:kuhaejwo_app/common/service/auth_service.dart';
+import 'package:kuhaejwo_app/common/utils/service_response.dart';
+import 'package:kuhaejwo_app/common/utils/email_format_helper.dart';
+import 'package:kuhaejwo_app/common/utils/phone_format_helper.dart';
 
 class RegisterController extends GetxController {
   final isEmailValid = true.obs;

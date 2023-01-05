@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:795921981755:android:f952b3082110a98efcd71e",
+        "mobilesdk_app_id": "1:795921981755:android:7b11570a1cc9c77efcd71e",
         "android_client_info": {
-          "package_name": "com.example.pet_app"
+          "package_name": "kr.grima.kuhaejwo_app"
         }
       },
       "oauth_client": [
@@ -29,6 +29,13 @@
             {
               "client_id": "795921981755-mb9p4g0ma5hflu8bnk23eu1552kfherd.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "795921981755-5sgvgidaet3u7abk393l9d81bodjn71v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "kr.grima.kuhaejwo"
+              }
             }
           ]
         }

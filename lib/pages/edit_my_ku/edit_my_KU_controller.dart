@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:pet_app/common/common.dart';
+import 'package:kuhaejwo_app/common/common.dart';
 
-import 'package:pet_app/common/service/auth_service.dart';
-import 'package:pet_app/pages/survey_steps/user_detail_info/survey_step_0_view_page.dart';
+import 'package:kuhaejwo_app/common/service/auth_service.dart';
+import 'package:kuhaejwo_app/pages/survey_steps/user_detail_info/survey_step_0_view_page.dart';
 
 class EditMyKUController extends GetxController {
   List<String> college = [

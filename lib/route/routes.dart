@@ -1,19 +1,19 @@
-import 'package:pet_app/pages/alarm/alarm_view_page.dart';
-import 'package:pet_app/pages/auth/find_password/find_password_view_page.dart';
-import 'package:pet_app/pages/auth/login/sign_in_view_page.dart';
-import 'package:pet_app/pages/auth/password_change/change_password_view_page.dart';
-import 'package:pet_app/pages/auth/register/register_view_page.dart';
-import 'package:pet_app/pages/chat/chat_room_list/chat_room_list_view_page.dart';
-import 'package:pet_app/common/http_model/GetUserResponse.dart';
+import 'package:kuhaejwo_app/pages/alarm/alarm_view_page.dart';
+import 'package:kuhaejwo_app/pages/auth/find_password/find_password_view_page.dart';
+import 'package:kuhaejwo_app/pages/auth/login/sign_in_view_page.dart';
+import 'package:kuhaejwo_app/pages/auth/password_change/change_password_view_page.dart';
+import 'package:kuhaejwo_app/pages/auth/register/register_view_page.dart';
+import 'package:kuhaejwo_app/pages/chat/chat_room_list/chat_room_list_view_page.dart';
+import 'package:kuhaejwo_app/common/http_model/GetUserResponse.dart';
 
-import 'package:pet_app/pages/main_view_page/main_view_page.dart';
-import 'package:pet_app/pages/home/home_view_page.dart';
-import 'package:pet_app/pages/mate_offer/mate_offer_create/mate_offer_view_page.dart';
-import 'package:pet_app/pages/mate_offer/mate_offer_edit/mate_offer_edit_view_page.dart';
-import 'package:pet_app/pages/splash/splash_page.dart';
-import 'package:pet_app/pages/user_post_view_page/user_post_view_page.dart';
+import 'package:kuhaejwo_app/pages/main_view_page/main_view_page.dart';
+import 'package:kuhaejwo_app/pages/home/home_view_page.dart';
+import 'package:kuhaejwo_app/pages/mate_offer/mate_offer_create/mate_offer_view_page.dart';
+import 'package:kuhaejwo_app/pages/mate_offer/mate_offer_edit/mate_offer_edit_view_page.dart';
+import 'package:kuhaejwo_app/pages/splash/splash_page.dart';
+import 'package:kuhaejwo_app/pages/user_post_view_page/user_post_view_page.dart';
 import 'package:get/get.dart';
-import 'package:pet_app/pages/survey_steps/user_detail_info/survey_step_0_view_page.dart';
+import 'package:kuhaejwo_app/pages/survey_steps/user_detail_info/survey_step_0_view_page.dart';
 
 import '../pages/auth/certificate_auth/certificate_auth_view_page.dart';
 import '../pages/auth/email_auth/email_auth_view_page.dart';

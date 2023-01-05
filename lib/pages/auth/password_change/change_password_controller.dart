@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:logger/logger.dart';
-import 'package:pet_app/common/common.dart';
-import 'package:pet_app/common/service/auth_service.dart';
+import 'package:kuhaejwo_app/common/common.dart';
+import 'package:kuhaejwo_app/common/service/auth_service.dart';
 
 class ChangePasswordController extends GetxController {
   final AuthService _authService = AuthService();

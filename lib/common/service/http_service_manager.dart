@@ -3,15 +3,16 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:cross_file/cross_file.dart';
 import 'package:dio/dio.dart' as dio_lib;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:http_parser/http_parser.dart';
+
 import 'package:logger/logger.dart';
-import 'package:pet_app/common/common.dart';
-import 'package:pet_app/common/utils/common_storage.dart';
-import 'package:pet_app/common/http_model/GetMateOfferListResponse.dart';
-import 'package:pet_app/common/http_model/GetUserResponse.dart';
-import 'package:pet_app/common/http_model/PostLoginResponse.dart';
-import 'package:pet_app/common/utils/service_response.dart';
+import 'package:kuhaejwo_app/common/common.dart';
+import 'package:kuhaejwo_app/common/utils/common_storage.dart';
+import 'package:kuhaejwo_app/common/http_model/GetMateOfferListResponse.dart';
+import 'package:kuhaejwo_app/common/http_model/GetUserResponse.dart';
+import 'package:kuhaejwo_app/common/http_model/PostLoginResponse.dart';
+import 'package:kuhaejwo_app/common/utils/service_response.dart';
 
 class HttpServiceManager {
   // dio instance
@@ -263,15 +264,31 @@ class HttpServiceManager {
 
   Future<ServiceResponse<String>> postUpdateUserProfile(XFile file) async {
     try {
-      dio_lib.FormData data = dio_lib.FormData.fromMap({
-        'file':
-            await dio_lib.MultipartFile.fromFile(file.path, filename: 'userprofile_${file.name}', contentType: MediaType('image', file.name.split('.').last))
-      });
-
+      // dio_lib.FormData data = dio_lib.FormData.fromMap({
+      //   'file':
+      //       await dio_lib.MultipartFile.fromFile(file.path, filename: 'userprofile_${file.name}', contentType: MediaType('image', file.name.split('.').last))
+      // });
+      File a = File(file.path);
       dio_lib.Dio dio = await authDio();
       dio.options.contentType = 'multipart/form-data';
-      dio.options.maxRedirects.isFinite;
-      var res = await (dio).post('/api/users/profileImage'.getUrl, data: File(file.toString()));
+
+      dio_lib.FormData data = dio_lib.FormData.fromMap({"file": await dio_lib.MultipartFile.fromFile(a.path, filename: "dd")});
+      var res = await dio.post('/api/users/profileImage'.getUrl, data: data);
+
+      return ServiceResponse(result: true, value: res.data["data"]);
+    } on dio_lib.DioError catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.response?.data["msg"] ?? '오류가 발생했습니다');
+    } catch (e) {
+      logv(e);
+      return ServiceResponse(result: false, errorMsg: e.toString());
+    }
+  }
+
+  Future<ServiceResponse<String>> getUserProfileImage() async {
+    try {
+      var res = await (await authDio()).get('/api/users/profileImage'.getUrl);
+
+      var i = Image.memory(base64Decode(res.data));
 
       return ServiceResponse(result: true, value: res.data["data"]);
     } on dio_lib.DioError catch (e) {

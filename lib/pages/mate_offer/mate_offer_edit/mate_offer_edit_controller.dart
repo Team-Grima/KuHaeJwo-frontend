@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pet_app/common/service/auth_service.dart';
-import 'package:pet_app/pages/mate_offer/mate_offer_create/mate_offer_view_page.dart';
+import 'package:kuhaejwo_app/common/service/auth_service.dart';
+import 'package:kuhaejwo_app/pages/mate_offer/mate_offer_create/mate_offer_view_page.dart';
 
 class MateOfferEditController extends GetxController {
   AuthService authService = AuthService();

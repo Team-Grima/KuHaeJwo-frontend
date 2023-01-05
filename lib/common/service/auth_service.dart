@@ -3,15 +3,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:get/get.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-import 'package:pet_app/common/common.dart';
-import 'package:pet_app/common/utils/common_storage.dart';
-import 'package:pet_app/common/http_model/GetUserResponse.dart';
-import 'package:pet_app/common/http_model/PostLoginResponse.dart';
-import 'package:pet_app/common/http_model/UserAuthInfo.dart';
-import 'package:pet_app/common/service/http_service_manager.dart';
+import 'package:kuhaejwo_app/common/common.dart';
+import 'package:kuhaejwo_app/common/utils/common_storage.dart';
+import 'package:kuhaejwo_app/common/http_model/GetUserResponse.dart';
+import 'package:kuhaejwo_app/common/http_model/PostLoginResponse.dart';
+import 'package:kuhaejwo_app/common/http_model/UserAuthInfo.dart';
+import 'package:kuhaejwo_app/common/service/http_service_manager.dart';
 
-import 'package:pet_app/common/utils/service_response.dart';
-import 'package:pet_app/pages/auth/login/sign_in_view_page.dart';
+import 'package:kuhaejwo_app/common/utils/service_response.dart';
+import 'package:kuhaejwo_app/pages/auth/login/sign_in_view_page.dart';
 
 class AuthService {
   bool get authed => CommonStorageKey.userId.read.value != null;
@@ -198,7 +198,8 @@ class AuthService {
   }
 
   Future<bool> updateUserProfile(XFile file) async {
-    ServiceResponse<String> res = await HttpServiceManager().postUpdateUserProfile(file);
+    // ServiceResponse<String> res = await HttpServiceManager().postUpdateUserProfile(file);
+    ServiceResponse<String> res = await HttpServiceManager().getUserProfileImage();
     if (res.result) {
       //업로드 성공
       //getUserBasicInfo

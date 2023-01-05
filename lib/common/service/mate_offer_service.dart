@@ -1,9 +1,9 @@
 
 // import 'package:get/get.dart';
 
-// import 'package:pet_app/common/common.dart';
-// import 'package:pet_app/common/http_model/GetUserResponse.dart';
-// import 'package:pet_app/common/service/http_service_manager.dart';
+// import 'package:kuhaejwo_app/common/common.dart';
+// import 'package:kuhaejwo_app/common/http_model/GetUserResponse.dart';
+// import 'package:kuhaejwo_app/common/service/http_service_manager.dart';
 
 // class MateOfferService {
 

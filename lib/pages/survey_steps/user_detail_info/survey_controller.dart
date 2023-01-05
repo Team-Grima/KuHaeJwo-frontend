@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:pet_app/common/common.dart';
-import 'package:pet_app/common/enum/survey_enums.dart';
-import 'package:pet_app/common/service/auth_service.dart';
+import 'package:kuhaejwo_app/common/common.dart';
+import 'package:kuhaejwo_app/common/enum/survey_enums.dart';
+import 'package:kuhaejwo_app/common/service/auth_service.dart';
 
 class SurveyController extends GetxController {
   AuthService authService = AuthService();

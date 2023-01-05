@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pet_app/common/common.dart';
+import 'package:kuhaejwo_app/common/common.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pet_app/common/http_model/GetUserResponse.dart';
-import 'package:pet_app/common/utils/image_loader.dart';
-import 'package:pet_app/common/service/auth_service.dart';
-import 'package:pet_app/common/utils/service_response.dart';
-import 'package:pet_app/pages/main_view_page/main_controller.dart';
+import 'package:kuhaejwo_app/common/http_model/GetUserResponse.dart';
+import 'package:kuhaejwo_app/common/utils/image_loader.dart';
+import 'package:kuhaejwo_app/common/service/auth_service.dart';
+import 'package:kuhaejwo_app/common/utils/service_response.dart';
+import 'package:kuhaejwo_app/pages/main_view_page/main_controller.dart';
 import 'package:get/get.dart';
-import 'package:pet_app/pages/user_post_view_page/user_post_view_page.dart';
-import 'package:pet_app/route/routes.dart';
+import 'package:kuhaejwo_app/pages/user_post_view_page/user_post_view_page.dart';
+import 'package:kuhaejwo_app/route/routes.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);

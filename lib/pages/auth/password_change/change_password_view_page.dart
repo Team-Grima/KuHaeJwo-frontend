@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pet_app/pages/auth/password_change/change_password_controller.dart';
-import 'package:pet_app/common/common.dart';
+import 'package:kuhaejwo_app/pages/auth/password_change/change_password_controller.dart';
+import 'package:kuhaejwo_app/common/common.dart';
 
 class ChangePWViewPage extends StatelessWidget {
   static const String url = "/change-pw";

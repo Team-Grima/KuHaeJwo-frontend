@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pet_app/common/common.dart';
-import 'package:pet_app/pages/chat/chat_room/chat_room_view_page.dart';
+import 'package:kuhaejwo_app/common/common.dart';
+import 'package:kuhaejwo_app/pages/chat/chat_room/chat_room_view_page.dart';
 
-import 'package:pet_app/pages/chat/chat_room_list/chat_room_list_controller.dart';
+import 'package:kuhaejwo_app/pages/chat/chat_room_list/chat_room_list_controller.dart';
 import 'package:get/get.dart';
-import 'package:pet_app/pages/chat/chat_room_list/user_list_page.dart';
-import 'package:pet_app/common/service/auth_service.dart';
+import 'package:kuhaejwo_app/pages/chat/chat_room_list/user_list_page.dart';
+import 'package:kuhaejwo_app/common/service/auth_service.dart';
 
 class ChatRoomListViewPage extends StatelessWidget {
   const ChatRoomListViewPage({Key? key}) : super(key: key);

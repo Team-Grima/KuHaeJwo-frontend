@@ -1,5 +1,5 @@
-name: pet_app
-description: pet_app
+name: kuhaejwo_app
+description: 건국대학교 쿨하우스 룸매 매칭 서비스
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 

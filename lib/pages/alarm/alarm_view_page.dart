@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pet_app/pages/alarm/alarm_controller.dart';
-import 'package:pet_app/common/common.dart';
+import 'package:kuhaejwo_app/pages/alarm/alarm_controller.dart';
+import 'package:kuhaejwo_app/common/common.dart';
 
 import 'package:get/get.dart';
 

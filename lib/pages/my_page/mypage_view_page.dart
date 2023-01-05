@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pet_app/common/common.dart';
+import 'package:kuhaejwo_app/common/common.dart';
 import 'package:get/get.dart';
-import 'package:pet_app/common/utils/common_storage.dart';
-import 'package:pet_app/common/utils/image_loader.dart';
-import 'package:pet_app/pages/auth/school_auth/school_auth_view_page.dart';
-import 'package:pet_app/pages/edit_my_ku/edit_my_KU_view_page.dart';
-import 'package:pet_app/pages/my_page/mypage_controller.dart';
-import 'package:pet_app/pages/survey_steps/room_mate_prefer_survey/roommate_survey_view_page.dart';
-import 'package:pet_app/pages/survey_steps/user_detail_info/edit_user_detail_info_view_page.dart';
+import 'package:kuhaejwo_app/common/utils/common_storage.dart';
+import 'package:kuhaejwo_app/common/utils/image_loader.dart';
+import 'package:kuhaejwo_app/pages/auth/school_auth/school_auth_view_page.dart';
+import 'package:kuhaejwo_app/pages/edit_my_ku/edit_my_KU_view_page.dart';
+import 'package:kuhaejwo_app/pages/my_page/mypage_controller.dart';
+import 'package:kuhaejwo_app/pages/survey_steps/room_mate_prefer_survey/roommate_survey_view_page.dart';
+import 'package:kuhaejwo_app/pages/survey_steps/user_detail_info/edit_user_detail_info_view_page.dart';
 
 import '../survey_steps/user_detail_info/survey_step_0_view_page.dart';
 
@@ -38,7 +38,7 @@ class MyPageViewPage extends StatelessWidget {
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5.r),
-                            color: CommonColor.gray06,
+                            color: CommonColor.black.withOpacity(0.6),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.grey.withOpacity(0.7),

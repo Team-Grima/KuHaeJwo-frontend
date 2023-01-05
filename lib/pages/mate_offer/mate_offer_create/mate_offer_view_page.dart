@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pet_app/common/common.dart';
+import 'package:kuhaejwo_app/common/common.dart';
 
 import 'package:get/get.dart';
-import 'package:pet_app/common/http_model/GetUserResponse.dart';
-import 'package:pet_app/common/utils/image_loader.dart';
-import 'package:pet_app/pages/edit_my_ku/edit_my_KU_view_page.dart';
-import 'package:pet_app/pages/mate_offer/mate_offer_create/mate_offer_controller.dart';
-import 'package:pet_app/pages/mate_offer/mate_offer_edit/mate_offer_edit_view_page.dart';
-import 'package:pet_app/pages/survey_steps/room_mate_prefer_survey/roommate_survey_view_page.dart';
-import 'package:pet_app/pages/survey_steps/user_detail_info/survey_step_1_view_page.dart';
+import 'package:kuhaejwo_app/common/http_model/GetUserResponse.dart';
+import 'package:kuhaejwo_app/common/utils/image_loader.dart';
+import 'package:kuhaejwo_app/pages/edit_my_ku/edit_my_KU_view_page.dart';
+import 'package:kuhaejwo_app/pages/mate_offer/mate_offer_create/mate_offer_controller.dart';
+import 'package:kuhaejwo_app/pages/mate_offer/mate_offer_edit/mate_offer_edit_view_page.dart';
+import 'package:kuhaejwo_app/pages/survey_steps/room_mate_prefer_survey/roommate_survey_view_page.dart';
+import 'package:kuhaejwo_app/pages/survey_steps/user_detail_info/survey_step_1_view_page.dart';
 
 class MateOfferViewPage extends StatelessWidget {
   const MateOfferViewPage({Key? key}) : super(key: key);

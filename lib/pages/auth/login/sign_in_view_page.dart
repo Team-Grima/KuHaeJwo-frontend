@@ -3,10 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pet_app/pages/auth/find_password/find_password_view_page.dart';
-import 'package:pet_app/pages/auth/login/sign_in_controller.dart';
-import 'package:pet_app/pages/auth/register/register_view_page.dart';
-import 'package:pet_app/common/common.dart';
+import 'package:kuhaejwo_app/pages/auth/find_password/find_password_view_page.dart';
+import 'package:kuhaejwo_app/pages/auth/login/sign_in_controller.dart';
+import 'package:kuhaejwo_app/pages/auth/register/register_view_page.dart';
+import 'package:kuhaejwo_app/common/common.dart';
 
 /*
 기본 left, right padding값: 24.w

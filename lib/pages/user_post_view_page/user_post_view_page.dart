@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:pet_app/common/common.dart';
+import 'package:kuhaejwo_app/common/common.dart';
 
 import 'package:get/get.dart';
-import 'package:pet_app/common/http_model/GetUserResponse.dart';
-import 'package:pet_app/common/utils/image_loader.dart';
-import 'package:pet_app/pages/user_post_view_page/user_post_controller.dart';
+import 'package:kuhaejwo_app/common/http_model/GetUserResponse.dart';
+import 'package:kuhaejwo_app/common/utils/image_loader.dart';
+import 'package:kuhaejwo_app/pages/user_post_view_page/user_post_controller.dart';
 
 class UserPostViewPage extends StatelessWidget {
   const UserPostViewPage({Key? key}) : super(key: key);

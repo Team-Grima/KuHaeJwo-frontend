@@ -3,14 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
-import 'package:pet_app/pages/chat/chat_room_list/chat_room_list_view_page.dart';
-import 'package:pet_app/common/common.dart';
+import 'package:kuhaejwo_app/pages/chat/chat_room_list/chat_room_list_view_page.dart';
+import 'package:kuhaejwo_app/common/common.dart';
 
-import 'package:pet_app/pages/main_view_page/main_view_page.dart';
-import 'package:pet_app/pages/home/home_controller.dart';
-import 'package:pet_app/pages/mate_offer/mate_offer_create/mate_offer_view_page.dart';
-import 'package:pet_app/pages/my_page/mypage_view_page.dart';
-import 'package:pet_app/pages/settings/settings_view_page.dart';
+import 'package:kuhaejwo_app/pages/main_view_page/main_view_page.dart';
+import 'package:kuhaejwo_app/pages/home/home_controller.dart';
+import 'package:kuhaejwo_app/pages/mate_offer/mate_offer_create/mate_offer_view_page.dart';
+import 'package:kuhaejwo_app/pages/my_page/mypage_view_page.dart';
+import 'package:kuhaejwo_app/pages/settings/settings_view_page.dart';
 
 class HomeViewPage extends StatelessWidget {
   const HomeViewPage({Key? key}) : super(key: key);

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:pet_app/common/common.dart';
-import 'package:pet_app/pages/auth/certificate_auth/certificate_auth_controller.dart';
+import 'package:kuhaejwo_app/common/common.dart';
+import 'package:kuhaejwo_app/pages/auth/certificate_auth/certificate_auth_controller.dart';
 
 /*
 기본 left, right padding값: 24.r

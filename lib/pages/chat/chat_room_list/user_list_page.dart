@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
-import 'package:pet_app/pages/chat/chat_room/chat_room_view_page.dart';
-import 'package:pet_app/common/common.dart';
+import 'package:kuhaejwo_app/pages/chat/chat_room/chat_room_view_page.dart';
+import 'package:kuhaejwo_app/common/common.dart';
 
 class UsersPage extends StatelessWidget {
   const UsersPage({super.key});

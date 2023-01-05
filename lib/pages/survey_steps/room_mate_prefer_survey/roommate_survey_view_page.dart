@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pet_app/common/common.dart';
+import 'package:kuhaejwo_app/common/common.dart';
 import 'package:get/get.dart';
-import 'package:pet_app/pages/survey_steps/room_mate_prefer_survey/roommate_survey_controller.dart';
+import 'package:kuhaejwo_app/pages/survey_steps/room_mate_prefer_survey/roommate_survey_controller.dart';
 
 class RoomMateSurveyViewPage extends StatelessWidget {
   RoomMateSurveyViewPage({Key? key, required this.isEditForm}) : super(key: key);

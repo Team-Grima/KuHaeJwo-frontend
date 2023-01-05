@@ -1,4 +1,4 @@
-import 'package:pet_app/common/http_model/GetUserResponse.dart';
+import 'package:kuhaejwo_app/common/http_model/GetUserResponse.dart';
 
 class GetMateOfferListResponse {
   final List<MateOfferResponse>? data;

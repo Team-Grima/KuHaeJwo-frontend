@@ -12,7 +12,7 @@ import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:pet_app/pages/chat/chat_room/chat_room_controller.dart';
+import 'package:kuhaejwo_app/pages/chat/chat_room/chat_room_controller.dart';
 
 class ChatRoomViewPage extends StatelessWidget {
   ChatRoomViewPage({Key? key, required this.room}) : super(key: key);

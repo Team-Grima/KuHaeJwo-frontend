@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pet_app/common/common.dart';
+import 'package:kuhaejwo_app/common/common.dart';
 import 'package:get/get.dart';
-import 'package:pet_app/pages/survey_steps/user_detail_info/edit_user_detail_info_controller.dart';
+import 'package:kuhaejwo_app/pages/survey_steps/user_detail_info/edit_user_detail_info_controller.dart';
 
 class EditUserDetailInfoViewPage extends StatelessWidget {
   EditUserDetailInfoViewPage({Key? key, this.isEditForm = false}) : super(key: key);

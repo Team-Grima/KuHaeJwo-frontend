@@ -1,9 +1,9 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pet_app/common/common.dart';
+import 'package:kuhaejwo_app/common/common.dart';
 import 'package:get/get.dart';
-import 'package:pet_app/pages/edit_my_ku/edit_my_KU_controller.dart';
+import 'package:kuhaejwo_app/pages/edit_my_ku/edit_my_KU_controller.dart';
 
 class EditMyKUViewPage extends StatelessWidget {
   EditMyKUViewPage({Key? key, required this.isEditForm}) : super(key: key);

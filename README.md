@@ -1,4 +1,4 @@
-# pet_app
+# kuhaejwo_app
 
 A new Flutter project.
 
