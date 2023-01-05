@@ -19,216 +19,215 @@ class MyPageViewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MyPageController controller = Get.put(MyPageController());
-    return SafeArea(
-        child: Scaffold(
-            backgroundColor: CommonColor.white,
-            appBar: CommonAppBar(
-              backgroundColor: CommonColor.white,
-              title: '마이페이지',
-              context: context,
-            ),
-            body: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.r),
-              child: Column(
-                children: [
-                  SizedBox(height: 20.r),
-                  IntrinsicHeight(
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.r),
-                            color: CommonColor.black.withOpacity(0.6),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.7),
-                                spreadRadius: 0,
-                                blurRadius: 5.0,
-                                offset: const Offset(0, 5), // changes position of shadow),
-                              )
-                            ],
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: 16.r),
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(top: 8.0.r, bottom: 15.r),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "건국대학교",
-                                      style: CommonTextStyle(color: CommonColor.white, fontSize: 12),
-                                    ),
-                                    Obx(
-                                      () => CommonStorageKey.accessToken.read.value != null
-                                          ? ClipRRect(
-                                              borderRadius: BorderRadius.circular(5.r),
-                                              child: Material(
-                                                color: const Color.fromRGBO(0, 0, 0, 1).withOpacity(0.6),
-                                                child: InkWell(
-                                                  onTap: () {
-                                                    Get.to(() => EditMyKUViewPage(
-                                                          isEditForm: true,
-                                                        ));
-                                                  },
-                                                  child: Container(
-                                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.r)),
-                                                    padding: EdgeInsets.symmetric(horizontal: 12.r, vertical: 5.r),
-                                                    child: Row(
-                                                      children: [
-                                                        Image.asset(
-                                                          "assets/images/edit_pencil.png",
-                                                          width: 8.r,
-                                                          height: 8.r,
-                                                        ),
-                                                        SizedBox(width: 5.r),
-                                                        Text(
-                                                          controller.authService.userBasicInfo.value != null ? "수정" : "정보 입력하기",
-                                                          style: CommonTextStyle(
-                                                            color: CommonColor.white,
-                                                            fontSize: 10,
-                                                            fontWeight: FontWeight.w500,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-                                          : Container(),
-                                    ),
-                                  ],
+    return Scaffold(
+        backgroundColor: CommonColor.white,
+        appBar: CommonAppBar(
+          backgroundColor: CommonColor.white,
+          title: '마이페이지',
+          context: context,
+        ),
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12.r),
+          child: Column(
+            children: [
+              SizedBox(height: 20.r),
+              IntrinsicHeight(
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.r),
+                        color: CommonColor.black.withOpacity(0.6),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.7),
+                            spreadRadius: 0,
+                            blurRadius: 5.0,
+                            offset: const Offset(0, 5), // changes position of shadow),
+                          )
+                        ],
+                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 16.r),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 8.0.r, bottom: 15.r),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "건국대학교",
+                                  style: CommonTextStyle(color: CommonColor.white, fontSize: 12),
                                 ),
-                              ),
-                              Obx(
-                                () => !controller.authService.userBasicInfoIsNeverAdded()
-                                    ? Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              InkWell(
-                                                onTap: () {
-                                                  controller.changeProfile();
-                                                },
-                                                child: ImageLoader(
-                                                  // url: controller.authService.userData.value?.profileImageUrl ?? "",
-                                                  url: "https://enter.kku.ac.kr/mbshome/mbs/wwwkr/renewal/images/identity/ui_am.png",
-                                                  height: 50.r,
-                                                  width: 50.r,
+                                Obx(
+                                  () => CommonStorageKey.accessToken.read.value != null
+                                      ? ClipRRect(
+                                          borderRadius: BorderRadius.circular(5.r),
+                                          child: Material(
+                                            color: const Color.fromRGBO(0, 0, 0, 1).withOpacity(0.6),
+                                            child: InkWell(
+                                              onTap: () {
+                                                Get.to(() => EditMyKUViewPage(
+                                                      isEditForm: true,
+                                                    ));
+                                              },
+                                              child: Container(
+                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.r)),
+                                                padding: EdgeInsets.symmetric(horizontal: 12.r, vertical: 5.r),
+                                                child: Row(
+                                                  children: [
+                                                    Image.asset(
+                                                      "assets/images/edit_pencil.png",
+                                                      width: 8.r,
+                                                      height: 8.r,
+                                                    ),
+                                                    SizedBox(width: 5.r),
+                                                    Text(
+                                                      controller.authService.userBasicInfo.value != null ? "수정" : "정보 입력하기",
+                                                      style: CommonTextStyle(
+                                                        color: CommonColor.white,
+                                                        fontSize: 10,
+                                                        fontWeight: FontWeight.w500,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                              SizedBox(width: 10.r),
-                                              Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                            ),
+                                          ),
+                                        )
+                                      : Container(),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Obx(
+                            () => !controller.authService.userBasicInfoIsNeverAdded()
+                                ? Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              controller.changeProfile();
+                                            },
+                                            child: ImageLoader(
+                                              // url: controller.authService.userData.value?.profileImageUrl ?? "",
+                                              url: "https://enter.kku.ac.kr/mbshome/mbs/wwwkr/renewal/images/identity/ui_am.png",
+                                              height: 50.r,
+                                              width: 50.r,
+                                            ),
+                                          ),
+                                          SizedBox(width: 10.r),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                crossAxisAlignment: CrossAxisAlignment.end,
                                                 children: [
-                                                  Row(
-                                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                                    children: [
-                                                      Text(
-                                                        controller.authService.userAuthInfo.value?.name ?? "삭제된 닉네임",
-                                                        style: CommonTextStyle(fontSize: 18.r, color: CommonColor.white),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                                    children: [
-                                                      Text(
-                                                        "${controller.authService.userBasicInfo.value?.age ?? 1}살",
-                                                        style: CommonTextStyle(fontSize: 12.r, color: CommonColor.gray03),
-                                                      ),
-                                                    ],
+                                                  Text(
+                                                    controller.authService.userAuthInfo.value?.name ?? "삭제된 닉네임",
+                                                    style: CommonTextStyle(fontSize: 18.r, color: CommonColor.white),
                                                   ),
                                                 ],
-                                              )
+                                              ),
+                                              Row(
+                                                crossAxisAlignment: CrossAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    "${controller.authService.userBasicInfo.value?.age ?? 1}살",
+                                                    style: CommonTextStyle(fontSize: 12.r, color: CommonColor.gray03),
+                                                  ),
+                                                ],
+                                              ),
                                             ],
-                                          ),
-                                          SizedBox(height: 60.r),
-                                          Padding(
-                                            padding: EdgeInsets.only(bottom: 21.r),
-                                            child: Column(
+                                          )
+                                        ],
+                                      ),
+                                      SizedBox(height: 60.r),
+                                      Padding(
+                                        padding: EdgeInsets.only(bottom: 21.r),
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              crossAxisAlignment: CrossAxisAlignment.end,
                                               children: [
-                                                Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                                  children: [
-                                                    Text(
-                                                      controller.authService.userBasicInfo.value?.college ?? "",
-                                                      style: CommonTextStyle(fontSize: 12.r, color: CommonColor.white),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                                  children: [
-                                                    Text(
-                                                      controller.authService.userBasicInfo.value?.department ?? "",
-                                                      style: CommonTextStyle(fontSize: 12.r, color: CommonColor.white),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                                  children: [
-                                                    Text(
-                                                      controller.authService.userBasicInfo.value?.studentId ?? "",
-                                                      style: CommonTextStyle(fontSize: 12.r, color: CommonColor.white),
-                                                    ),
-                                                  ],
+                                                Text(
+                                                  controller.authService.userBasicInfo.value?.college ?? "",
+                                                  style: CommonTextStyle(fontSize: 12.r, color: CommonColor.white),
                                                 ),
                                               ],
                                             ),
-                                          )
-                                        ],
-                                      )
-                                    : Column(
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(top: 40.r, bottom: 75.r),
-                                            child: Text(
-                                              CommonStorageKey.accessToken.read.value == null ? "로그인이 필요합니다." : "우측 상단의 정보 입력하기 버튼으로 정보를 입력해주세요",
-                                              style: CommonTextStyle(fontSize: 12.r, color: CommonColor.white),
+                                            Row(
+                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                              children: [
+                                                Text(
+                                                  controller.authService.userBasicInfo.value?.department ?? "",
+                                                  style: CommonTextStyle(fontSize: 12.r, color: CommonColor.white),
+                                                ),
+                                              ],
                                             ),
-                                          ),
-                                        ],
+                                            Row(
+                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                              children: [
+                                                Text(
+                                                  controller.authService.userBasicInfo.value?.studentId ?? "",
+                                                  style: CommonTextStyle(fontSize: 12.r, color: CommonColor.white),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                : Column(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(top: 40.r, bottom: 75.r),
+                                        child: Text(
+                                          CommonStorageKey.accessToken.read.value == null ? "로그인이 필요합니다." : "우측 상단의 정보 입력하기 버튼으로 정보를 입력해주세요",
+                                          style: CommonTextStyle(fontSize: 12.r, color: CommonColor.white),
+                                        ),
                                       ),
-                              ),
-                            ],
+                                    ],
+                                  ),
                           ),
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: IgnorePointer(
-                            child: Image.asset(
-                              "assets/images/konkuk_logo.png",
-                              width: 170.r,
-                            ),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Container(
-                    height: 16.r,
-                  ),
-                  checkbox("내 소개 수정하기", context),
-                  checkbox(
-                    "내가 원하는 룸메 수정하기",
-                    context,
-                  ),
-                  checkbox(
-                    "계정 인증 확인하기",
-                    context,
-                  ),
-                  checkbox(
-                    "내 소개 설문하기",
-                    context,
-                  ),
-                ],
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: IgnorePointer(
+                        child: Image.asset(
+                          "assets/images/konkuk_logo.png",
+                          width: 170.r,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )));
+              Container(
+                height: 16.r,
+              ),
+              checkbox("내 소개 수정하기", context),
+              checkbox(
+                "내가 원하는 룸메 수정하기",
+                context,
+              ),
+              checkbox(
+                "계정 인증 확인하기",
+                context,
+              ),
+              checkbox(
+                "내 소개 설문하기",
+                context,
+              ),
+            ],
+          ),
+        ));
   }
 
   checkbox(String header, BuildContext context) {

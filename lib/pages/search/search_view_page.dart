@@ -12,39 +12,40 @@ class SearchViewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SearchController controller = Get.put(SearchController());
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: CommonColor.white,
-        body: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: searchBar(
-                    textEditingController: controller.searchTextEditingController,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 100.r,
-            ),
-            Center(
-              child: Column(
+    return Container(
+      color: CommonColor.white,
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: CommonColor.white,
+          body: Column(
+            children: [
+              Row(
                 children: [
-                  Icon(
-                    Icons.search,
-                    size: 50.r,
-                    color: CommonColor.gray02,
+                  Expanded(
+                    child: searchBar(
+                      textEditingController: controller.searchTextEditingController,
+                    ),
                   ),
-                  const Text(
-                    "게시물을 검색해보세요",
-                    style: TextStyle(color: CommonColor.gray02, fontSize: 14),
-                  )
                 ],
               ),
-            )
-          ],
+              SizedBox(height: 100.r),
+              Center(
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.search,
+                      size: 50.r,
+                      color: CommonColor.gray02,
+                    ),
+                    const Text(
+                      "게시물을 검색해보세요",
+                      style: TextStyle(color: CommonColor.gray02, fontSize: 14),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

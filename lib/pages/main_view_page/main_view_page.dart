@@ -22,7 +22,7 @@ class MainPage extends StatelessWidget {
         child: Scaffold(
       body: Column(children: [
         Padding(
-          padding: EdgeInsets.fromLTRB(20.r, 24.r, 4.r, 24.r),
+          padding: EdgeInsets.fromLTRB(20.r, 0, 4.r, 24.r),
           child: Column(
             children: [
               Row(

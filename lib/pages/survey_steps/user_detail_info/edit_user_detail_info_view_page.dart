@@ -11,37 +11,35 @@ class EditUserDetailInfoViewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     EditUserDetailController controller = Get.put(EditUserDetailController());
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: CommonColor.white,
-        appBar: CommonAppBar(
-          context: context,
-          title: "내 소개 하기",
-        ),
-        body: Stack(children: [
-          SingleChildScrollView(
-            controller: controller.scrollController,
-            child: Column(
-              children: [
-                ...List.generate(
-                  controller.maxStep,
-                  (index) {
-                    return userDetailSelectFragment(index, controller, controller.surveyList[index]);
-                  },
-                ),
-                SizedBox(height: 70.r)
-              ],
-            ),
-          ),
-          Common.BottomButton(
-            gradientVisible: true,
-            context: context,
-            numberOfButton: 1,
-            buttonText1: '저장하기',
-            button1Function: controller.saveConfigs,
-          ),
-        ]),
+    return Scaffold(
+      backgroundColor: CommonColor.white,
+      appBar: CommonAppBar(
+        context: context,
+        title: "내 소개 하기",
       ),
+      body: Stack(children: [
+        SingleChildScrollView(
+          controller: controller.scrollController,
+          child: Column(
+            children: [
+              ...List.generate(
+                controller.maxStep,
+                (index) {
+                  return userDetailSelectFragment(index, controller, controller.surveyList[index]);
+                },
+              ),
+              SizedBox(height: 70.r)
+            ],
+          ),
+        ),
+        Common.BottomButton(
+          gradientVisible: true,
+          context: context,
+          numberOfButton: 1,
+          buttonText1: '저장하기',
+          button1Function: controller.saveConfigs,
+        ),
+      ]),
     );
   }
 }

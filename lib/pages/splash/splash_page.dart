@@ -71,7 +71,6 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     moveToMain();
-    // AuthService().login("asdf@d.com", "asdfasdf");
     super.onInit();
   }
 

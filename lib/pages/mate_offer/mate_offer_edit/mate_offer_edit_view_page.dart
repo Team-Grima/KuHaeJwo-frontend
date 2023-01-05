@@ -11,57 +11,55 @@ class MateOfferEditViewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MateOfferEditController controller = Get.put(MateOfferEditController());
-    return SafeArea(
-      child: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
-        child: Scaffold(
-          backgroundColor: CommonColor.white,
-          appBar: CommonAppBar(
-            context: context, title: controller.authService.myMateOffer.value?.title ?? "제목이 없어요",
-            // title: "내 쿠해줘 게시글 미리보기",
-          ),
-          body: Stack(
-            children: [
-              SingleChildScrollView(
-                child: Obx(
-                  () => controller.authService.userPrefer.value != null && controller.authService.myMateOffer.value != null
-                      ? IntrinsicHeight(
-                          child: Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 16.r),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  headerTextEditingFragment(
-                                    hintText: 'asdfasdfasdfasdfasdf',
-                                    textEditingController: controller.headerEditingController,
-                                    isValid: true.obs,
-                                  ),
-                                  SizedBox(height: 20.r),
-                                  bodyTextEditingFragment(
-                                    hintText: controller.getBodyString() == "" ? "내용을 입력해주세요" : "body",
-                                    textEditingController: controller.bodyEditingController,
-                                    isValid: true.obs,
-                                  )
-                                ],
-                              ),
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        backgroundColor: CommonColor.white,
+        appBar: CommonAppBar(
+          context: context, title: controller.authService.myMateOffer.value?.title ?? "제목이 없어요",
+          // title: "내 쿠해줘 게시글 미리보기",
+        ),
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Obx(
+                () => controller.authService.userPrefer.value != null && controller.authService.myMateOffer.value != null
+                    ? IntrinsicHeight(
+                        child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 16.r),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                headerTextEditingFragment(
+                                  hintText: 'asdfasdfasdfasdfasdf',
+                                  textEditingController: controller.headerEditingController,
+                                  isValid: true.obs,
+                                ),
+                                SizedBox(height: 20.r),
+                                bodyTextEditingFragment(
+                                  hintText: controller.getBodyString() == "" ? "내용을 입력해주세요" : "body",
+                                  textEditingController: controller.bodyEditingController,
+                                  isValid: true.obs,
+                                )
+                              ],
                             ),
-                          ],
-                        ))
-                      : const Text("신규작성 필요.. 로그인필요.."),
-                ),
+                          ),
+                        ],
+                      ))
+                    : const Text("신규작성 필요.. 로그인필요.."),
               ),
-              Common.BottomButton(
-                context: context,
-                numberOfButton: 2,
-                buttonText1: "재등록하기",
-                buttonText2: "재등록하기",
-              ),
-            ],
-          ),
+            ),
+            Common.BottomButton(
+              context: context,
+              numberOfButton: 2,
+              buttonText1: "재등록하기",
+              buttonText2: "재등록하기",
+            ),
+          ],
         ),
       ),
     );

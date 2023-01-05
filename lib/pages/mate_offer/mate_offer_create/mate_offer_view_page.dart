@@ -18,79 +18,77 @@ class MateOfferViewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MateOfferController controller = Get.put(MateOfferController());
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: CommonColor.white,
-        appBar: CommonAppBar(context: context, title: controller.authService.myMateOffer.value?.title ?? "제목이 없어요",
-            // title: "내 쿠해줘 게시글 미리보기",
-            actions: [
-              Container(
-                margin: EdgeInsets.only(left: 18.r),
-                child: InkWell(
-                  onTap: () {
-                    Get.toNamed(MateOfferEditViewPage.url);
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 18.r, horizontal: 12.r),
-                    child: SvgPicture.asset(
-                      "assets/icons/edit_mate_offer_button.svg",
-                      color: CommonColor.black,
-                    ),
+    return Scaffold(
+      backgroundColor: CommonColor.white,
+      appBar: CommonAppBar(context: context, title: controller.authService.myMateOffer.value?.title ?? "제목이 없어요",
+          // title: "내 쿠해줘 게시글 미리보기",
+          actions: [
+            Container(
+              margin: EdgeInsets.only(left: 18.r),
+              child: InkWell(
+                onTap: () {
+                  Get.toNamed(MateOfferEditViewPage.url);
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 18.r, horizontal: 12.r),
+                  child: SvgPicture.asset(
+                    "assets/icons/edit_mate_offer_button.svg",
+                    color: CommonColor.black,
                   ),
                 ),
-              )
-            ]),
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Obx(
-                () => controller.authService.userPrefer.value != null && controller.authService.myMateOffer.value != null
-                    ? IntrinsicHeight(
-                        child: Column(
-                        children: [
-                          Padding(
-                            // padding: EdgeInsets.only(top: 16.r, left: 24.r, right: 24.r),
-                            padding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 16.r),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                makeContainer(
-                                  userProfileFragment(controller),
-                                  () => Get.to(
-                                    () => EditMyKUViewPage(isEditForm: true),
-                                  ),
-                                ),
-                                mateOfferBodyFragment(controller.authService.myMateOffer.value!.body),
-                                makeContainer(
-                                  userDetailInfoFragment(controller.authService.userInfoDetail.value!),
-                                  () => Get.to(
-                                    () => SurveyStep1ViewPage(isEditForm: true),
-                                  ),
-                                ),
-                                SizedBox(height: 16.r),
-                                makeContainer(
-                                  userPreferFragment(controller.authService.userPrefer.value!.preferList),
-                                  () => Get.to(
-                                    () => RoomMateSurveyViewPage(isEditForm: true),
-                                  ),
-                                ),
-                                SizedBox(height: 16.r),
-                                // makeContainer(
-                                userDetialExtraWordFragment(controller.authService.myMateOffer.value?.body ?? "내용이 없어요"),
-                                // () => Get.to(
-                                // () => RoomMateSurveyViewPage(isEditForm: true),
-                                // ),
-                                // ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ))
-                    : const Text("신규작성 필요.. 로그인필요.."),
               ),
+            )
+          ]),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Obx(
+              () => controller.authService.userPrefer.value != null && controller.authService.myMateOffer.value != null
+                  ? IntrinsicHeight(
+                      child: Column(
+                      children: [
+                        Padding(
+                          // padding: EdgeInsets.only(top: 16.r, left: 24.r, right: 24.r),
+                          padding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 16.r),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              makeContainer(
+                                userProfileFragment(controller),
+                                () => Get.to(
+                                  () => EditMyKUViewPage(isEditForm: true),
+                                ),
+                              ),
+                              mateOfferBodyFragment(controller.authService.myMateOffer.value!.body),
+                              makeContainer(
+                                userDetailInfoFragment(controller.authService.userInfoDetail.value!),
+                                () => Get.to(
+                                  () => SurveyStep1ViewPage(isEditForm: true),
+                                ),
+                              ),
+                              SizedBox(height: 16.r),
+                              makeContainer(
+                                userPreferFragment(controller.authService.userPrefer.value!.preferList),
+                                () => Get.to(
+                                  () => RoomMateSurveyViewPage(isEditForm: true),
+                                ),
+                              ),
+                              SizedBox(height: 16.r),
+                              // makeContainer(
+                              userDetialExtraWordFragment(controller.authService.myMateOffer.value?.body ?? "내용이 없어요"),
+                              // () => Get.to(
+                              // () => RoomMateSurveyViewPage(isEditForm: true),
+                              // ),
+                              // ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ))
+                  : const Text("신규작성 필요.. 로그인필요.."),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

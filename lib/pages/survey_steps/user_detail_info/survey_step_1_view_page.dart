@@ -12,56 +12,54 @@ class SurveyStep1ViewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SurveyController controller = Get.put(SurveyController());
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: CommonColor.white,
-        appBar: CommonAppBar(
-          context: context,
-          title: "내 소개 하기",
-        ),
-        body: Stack(children: [
-          Obx(
-            () => controller.currentStep.value == -1
-                ? Container()
-                : Column(
-                    children: [
-                      LinearProgressBar(
-                        maxSteps: controller.maxStep,
-                        progressType: LinearProgressBar.progressTypeDots,
-                        currentStep: controller.currentStep.value,
-                        progressColor: CommonColor.mainDarkGreen,
-                        backgroundColor: CommonColor.gray01,
-                        dotsAxis: Axis.horizontal, // OR Axis.vertical
-                        dotsActiveSize: 10,
-                        dotsInactiveSize: 10,
-                        valueColor: const AlwaysStoppedAnimation<Color>(Colors.red),
-
-                        dotsSpacing: const EdgeInsets.only(right: 10), // also can use any EdgeInsets.
-                      ),
-                      SizedBox(
-                        height: 0.4.sh,
-                        child: questionFregment(
-                          controller.getCurrent(),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 0.4.sh,
-                        child: answerListFregment(controller.getCurrent(), controller),
-                      ),
-                    ],
-                  ),
-          ),
-          Common.BottomButton(
-            context: context,
-            // buttonText1: controller.currentStep.value == controller.maxStep - 1 ? "저장하기" : '이전',
-            buttonText1: '이전',
-            buttonText2: '건너뛰기',
-            // button1Function: controller.currentStep.value == controller.maxStep - 1 ? controller.saveConfigs : controller.prevStep,
-            button1Function: controller.prevStep,
-            button2Function: controller.skip,
-          ),
-        ]),
+    return Scaffold(
+      backgroundColor: CommonColor.white,
+      appBar: CommonAppBar(
+        context: context,
+        title: "내 소개 하기",
       ),
+      body: Stack(children: [
+        Obx(
+          () => controller.currentStep.value == -1
+              ? Container()
+              : Column(
+                  children: [
+                    LinearProgressBar(
+                      maxSteps: controller.maxStep,
+                      progressType: LinearProgressBar.progressTypeDots,
+                      currentStep: controller.currentStep.value,
+                      progressColor: CommonColor.mainDarkGreen,
+                      backgroundColor: CommonColor.gray01,
+                      dotsAxis: Axis.horizontal, // OR Axis.vertical
+                      dotsActiveSize: 10,
+                      dotsInactiveSize: 10,
+                      valueColor: const AlwaysStoppedAnimation<Color>(Colors.red),
+
+                      dotsSpacing: const EdgeInsets.only(right: 10), // also can use any EdgeInsets.
+                    ),
+                    SizedBox(
+                      height: 0.4.sh,
+                      child: questionFregment(
+                        controller.getCurrent(),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 0.4.sh,
+                      child: answerListFregment(controller.getCurrent(), controller),
+                    ),
+                  ],
+                ),
+        ),
+        Common.BottomButton(
+          context: context,
+          // buttonText1: controller.currentStep.value == controller.maxStep - 1 ? "저장하기" : '이전',
+          buttonText1: '이전',
+          buttonText2: '건너뛰기',
+          // button1Function: controller.currentStep.value == controller.maxStep - 1 ? controller.saveConfigs : controller.prevStep,
+          button1Function: controller.prevStep,
+          button2Function: controller.skip,
+        ),
+      ]),
     );
   }
 }

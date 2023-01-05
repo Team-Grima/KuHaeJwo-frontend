@@ -30,102 +30,100 @@ class HomeViewPage extends StatelessWidget {
     ];
 
     var controller = Get.put(HomeController());
-    return SafeArea(
-      child: Scaffold(
-          body: Obx(
-            () => IndexedStack(
-              index: controller.selectedIndex.value,
-              children: pageList,
-            ),
+    return Scaffold(
+        body: Obx(
+          () => IndexedStack(
+            index: controller.selectedIndex.value,
+            children: pageList,
           ),
-          bottomNavigationBar: Obx(
-            () => BottomNavigationBar(
-              backgroundColor: CommonColor.gray01,
-              type: BottomNavigationBarType.fixed,
-              currentIndex: controller.selectedIndex.value,
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
-              selectedItemColor: CommonColor.gray02,
-              onTap: (value) => controller.selectedIndex.value = value,
-              items: [
-                const BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                    color: CommonColor.gray03,
-                    size: 30,
-                  ),
-                  activeIcon: Icon(
-                    Icons.home,
-                    color: CommonColor.mainDarkGreen,
-                    size: 30,
-                  ),
-                  // icon: SvgPicture.asset("assets/icons/bottom_main.svg",
-                  //     color: CommonColor.gray03),
-                  // activeIcon: SvgPicture.asset("assets/icons/bottom_main.svg",
-                  //     color: CommonColor.mainDarkGreen),
-                  label: "",
+        ),
+        bottomNavigationBar: Obx(
+          () => BottomNavigationBar(
+            backgroundColor: CommonColor.gray01,
+            type: BottomNavigationBarType.fixed,
+            currentIndex: controller.selectedIndex.value,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            selectedItemColor: CommonColor.gray02,
+            onTap: (value) => controller.selectedIndex.value = value,
+            items: [
+              const BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                  color: CommonColor.gray03,
+                  size: 30,
                 ),
-                BottomNavigationBarItem(
-                  // icon: Icon(
-                  //   Icons.chat,
-                  //   size: 30,
-                  //   color: CommonColor.gray03,
-                  // ),
-                  // activeIcon: Icon(
-                  //   Icons.chat,
-                  //   size: 30,
-                  //   color: CommonColor.mainDarkGreen,
-                  // ),
-                  icon: SvgPicture.asset("assets/icons/bottom_chat.svg", color: CommonColor.gray03),
-                  activeIcon: SvgPicture.asset(
-                    "assets/icons/bottom_chat.svg",
-                    color: CommonColor.mainDarkGreen,
-                  ),
-                  label: "",
+                activeIcon: Icon(
+                  Icons.home,
+                  color: CommonColor.mainDarkGreen,
+                  size: 30,
                 ),
-                BottomNavigationBarItem(
-                  icon: SvgPicture.asset("assets/icons/bottom_add.svg", color: CommonColor.gray03),
-                  activeIcon: SvgPicture.asset(
-                    "assets/icons/bottom_add.svg",
-                    color: CommonColor.mainDarkGreen,
-                  ),
-                  label: "",
+                // icon: SvgPicture.asset("assets/icons/bottom_main.svg",
+                //     color: CommonColor.gray03),
+                // activeIcon: SvgPicture.asset("assets/icons/bottom_main.svg",
+                //     color: CommonColor.mainDarkGreen),
+                label: "",
+              ),
+              BottomNavigationBarItem(
+                // icon: Icon(
+                //   Icons.chat,
+                //   size: 30,
+                //   color: CommonColor.gray03,
+                // ),
+                // activeIcon: Icon(
+                //   Icons.chat,
+                //   size: 30,
+                //   color: CommonColor.mainDarkGreen,
+                // ),
+                icon: SvgPicture.asset("assets/icons/bottom_chat.svg", color: CommonColor.gray03),
+                activeIcon: SvgPicture.asset(
+                  "assets/icons/bottom_chat.svg",
+                  color: CommonColor.mainDarkGreen,
                 ),
-                const BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.more_horiz,
-                    color: CommonColor.gray03,
-                    size: 30,
-                  ),
-                  activeIcon: Icon(
-                    Icons.more_horiz_outlined,
-                    color: CommonColor.mainDarkGreen,
-                    size: 30,
-                  ),
-                  label: "",
+                label: "",
+              ),
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset("assets/icons/bottom_add.svg", color: CommonColor.gray03),
+                activeIcon: SvgPicture.asset(
+                  "assets/icons/bottom_add.svg",
+                  color: CommonColor.mainDarkGreen,
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.settings,
-                    color: CommonColor.gray03,
-                    size: 25.r,
-                  ),
-                  activeIcon: Icon(
-                    Icons.settings,
-                    color: CommonColor.mainDarkGreen,
-                    size: 25.r,
-                  ),
-                  // icon: SvgPicture.asset("assets/icons/bottom_main.svg",
-                  //     color: CommonColor.disabledGrey),
-                  // activeIcon: SvgPicture.asset(
-                  //   "assets/icons/bottom_main.svg",
-                  //   color: CommonColor.mainDarkGreen,
-                  // ),
-                  label: "",
+                label: "",
+              ),
+              const BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.more_horiz,
+                  color: CommonColor.gray03,
+                  size: 30,
                 ),
-              ],
-            ),
-          )),
-    );
+                activeIcon: Icon(
+                  Icons.more_horiz_outlined,
+                  color: CommonColor.mainDarkGreen,
+                  size: 30,
+                ),
+                label: "",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.settings,
+                  color: CommonColor.gray03,
+                  size: 25.r,
+                ),
+                activeIcon: Icon(
+                  Icons.settings,
+                  color: CommonColor.mainDarkGreen,
+                  size: 25.r,
+                ),
+                // icon: SvgPicture.asset("assets/icons/bottom_main.svg",
+                //     color: CommonColor.disabledGrey),
+                // activeIcon: SvgPicture.asset(
+                //   "assets/icons/bottom_main.svg",
+                //   color: CommonColor.mainDarkGreen,
+                // ),
+                label: "",
+              ),
+            ],
+          ),
+        ));
   }
 }

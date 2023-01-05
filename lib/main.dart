@@ -8,9 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:kuhaejwo_app/common/common.dart';
 import 'package:kuhaejwo_app/common/service/auth_service.dart';
-import 'package:kuhaejwo_app/firebase_options.dart';
 
-import 'package:get_storage/get_storage.dart';
 import 'package:kuhaejwo_app/pages/splash/splash_page.dart';
 
 import 'route/routes.dart';
@@ -19,6 +17,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   Common.logger.d('Handling a background message ${message.messageId}');
 }
 
+late AndroidNotificationChannel channel, channel1, channel2, channel3, channel4, channel5, channel6, channel7, channel8;
+late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
 
@@ -30,19 +30,28 @@ void main() async {
     statusBarColor: Colors.transparent, //Statusbar 색상을 투명으로 바꿔줌
   ));
   WidgetsFlutterBinding.ensureInitialized();
-
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  channel = const AndroidNotificationChannel(
+    'alert_channel0', // id
+    'High Importance Notifications', // title
+    description: 'This channel is used for important notifications.', // description
+    importance: Importance.high,
+  );
+
+  var initialzationSettingsAndroid = const AndroidInitializationSettings('@mipmap/ic_launcher');
 
   var initialzationSettingsIOS = const DarwinInitializationSettings(
     requestSoundPermission: true,
     requestBadgePermission: true,
     requestAlertPermission: true,
   );
-  var initialzationSettingsAndroid = const AndroidInitializationSettings('@mipmap/ic_launcher');
-  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+  await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.createNotificationChannel(channel);
+
   var initializationSettings = InitializationSettings(android: initialzationSettingsAndroid, iOS: initialzationSettingsIOS);
 
   await flutterLocalNotificationsPlugin.initialize(
@@ -75,12 +84,8 @@ void main() async {
     },
   );
 
-  // await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
-  await GetStorage.init();
   Get.put(AuthService());
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+
   runApp(ScreenUtilInit(
     //화면 일정 비율로 설정해주기 위한 클래스
     designSize: const Size(375, 812),

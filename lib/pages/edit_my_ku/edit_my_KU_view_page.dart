@@ -12,41 +12,40 @@ class EditMyKUViewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     EditMyKUController controller = Get.put(EditMyKUController());
-    return SafeArea(
-        child: Scaffold(
-            backgroundColor: CommonColor.white,
-            appBar: CommonAppBar(
-              context: context,
-              title: isEditForm ? "내 소개 수정하기" : "내 소개 하기",
-              hasGetBack: false,
-              onTapFunction: Get.back,
-            ),
-            body: Stack(children: [
-              IntrinsicHeight(
-                  child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 28.r, vertical: 10.r),
-                child: Column(
-                  children: [
-                    dropdownButton(hint: controller.hintList[0], list: controller.college, v: controller.selectedIndexMap["소속 단과 대학"]!),
-                    Obx(
-                      () => dropdownButton(
-                          hint: controller.hintList[1],
-                          list: controller.department[controller.college[controller.selectedIndexMap["소속 단과 대학"]!.value ?? 0]] ?? [],
-                          v: controller.selectedIndexMap["소속 학과"]!),
-                    ),
-                    dropdownButton(hint: controller.hintList[2], list: controller.studentId, v: controller.selectedIndexMap["학번"]!),
-                    dropdownButton(hint: controller.hintList[3], list: controller.age, v: controller.selectedIndexMap["나이"]!),
-                    dropdownButton(hint: controller.hintList[4], list: controller.MBTI, v: controller.selectedIndexMap["MBTI"]!),
-                    dropdownButton(hint: controller.hintList[5], list: controller.gender, v: controller.selectedIndexMap["성별"]!),
-                  ],
+    return Scaffold(
+        backgroundColor: CommonColor.white,
+        appBar: CommonAppBar(
+          context: context,
+          title: isEditForm ? "내 소개 수정하기" : "내 소개 하기",
+          hasGetBack: false,
+          onTapFunction: Get.back,
+        ),
+        body: Stack(children: [
+          IntrinsicHeight(
+              child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 28.r, vertical: 10.r),
+            child: Column(
+              children: [
+                dropdownButton(hint: controller.hintList[0], list: controller.college, v: controller.selectedIndexMap["소속 단과 대학"]!),
+                Obx(
+                  () => dropdownButton(
+                      hint: controller.hintList[1],
+                      list: controller.department[controller.college[controller.selectedIndexMap["소속 단과 대학"]!.value ?? 0]] ?? [],
+                      v: controller.selectedIndexMap["소속 학과"]!),
                 ),
-              )),
-              Common.BottomButton(
-                  context: context,
-                  numberOfButton: 1,
-                  buttonText1: isEditForm ? "저장하기" : "시작하기",
-                  button1Function: isEditForm ? controller.saveConfigs : controller.submit),
-            ])));
+                dropdownButton(hint: controller.hintList[2], list: controller.studentId, v: controller.selectedIndexMap["학번"]!),
+                dropdownButton(hint: controller.hintList[3], list: controller.age, v: controller.selectedIndexMap["나이"]!),
+                dropdownButton(hint: controller.hintList[4], list: controller.MBTI, v: controller.selectedIndexMap["MBTI"]!),
+                dropdownButton(hint: controller.hintList[5], list: controller.gender, v: controller.selectedIndexMap["성별"]!),
+              ],
+            ),
+          )),
+          Common.BottomButton(
+              context: context,
+              numberOfButton: 1,
+              buttonText1: isEditForm ? "저장하기" : "시작하기",
+              button1Function: isEditForm ? controller.saveConfigs : controller.submit),
+        ]));
   }
 
   dropdownButton({required String hint, required List<String> list, required RxnInt v}) {

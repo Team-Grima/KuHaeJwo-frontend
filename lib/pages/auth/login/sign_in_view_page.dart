@@ -23,29 +23,27 @@ class SignInViewPage extends StatelessWidget {
       textHeightBehavior: const TextHeightBehavior(leadingDistribution: TextLeadingDistribution.even),
       child: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
-        child: SafeArea(
-          child: Scaffold(
-            backgroundColor: Colors.white,
-            body: SingleChildScrollView(
-              child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
-                // CommonAppBar(
-                //   context: context,
-                //   title: '로그인',
-                //   shadowColor: Colors.transparent,
-                //   leadingAssetPath: 'assets/icon/appbar_close.svg',
-                // ),
-                // Padding(padding: EdgeInsets.only(top: 12.r), child: SvgPicture.asset('assets/images/logo.svg')),
-                _divider(CommonColor.gray02, 24.r), //Top padding
-                _infoMessage('쿠해줘', CommonTextStyle(fontSize: 30, color: CommonColor.mainDarkGreen, fontWeight: FontWeight.w600), 30.r),
-                _infoMessage('시작하기', CommonTextStyle(fontSize: 30, color: CommonColor.gray05, fontWeight: FontWeight.w400), 0.r),
-                _infoMessage('로그인', CommonTextStyle(fontSize: 20, color: CommonColor.gray05, fontWeight: FontWeight.w400), 90.r),
-                _idInput('아이디(이메일)', controller, 20.r, 12.r), //bottom padding
-                _passwordInput('비밀번호', controller, 12.r), //bottom padding
-                _checkBoxLine(controller),
-                _submitButton(controller, 24.r), //top padding
-                _findBar()
-              ]),
-            ),
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          body: SingleChildScrollView(
+            child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
+              // CommonAppBar(
+              //   context: context,
+              //   title: '로그인',
+              //   shadowColor: Colors.transparent,
+              //   leadingAssetPath: 'assets/icon/appbar_close.svg',
+              // ),
+              // Padding(padding: EdgeInsets.only(top: 12.r), child: SvgPicture.asset('assets/images/logo.svg')),
+              _divider(CommonColor.gray02, 24.r), //Top padding
+              _infoMessage('쿠해줘', CommonTextStyle(fontSize: 30, color: CommonColor.mainDarkGreen, fontWeight: FontWeight.w600), 30.r),
+              _infoMessage('시작하기', CommonTextStyle(fontSize: 30, color: CommonColor.gray05, fontWeight: FontWeight.w400), 0.r),
+              _infoMessage('로그인', CommonTextStyle(fontSize: 20, color: CommonColor.gray05, fontWeight: FontWeight.w400), 90.r),
+              _idInput('아이디(이메일)', controller, 20.r, 12.r), //bottom padding
+              _passwordInput('비밀번호', controller, 12.r), //bottom padding
+              _checkBoxLine(controller),
+              _submitButton(controller, 24.r), //top padding
+              _findBar()
+            ]),
           ),
         ),
       ),
