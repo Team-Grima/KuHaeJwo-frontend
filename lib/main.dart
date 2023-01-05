@@ -1,9 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:kuhaejwo_app/common/common.dart';
 import 'package:kuhaejwo_app/common/service/auth_service.dart';
 import 'package:kuhaejwo_app/firebase_options.dart';
 
@@ -11,6 +14,10 @@ import 'package:get_storage/get_storage.dart';
 import 'package:kuhaejwo_app/pages/splash/splash_page.dart';
 
 import 'route/routes.dart';
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  Common.logger.d('Handling a background message ${message.messageId}');
+}
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
@@ -25,6 +32,48 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  var initialzationSettingsIOS = const DarwinInitializationSettings(
+    requestSoundPermission: true,
+    requestBadgePermission: true,
+    requestAlertPermission: true,
+  );
+  var initialzationSettingsAndroid = const AndroidInitializationSettings('@mipmap/ic_launcher');
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
+  flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  var initializationSettings = InitializationSettings(android: initialzationSettingsAndroid, iOS: initialzationSettingsIOS);
+
+  await flutterLocalNotificationsPlugin.initialize(
+    initializationSettings,
+  );
+
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+
+  FirebaseMessaging.onMessageOpenedApp.listen(
+    (event) {
+      Common.logger.d(event);
+      if (event.notification != null) {
+        Common.showSnackbar(message: '지진이 발생하였습니다');
+        Get.toNamed('/eq-show');
+      }
+    },
+  );
+
+  FirebaseMessaging.onMessage.listen(
+    (event) {
+      Common.logger.d(event);
+      if (event.notification != null) {
+        Common.showSnackbar(message: '지진이 발생하였습니다');
+        Get.toNamed('/eq-show');
+      }
+    },
+  );
 
   // await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
   await GetStorage.init();

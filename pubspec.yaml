@@ -40,6 +40,8 @@ dependencies:
   cross_file: ^0.3.3+2
   http_parser: ^4.0.2
   image_picker: ^0.8.6
+  firebase_messaging: ^14.2.1
+  flutter_local_notifications: ^13.0.0
 
 dev_dependencies:
   flutter_test:

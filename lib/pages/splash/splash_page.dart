@@ -84,10 +84,14 @@ class SplashController extends GetxController {
         isVisible.value = false;
         //로그인 여부 확인 및 라우트
         if (CommonStorageKey.accessToken.read.result && CommonStorageKey.accessToken.read.value != '') {
-          var res = await AuthService().getUserInfo();
-          if (res) {
-            Get.offAllNamed(HomeViewPage.url);
-          } else {
+          try {
+            var res = await AuthService().getUserInfo();
+            if (res) {
+              Get.offAllNamed(HomeViewPage.url);
+            } else {
+              Get.offAllNamed(SignInViewPage.url);
+            }
+          } catch (e) {
             Get.offAllNamed(SignInViewPage.url);
           }
         } else {

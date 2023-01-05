@@ -1,5 +1,6 @@
 import 'package:cross_file/cross_file.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:get/get.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
@@ -60,8 +61,35 @@ class AuthService {
 
   Future<ServiceResponse> login(String email, String password) async {
     ServiceResponse<PostLoginResponse> loginResponse = await HttpServiceManager().postLogin(email: email, password: password);
+    getFirebaseToken();
     await checkUserConfirmed();
     return loginResponse;
+  }
+
+  getFirebaseToken() {
+    FirebaseMessaging.instance.getToken().then((fcmToken) async {
+      if (fcmToken == null) return null;
+      Common.logger.d("fcm token:$fcmToken");
+      // try {
+      // await CommonStorageKey.userId.write(id ?? null);
+      // return await Dio().post(
+      //   "http://34.64.132.27:1337/api/devices",
+      //   data: jsonEncode(
+      //     {
+      //       "data": {
+      //         "FcmToken": isLogout ? "" : fcmToken,
+      //         "Platform": GetPlatform.isAndroid ? "Android" : "Ios",
+      //         "userId": id != null ? (GetPlatform.isAndroid ? "google-" : "apple-") + id : null,
+      //         "alertSettings": alertSettings ?? 0,
+      //       }
+      //     },
+      //   ),
+      //   );
+      // } catch (e) {
+      // Common.logger.d(e);
+    }
+        // },
+        );
   }
 
   userBasicInfoIsNeverAdded() {
