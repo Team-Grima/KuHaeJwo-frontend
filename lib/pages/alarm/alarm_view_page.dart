@@ -39,7 +39,7 @@ class AlarmViewPage extends StatelessWidget {
 
   _alarmFragment(Noti notification) {
     return InkWell(
-      onTap: () => Get.toNamed(notification.route),
+      onTap: () => Get.offNamed(notification.route),
       child: Container(
         decoration: BoxDecoration(color: notification.isRead ? CommonColor.white : CommonColor.gray01),
         child: Column(

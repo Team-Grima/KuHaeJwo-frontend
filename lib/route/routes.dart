@@ -18,6 +18,7 @@ import 'package:pet_app/pages/survey_steps/user_detail_info/survey_step_0_view_p
 import '../pages/auth/certificate_auth/certificate_auth_view_page.dart';
 import '../pages/auth/email_auth/email_auth_view_page.dart';
 import '../pages/auth/school_auth/school_auth_view_page.dart';
+import '../pages/search/search_view_page.dart';
 
 class GetXRouter {
   static final route = [
@@ -49,6 +50,7 @@ class GetXRouter {
     GetPage(name: MateOfferViewPage.url, page: () => const MateOfferViewPage()),
     GetPage(name: MateOfferEditViewPage.url, page: () => const MateOfferEditViewPage()),
 
+    GetPage(name: SearchViewPage.url, page: () => const SearchViewPage()),
     // GetPage(name: RoomMateSurveyViewPage.url, page: () => const RoomMateSurveyViewPage()),
     // GetPage(name: ChatRoomViewPage.url, page: () => ChatRoomViewPage(room: )),
     // GetPage(name: ChatPage.url, page: () => const ChatPage()),
