@@ -7,8 +7,16 @@ class MateOfferEditController extends GetxController {
   AuthService authService = AuthService();
   TextEditingController headerEditingController = TextEditingController();
   TextEditingController bodyEditingController = TextEditingController();
+  late String bodyString;
+
+  @override
+  void onInit() {
+    super.onInit();
+    bodyUserDetail();
+  }
+
   getBodyString() {
-    return bodyUserDetail();
+    return bodyString;
   }
 
   bodyUserDetail() {
@@ -18,9 +26,10 @@ class MateOfferEditController extends GetxController {
     if (res != "") {
       res = "🙋🏻‍♀️ 저는요 !\n\n$res";
     }
+    headerEditingController.text = authService.myMateOffer.value?.title ?? "";
     bodyEditingController.text = res;
 
-    return res;
+    bodyString = res;
   }
 
   bodyUserPrefer() {
@@ -48,6 +57,30 @@ class MateOfferEditController extends GetxController {
     bodyEditingController.text = res;
 
     return res;
+  }
+
+  updateUserPost() async {
+    var title = headerEditingController.text;
+    var body = bodyEditingController.text.split("하고 싶은 말")[1].replaceFirst("\n", "").replaceFirst("\n", "");
+    //고쳐주세요... textfield에서 body부분(하고싶은말)만 가져올 방법을 모르겠습니다;;
+
+    Map data = {
+      "title": title,
+      "dormitoryName": "lake",
+      "body": body,
+      "matching": true,
+      "goodnessOfFit": 50,
+    };
+
+    bool? res = await AuthService().updateMateOffer(data, true);
+    if (res) {
+      Get.offNamedUntil("/home", ((route) => Get.currentRoute == "/mainView"));
+    } else {
+      // 게시물 수정 실패
+    }
+
+    // print("title: $title");
+    // print(body);
   }
 
   // submit() async {

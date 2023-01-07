@@ -8,6 +8,7 @@ import 'package:kuhaejwo_app/pages/mate_offer/mate_offer_edit/mate_offer_edit_co
 class MateOfferEditViewPage extends StatelessWidget {
   const MateOfferEditViewPage({Key? key}) : super(key: key);
   static const url = '/edit-mate-offer';
+
   @override
   Widget build(BuildContext context) {
     MateOfferEditController controller = Get.put(MateOfferEditController());
@@ -18,7 +19,9 @@ class MateOfferEditViewPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: CommonColor.white,
         appBar: CommonAppBar(
-          context: context, title: controller.authService.myMateOffer.value?.title ?? "제목이 없어요",
+          context: context,
+          title: "게시물 수정",
+          // title: controller.authService.myMateOffer.value?.title ?? "제목이 없어요",
           // title: "내 쿠해줘 게시글 미리보기",
         ),
         body: Stack(
@@ -35,7 +38,7 @@ class MateOfferEditViewPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 headerTextEditingFragment(
-                                  hintText: 'asdfasdfasdfasdfasdf',
+                                  hintText: '게시글 제목을 입력해주세요',
                                   textEditingController: controller.headerEditingController,
                                   isValid: true.obs,
                                 ),
@@ -56,8 +59,10 @@ class MateOfferEditViewPage extends StatelessWidget {
             Common.BottomButton(
               context: context,
               numberOfButton: 2,
-              buttonText1: "재등록하기",
-              buttonText2: "재등록하기",
+              buttonText1: "뒤로가기",
+              button1Function: () => Get.back(),
+              buttonText2: "저장하기",
+              button2Function: controller.updateUserPost,
             ),
           ],
         ),
