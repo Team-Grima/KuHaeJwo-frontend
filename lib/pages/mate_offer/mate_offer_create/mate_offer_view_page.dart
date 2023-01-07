@@ -6,7 +6,6 @@ import 'package:kuhaejwo_app/common/common.dart';
 import 'package:get/get.dart';
 import 'package:kuhaejwo_app/common/http_model/GetUserResponse.dart';
 import 'package:kuhaejwo_app/common/utils/image_loader.dart';
-import 'package:kuhaejwo_app/pages/edit_my_ku/edit_my_KU_view_page.dart';
 import 'package:kuhaejwo_app/pages/mate_offer/mate_offer_create/mate_offer_controller.dart';
 import 'package:kuhaejwo_app/pages/mate_offer/mate_offer_edit/mate_offer_edit_view_page.dart';
 import 'package:kuhaejwo_app/pages/survey_steps/room_mate_prefer_survey/roommate_survey_view_page.dart';
@@ -20,25 +19,10 @@ class MateOfferViewPage extends StatelessWidget {
     MateOfferController controller = Get.put(MateOfferController());
     return Scaffold(
       backgroundColor: CommonColor.white,
-      appBar: CommonAppBar(context: context, title: controller.authService.myMateOffer.value?.title ?? "제목이 없어요",
-          // title: "내 쿠해줘 게시글 미리보기",
-          actions: [
-            Container(
-              margin: EdgeInsets.only(left: 18.r),
-              child: InkWell(
-                onTap: () {
-                  Get.toNamed(MateOfferEditViewPage.url);
-                },
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 18.r, horizontal: 12.r),
-                  child: SvgPicture.asset(
-                    "assets/icons/edit_mate_offer_button.svg",
-                    color: CommonColor.black,
-                  ),
-                ),
-              ),
-            )
-          ]),
+      appBar: CommonAppBar(
+        context: context,
+        title: "내 게시글",
+      ),
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -53,12 +37,17 @@ class MateOfferViewPage extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              makeContainer(
-                                userProfileFragment(controller),
-                                () => Get.to(
-                                  () => EditMyKUViewPage(isEditForm: true),
-                                ),
+                              checkbox("새 게시글 작성하기", context),
+                              checkbox(
+                                "내 게시글 수정하기",
+                                context,
                               ),
+                              // makeContainer(
+                              //   userProfileFragment(controller),
+                              //   () => Get.to(
+                              //     () => EditMyKUViewPage(isEditForm: true),
+                              //   ),
+                              // ),
                               mateOfferBodyFragment(controller.authService.myMateOffer.value!.body),
                               makeContainer(
                                 userDetailInfoFragment(controller.authService.userInfoDetail.value!),
@@ -74,12 +63,12 @@ class MateOfferViewPage extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(height: 16.r),
-                              // makeContainer(
-                              userDetialExtraWordFragment(controller.authService.myMateOffer.value?.body ?? "내용이 없어요"),
-                              // () => Get.to(
-                              // () => RoomMateSurveyViewPage(isEditForm: true),
-                              // ),
-                              // ),
+                              makeContainer(
+                                userDetialExtraWordFragment(controller.authService.myMateOffer.value?.body ?? "내용이 없어요"),
+                                () => Get.to(
+                                  () => const MateOfferEditViewPage(),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -89,6 +78,45 @@ class MateOfferViewPage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  checkbox(String header, BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 12.r),
+      child: InkWell(
+        splashColor: Colors.black.withOpacity(0.05),
+        onTap: () {
+          if (header == "게시글 작성하기") {
+            Get.toNamed(MateOfferEditViewPage.url);
+          } else if (header == "내 게시글 수정하기") {
+            Get.toNamed(MateOfferEditViewPage.url);
+          }
+        },
+        child: Container(
+          decoration: BoxDecoration(color: CommonColor.gray01, borderRadius: BorderRadius.circular(5.r)),
+          padding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 8.r),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                header,
+                style: CommonTextStyle(
+                  color: CommonColor.black,
+                  fontSize: 15,
+                ),
+              ).c,
+              const Spacer(),
+              GestureDetector(
+                  onTap: () {
+                    // routeFunction(header, context, btnIndex, body);
+                  },
+                  child: SvgPicture.asset('assets/icons/right_arrow.svg'))
+            ],
+          ),
+        ),
       ),
     );
   }
