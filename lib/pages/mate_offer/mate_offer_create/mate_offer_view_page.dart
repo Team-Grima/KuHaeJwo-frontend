@@ -196,7 +196,7 @@ class MateOfferViewPage extends StatelessWidget {
     );
   }
 
-  static generateDetailString(UserInfoDetailResponse detail) {
+  static String generateDetailString(UserInfoDetailResponse detail) {
     String res = "";
     res += "✅ ";
     res += detail.cleanHabit == "LAZY" ? "몰아서 치워요" : "바로 바로 치워요";

@@ -8,21 +8,27 @@ class MateOfferEditController extends GetxController {
   TextEditingController headerEditingController = TextEditingController();
   TextEditingController bodyEditingController = TextEditingController();
   late String bodyString;
-
+  RxList<bool> visibleList = <bool>[].obs;
+  List<String> detailStringList = [];
   @override
   void onInit() {
     super.onInit();
     bodyUserDetail();
+    generateUserDetailString();
+    detailStringList.addAll(MateOfferViewPage.generateDetailString(authService.userInfoDetail.value!).split("\n").map((e) {
+      return e.replaceAll("✅", "");
+    }).toList());
+    visibleList.value = List.generate(detailStringList.length, (index) => true);
   }
 
-  getBodyString() {
-    return bodyString;
+  generateUserDetailString() {}
+
+  toggleUserDetailInfo(int index) {
+    visibleList[index] = !visibleList[index];
   }
 
   bodyUserDetail() {
     String res = "";
-
-    res = MateOfferViewPage.generateDetailString(authService.userInfoDetail.value!) + "\n\n" + bodyUserPrefer() + "\n\n" + bodyBody();
     if (res != "") {
       res = "🙋🏻‍♀️ 저는요 !\n\n$res";
     }
@@ -76,24 +82,7 @@ class MateOfferEditController extends GetxController {
     if (res) {
       Get.offNamedUntil("/home", ((route) => Get.currentRoute == "/mainView"));
     } else {
-      // 게시물 수정 실패
+      // TODO::게시물 수정 실패
     }
-
-    // print("title: $title");
-    // print(body);
   }
-
-  // submit() async {
-  //   if (isPass.value) {
-  //     var res = await .load();
-  //     if (res) {
-  //       Get.back();
-  //     } else {
-  //       Common.showSnackbar(message: "오류가 발생했습니다");
-  //     }
-  //     Get.back();
-  //   }
-  //   // if(selectedPrefer)
-  // }
-
 }
