@@ -5,6 +5,7 @@ import 'package:cross_file/cross_file.dart';
 import 'package:dio/dio.dart' as dio_lib;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:kuhaejwo_app/common/http_model/NotificationResponse.dart';
 
 import 'package:logger/logger.dart';
 import 'package:kuhaejwo_app/common/common.dart';
@@ -291,6 +292,28 @@ class HttpServiceManager {
       var i = Image.memory(base64Decode(res.data));
 
       return ServiceResponse(result: true, value: res.data["data"]);
+    } on dio_lib.DioError catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.response?.data["msg"] ?? '오류가 발생했습니다');
+    } catch (e) {
+      logv(e);
+      return ServiceResponse(result: false, errorMsg: e.toString());
+    }
+  }
+
+  Future<ServiceResponse<List<NotificationResponse>>> getNotificationResponse() async {
+    try {
+      var res = await (await authDio()).get('/api/users/notification'.getUrl);
+
+      if (res.data["code"] == 200) {
+        List<NotificationResponse> notificationList = [];
+
+        for (var i in res.data["data"]) {
+          notificationList.add(NotificationResponse.fromJson(i));
+        }
+        return ServiceResponse(result: true, value: notificationList);
+      } else {
+        return ServiceResponse(result: false, value: res.data["msg"]);
+      }
     } on dio_lib.DioError catch (e) {
       return ServiceResponse(result: false, errorMsg: e.response?.data["msg"] ?? '오류가 발생했습니다');
     } catch (e) {

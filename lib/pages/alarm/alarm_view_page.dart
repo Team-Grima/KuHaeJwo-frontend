@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kuhaejwo_app/common/http_model/NotificationResponse.dart';
 import 'package:kuhaejwo_app/pages/alarm/alarm_controller.dart';
 import 'package:kuhaejwo_app/common/common.dart';
 
@@ -24,22 +25,25 @@ class AlarmViewPage extends StatelessWidget {
         children: [
           SingleChildScrollView(
             child: IntrinsicHeight(
-                child: Column(
-              children: [
-                ...List.generate(controller.notifications.length, (index) => _alarmFragment(controller.notifications[index])),
-              ],
-            )),
+              child: Obx(
+                () => Column(
+                  children: [
+                    ...List.generate(controller.notifications.length, (index) => _alarmFragment(controller.notifications[index])),
+                  ],
+                ),
+              ),
+            ),
           )
         ],
       ),
     );
   }
 
-  _alarmFragment(Noti notification) {
+  _alarmFragment(NotificationResponse notification) {
     return InkWell(
-      onTap: () => Get.offNamedUntil(notification.route, ((route) => Get.currentRoute == "/mainView")),
+      onTap: () => Get.until((route) => Get.currentRoute == '/home'),
       child: Container(
-        decoration: BoxDecoration(color: notification.isRead ? CommonColor.white : CommonColor.gray01),
+        decoration: BoxDecoration(color: notification.isRead ?? false ? CommonColor.white : CommonColor.gray01),
         child: Column(
           children: [
             Padding(
@@ -60,7 +64,7 @@ class AlarmViewPage extends StatelessWidget {
                         style: CommonTextStyle(color: CommonColor.black, fontSize: 13, fontWeight: FontWeight.w500),
                       ),
                       Text(
-                        notification.receivedDate ?? '',
+                        notification.createdAt ?? '',
                         style: CommonTextStyle(color: CommonColor.gray03, fontSize: 11, fontWeight: FontWeight.w500),
                       ),
                     ],

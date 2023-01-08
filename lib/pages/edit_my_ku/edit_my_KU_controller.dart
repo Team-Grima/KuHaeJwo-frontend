@@ -107,6 +107,7 @@ class EditMyKUController extends GetxController {
   // }
   @override
   onReady() {
+    super.onReady();
     fetchData();
   }
 

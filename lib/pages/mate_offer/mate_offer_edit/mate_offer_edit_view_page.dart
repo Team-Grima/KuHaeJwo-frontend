@@ -39,7 +39,7 @@ class MateOfferEditViewPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   headerTextEditingFragment(
-                                    hintText: '게시글 제목을 입력해주세요',
+                                    hintText: controller.getHeader() == "" ? "제목을 입력해주세요" : "header",
                                     textEditingController: controller.headerEditingController,
                                     isValid: true.obs,
                                   ),
@@ -47,7 +47,7 @@ class MateOfferEditViewPage extends StatelessWidget {
                                   userDetailInfoFragment(controller.authService.userInfoDetail.value!, controller),
                                   SizedBox(height: 20.r),
                                   bodyTextEditingFragment(
-                                    hintText: controller.bodyString == "" ? "내용을 입력해주세요" : "body",
+                                    hintText: controller.getBody() == "" ? "내용을 입력해주세요" : "body",
                                     textEditingController: controller.bodyEditingController,
                                     isValid: true.obs,
                                   )
