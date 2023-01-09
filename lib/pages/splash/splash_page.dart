@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:kuhaejwo_app/common/common.dart';
+import 'package:kuhaejwo_app/common/service/socket_service.dart';
 import 'package:kuhaejwo_app/common/utils/common_storage.dart';
 import 'package:kuhaejwo_app/common/service/auth_service.dart';
 import 'package:kuhaejwo_app/pages/auth/login/sign_in_view_page.dart';
@@ -86,6 +87,7 @@ class SplashController extends GetxController {
           try {
             var res = await AuthService().getUserInfo();
             if (res) {
+              Get.put(SocketService());
               Get.offAllNamed(HomeViewPage.url);
             } else {
               Get.offAllNamed(SignInViewPage.url);

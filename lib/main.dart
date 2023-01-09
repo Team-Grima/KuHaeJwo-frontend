@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +13,6 @@ import 'package:kuhaejwo_app/common/common.dart';
 import 'package:kuhaejwo_app/common/service/auth_service.dart';
 
 import 'package:kuhaejwo_app/pages/splash/splash_page.dart';
-import 'package:socket_io_client/socket_io_client.dart';
 
 import 'route/routes.dart';
 
@@ -22,6 +23,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 late AndroidNotificationChannel channel, channel1, channel2, channel3, channel4, channel5, channel6, channel7, channel8;
 late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 void main() async {
+  HttpOverrides.global = MyHttpOverrides();
+
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
 
   WidgetsFlutterBinding.ensureInitialized(); //main에서 비동기 메소드 사용할때 사용
@@ -89,13 +92,6 @@ void main() async {
   );
 
   Get.put(AuthService());
-  Socket socket = io('https://ku.woojin-dev.kro.kr/ws');
-
-  socket.on('connect', (_) {
-    print('connect');
-    // print(socket.io.engine.id);
-    socket.emit('join', {'name': 'flutter', 'room': 'room1'});
-  });
   runApp(ScreenUtilInit(
     //화면 일정 비율로 설정해주기 위한 클래스
     designSize: const Size(375, 812),
@@ -115,4 +111,11 @@ void main() async {
         home: const SplashPage(), //home을 실행할때 로딩창으로 띄움
         getPages: GetXRouter.route), // route에 있는 경로들을 get에 넣어준다
   ));
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+  }
 }

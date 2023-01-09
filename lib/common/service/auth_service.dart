@@ -1,10 +1,9 @@
 import 'package:cross_file/cross_file.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:get/get.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:kuhaejwo_app/common/common.dart';
+import 'package:kuhaejwo_app/common/service/socket_service.dart';
 import 'package:kuhaejwo_app/common/utils/common_storage.dart';
 import 'package:kuhaejwo_app/common/http_model/GetUserResponse.dart';
 import 'package:kuhaejwo_app/common/http_model/PostLoginResponse.dart';
@@ -35,38 +34,39 @@ class AuthService {
     Common.logger.d('AuthService._internal() called!!!');
   }
 
-  Future chatLogin({required String email, required String nickname, required String password, String profileImageUrl = 'https://i.pravatar.cc/300'}) async {
-    UserCredential userCredential;
+  // Future chatLogin({required String email, required String nickname, required String password, String profileImageUrl = 'https://i.pravatar.cc/300'}) async {
+  //   UserCredential userCredential;
 
-    if (CommonStorageKey.savedId.read.result) {
-      try {
-        userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-        fbUser.value = userCredential.user;
-      } catch (e) {
-        userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
-        fbUser.value = userCredential.user;
-      }
-      if (userCredential.user != null) {
-        return await FirebaseChatCore.instance.createUserInFirestore(
-          types.User(
-            firstName: nickname,
-            id: email,
-            imageUrl: profileImageUrl,
-          ),
-        );
-      }
-    } else {
-      return;
-    }
-  }
+  //   if (CommonStorageKey.savedId.read.result) {
+  //     try {
+  //       userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+  //       fbUser.value = userCredential.user;
+  //     } catch (e) {
+  //       userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+  //       fbUser.value = userCredential.user;
+  //     }
+  //     if (userCredential.user != null) {
+  //       return await FirebaseChatCore.instance.createUserInFirestore(
+  //         types.User(
+  //           firstName: nickname,
+  //           id: email,
+  //           imageUrl: profileImageUrl,
+  //         ),
+  //       );
+  //     }
+  //   } else {
+  //     return;
+  //   }
+  // }
 
   Future<ServiceResponse> login(String email, String password) async {
     ServiceResponse<PostLoginResponse> loginResponse = await HttpServiceManager().postLogin(email: email, password: password);
     getFirebaseToken();
     await AuthService().getUserInfo();
     bool isUserPassRes = await checkUserConfirmed();
-    await chatLogin(email: email, nickname: userAuthInfo.value?.name ?? "익명", password: password);
+    // await chatLogin(email: email, nickname: userAuthInfo.value?.name ?? "익명", password: password);
     CommonStorageKey.isUserPass.write(isUserPassRes);
+    Get.put(SocketService());
 
     return loginResponse;
   }
