@@ -322,6 +322,22 @@ class HttpServiceManager {
     }
   }
 
+  Future<ServiceResponse<bool>> getReadNotification(int notificationId) async {
+    try {
+      var res = await (await authDio()).get('/api/users/notification/'.getUrl + notificationId.toString());
+
+      bool isRead = (res.data["data"]["isRead"]);
+      if (res.data["code"] == 200) {
+        return ServiceResponse(result: true, value: isRead);
+      }
+      return ServiceResponse(result: false, errorMsg: res.data["msg"] ?? '오류가 발생했습니다');
+    } on dio_lib.DioError catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.response?.data["msg"] ?? '오류가 발생했습니다');
+    } catch (e) {
+      return ServiceResponse(result: false, errorMsg: e.toString());
+    }
+  }
+
   // Future<ServiceResponse<GetUserResponse>> getUser() async {
   //   try {
   //     var res = await (await authDio()).get('/api/get-user'.getUrl);

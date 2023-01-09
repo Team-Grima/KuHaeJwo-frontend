@@ -12,6 +12,7 @@ class CommonStorageKey {
   static const String isIdSave = 'isIdSave';
   static const String isAutoLogin = 'isAutoLogin';
   static const String savedId = 'savedId';
+  static const String isUserPass = 'isUserPass';
   deleteAll() {
     GetStorage().erase();
   }

@@ -35,22 +35,23 @@ class AuthService {
     Common.logger.d('AuthService._internal() called!!!');
   }
 
-  Future chatLogin() async {
+  Future chatLogin({required String email, required String nickname, required String password, String profileImageUrl = 'https://i.pravatar.cc/300'}) async {
     UserCredential userCredential;
+
     if (CommonStorageKey.savedId.read.result) {
       try {
-        userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: CommonStorageKey.savedId.read.value, password: "asdfasdf");
+        userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
         fbUser.value = userCredential.user;
       } catch (e) {
-        userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: CommonStorageKey.savedId.read.value, password: "asdfasdf");
+        userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
         fbUser.value = userCredential.user;
       }
       if (userCredential.user != null) {
         return await FirebaseChatCore.instance.createUserInFirestore(
           types.User(
-            firstName: userCredential.user!.email,
-            id: userCredential.user!.uid, // UID from Firebase Authentication
-            imageUrl: 'https://i.pravatar.cc/300',
+            firstName: nickname,
+            id: email,
+            imageUrl: profileImageUrl,
           ),
         );
       }
@@ -62,7 +63,11 @@ class AuthService {
   Future<ServiceResponse> login(String email, String password) async {
     ServiceResponse<PostLoginResponse> loginResponse = await HttpServiceManager().postLogin(email: email, password: password);
     getFirebaseToken();
-    await checkUserConfirmed();
+    await AuthService().getUserInfo();
+    bool isUserPassRes = await checkUserConfirmed();
+    await chatLogin(email: email, nickname: userAuthInfo.value?.name ?? "익명", password: password);
+    CommonStorageKey.isUserPass.write(isUserPassRes);
+
     return loginResponse;
   }
 

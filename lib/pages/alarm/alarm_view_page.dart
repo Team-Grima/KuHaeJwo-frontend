@@ -28,7 +28,7 @@ class AlarmViewPage extends StatelessWidget {
               child: Obx(
                 () => Column(
                   children: [
-                    ...List.generate(controller.notifications.length, (index) => _alarmFragment(controller.notifications[index])),
+                    ...List.generate(controller.notifications.length, (index) => _alarmFragment(controller.notifications[index], controller)),
                   ],
                 ),
               ),
@@ -39,9 +39,11 @@ class AlarmViewPage extends StatelessWidget {
     );
   }
 
-  _alarmFragment(NotificationResponse notification) {
+  _alarmFragment(NotificationResponse notification, AlarmController controller) {
     return InkWell(
-      onTap: () => Get.until((route) => Get.currentRoute == '/home'),
+      onTap: () {
+        controller.clickNotification(notification.id, "mate");
+      },
       child: Container(
         decoration: BoxDecoration(color: notification.isRead ?? false ? CommonColor.white : CommonColor.gray01),
         child: Column(

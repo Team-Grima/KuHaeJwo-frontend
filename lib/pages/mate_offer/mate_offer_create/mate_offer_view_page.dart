@@ -49,11 +49,15 @@ class MateOfferViewPage extends StatelessWidget {
                               //   ),
                               // ),
                               mateOfferBodyFragment(controller.authService.myMateOffer.value!.body),
-                              makeContainer(
-                                userDetailInfoFragment(controller.authService.userInfoDetail.value!),
-                                () => Get.to(
-                                  () => SurveyStep1ViewPage(isEditForm: true),
-                                ),
+                              Obx(
+                                () => controller.authService.userInfoDetail.value == null
+                                    ? Container()
+                                    : makeContainer(
+                                        userDetailInfoFragment(controller.authService.userInfoDetail.value!),
+                                        () => Get.to(
+                                          () => SurveyStep1ViewPage(isEditForm: true),
+                                        ),
+                                      ),
                               ),
                               SizedBox(height: 16.r),
                               makeContainer(

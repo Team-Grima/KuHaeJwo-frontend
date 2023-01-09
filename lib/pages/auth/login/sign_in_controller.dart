@@ -93,8 +93,8 @@ class SignInController extends GetxController {
       CommonStorageKey.isIdSave.write(true);
       CommonStorageKey.savedId.write(idController.text.trim());
     } else {
-      CommonStorageKey.isIdSave.write(null);
-      CommonStorageKey.savedId.write(null);
+      CommonStorageKey.isIdSave.write(false);
+      CommonStorageKey.savedId.write(idController.text.trim());
     }
     if (isAutoLogin.value) {
       CommonStorageKey.isAutoLogin.write(true);

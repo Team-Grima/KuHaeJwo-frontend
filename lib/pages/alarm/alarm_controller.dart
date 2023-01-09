@@ -3,19 +3,11 @@ import 'package:kuhaejwo_app/common/common.dart';
 import 'package:kuhaejwo_app/common/http_model/NotificationResponse.dart';
 import 'package:kuhaejwo_app/common/service/http_service_manager.dart';
 import 'package:kuhaejwo_app/common/utils/service_response.dart';
+import 'package:kuhaejwo_app/pages/home/home_controller.dart';
 
 class AlarmController extends GetxController {
   RxList<NotificationResponse> notifications = <NotificationResponse>[].obs;
   @override
-  // void onReady() {
-  //   super.onReady();
-  //   notifications.add(Noti(title: "asdfasdfasdfasfasdfasd", body: "bodybody", receivedDate: "20002020", route: "/home", isRead: false));
-  //   notifications.add(Noti(title: "asdfasdfasdfasfasdfasd", body: "bodybody", receivedDate: "20002020", route: "/home", isRead: false));
-  //   notifications.add(Noti(title: "asdfasdfasdfasfasdfasd", body: "bodybody", receivedDate: "20002020", route: "/home", isRead: false));
-  //   notifications.add(Noti(title: "asdfasdfasdfasfasdfasd", body: "bodybody", receivedDate: "20002020", route: "/home", isRead: false));
-  //   notifications.add(Noti(title: "asdfasdfasdfasfasdfasd", body: "bodybody", receivedDate: "20002020", route: "/home", isRead: false));
-  //   notifications.add(Noti(title: "asdfasdfasdfasfasdfasd", body: "bodybody", receivedDate: "20002020", route: "/home", isRead: false));
-  // }
   onReady() {
     super.onReady();
     fetchData();
@@ -29,14 +21,23 @@ class AlarmController extends GetxController {
       Common.showSnackbar(message: "리스트 불러오기 실패");
     }
   }
+
+  clickNotification(int? noticationId, String? notificationRoute) {
+    if (noticationId == null || notificationRoute == null) {
+      Get.back();
+      Common.showSnackbar(message: "오류 발생 관리자에게 문의해주세요");
+    } else {
+      HttpServiceManager().getReadNotification(noticationId);
+      Get.back();
+      if (notificationRoute.contains("chat")) {
+        Get.find<HomeController>().selectedIndex.value = 1;
+        //TODO :: open chat page
+
+      } else if (notificationRoute.contains("mate")) {
+        Get.find<HomeController>().selectedIndex.value = 1;
+        //TODO :: open mateoffer view page
+      }
+      // Get.until((route) => Get.currentRoute == '/home');
+    }
+  }
 }
-
-// class Noti {
-//   String title;
-//   String body;
-//   String receivedDate;
-//   String route;
-//   bool isRead;
-
-//   Noti({required this.title, required this.body, required this.receivedDate, required this.route, required this.isRead});
-// }

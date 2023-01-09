@@ -6,10 +6,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:kuhaejwo_app/common/common.dart';
 import 'package:kuhaejwo_app/common/service/auth_service.dart';
 
 import 'package:kuhaejwo_app/pages/splash/splash_page.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 
 import 'route/routes.dart';
 
@@ -31,6 +33,8 @@ void main() async {
   ));
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await GetStorage.init();
+
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   channel = const AndroidNotificationChannel(
@@ -85,7 +89,13 @@ void main() async {
   );
 
   Get.put(AuthService());
+  Socket socket = io('https://ku.woojin-dev.kro.kr/ws');
 
+  socket.on('connect', (_) {
+    print('connect');
+    // print(socket.io.engine.id);
+    socket.emit('join', {'name': 'flutter', 'room': 'room1'});
+  });
   runApp(ScreenUtilInit(
     //화면 일정 비율로 설정해주기 위한 클래스
     designSize: const Size(375, 812),
