@@ -31,7 +31,7 @@ class ChatRoomController extends GetxController {
 
   sortChatList() {
     chatList.sort((a, b) {
-      return a.createdAt.compareTo(b.createdAt ?? "") ?? -1;
+      return a.createdAt.compareTo(b.createdAt);
     });
   }
 
