@@ -1,14 +1,14 @@
 class GetUserResponse {
-  final int? id;
-  final UserInfoDetailResponse? userInfoDetailResponse;
-  final UserBasicInfoResponse? userBasicInfoResponse;
-  final MateOfferResponse? mateOfferResponse;
-  final UserPreferResponse? userPreferResponse;
+  final BigInt? id;
   final dynamic mobileNumber;
   final String? name;
   final String? email;
   final dynamic emailAuth;
   final dynamic dormitory;
+  final UserInfoDetailResponse? userInfoDetailResponse;
+  final UserBasicInfoResponse? userBasicInfoResponse;
+  final MateOfferResponse? mateOfferResponse;
+  final UserPreferResponse? userPreferResponse;
 
   GetUserResponse({
     this.id,
@@ -24,7 +24,7 @@ class GetUserResponse {
   });
 
   GetUserResponse.fromJson(Map<String, dynamic> json)
-      : id = json['id'] as int?,
+      : id = BigInt.from(json['id']),
         userInfoDetailResponse = (json['userInfoDetailResponse'] as Map<String, dynamic>?) != null
             ? UserInfoDetailResponse.fromJson(json['userInfoDetailResponse'] as Map<String, dynamic>)
             : null,

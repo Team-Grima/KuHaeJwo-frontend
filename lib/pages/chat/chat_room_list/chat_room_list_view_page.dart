@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kuhaejwo_app/common/common.dart';
-import 'package:kuhaejwo_app/common/service/auth_service.dart';
 
 import 'package:kuhaejwo_app/pages/chat/chat_room_list/chat_room_list_controller.dart';
 import 'package:get/get.dart';
@@ -14,56 +14,45 @@ class ChatRoomListViewPage extends StatelessWidget {
     ChatRoomListController controller = Get.put(ChatRoomListController());
 
     return Scaffold(
-      appBar: CommonAppBar(
-        backgroundColor: Colors.white,
-        title: 'chat test',
-        iconColor: Colors.black,
-        context: context,
-      ),
-      backgroundColor: CommonColor.white,
-      body: SingleChildScrollView(
-        child: Obx(
-          () => Column(
-            children: [
-              TextField(
-                controller: controller.messageController,
-              ),
-              TextField(
-                controller: controller.chatRoomIdController,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: controller.send,
-                    child: const Text("send"),
-                  ),
-                  TextButton(
-                    onPressed: controller.clear,
-                    child: const Text("clear"),
-                  ),
-                ],
-              ),
-              ...List.generate(
-                  controller.chatList.length,
-                  (index) => Row(
-                        mainAxisAlignment:
-                            controller.chatList[index].sender == AuthService().userAuthInfo.value?.name ? MainAxisAlignment.end : MainAxisAlignment.start,
-                        children: [
-                          Text(controller.chatList[index].sender ?? ''),
-                          const Text(" | "),
-                          Text(controller.chatList[index].msg ?? ''),
-                          const Text(" | "),
-                          Text(DateTime.fromMillisecondsSinceEpoch(int.tryParse(controller.chatList[index].createdAt ?? "") ?? 0)
-                              .toIso8601String()
-                              .split("T")[1]),
-                        ],
-                      ))
-            ],
-          ),
+        appBar: CommonAppBar(
+          backgroundColor: Colors.white,
+          title: 'chat test',
+          iconColor: Colors.black,
+          context: context,
         ),
-      ),
-    );
+        backgroundColor: CommonColor.white,
+        body: SingleChildScrollView(
+          child: Obx(() => Column(children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 300.r,
+                      child: TextField(
+                        controller: controller.addController,
+                      ),
+                    ),
+                    TextButton(onPressed: controller.createChatRoom, child: const Text("생성"))
+                  ],
+                ),
+                controller.chatRoomList.isNotEmpty
+                    ? Column(
+                        children: List.generate(
+                        controller.chatRoomList.length,
+                        (index) {
+                          return TextButton(
+                            onPressed: () {
+                              controller.enterChatRoom(controller.chatRoomList[index]);
+                            },
+                            child: Text(
+                              "${controller.chatRoomList[index].userList.getOther(controller.authService.userAuthInfo.value!.id!)}|${controller.chatRoomList[index].chatRoomId}",
+                            ),
+                          );
+                        },
+                      ))
+                    : const Text("empty room")
+              ])),
+        ));
   }
 }
 //

@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:kuhaejwo_app/common/common.dart';
 import 'package:kuhaejwo_app/common/service/auth_service.dart';
+import 'package:kuhaejwo_app/pages/chat/chat_room/chat_room_controller.dart';
 import 'package:kuhaejwo_app/pages/chat/chat_room_list/chat_room_list_controller.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
@@ -14,7 +15,7 @@ class SocketService {
     socket.onConnect((_) {
       print('connect');
       socket.emit('initializing', {
-        "data": {"userId": AuthService().userAuthInfo.value?.name}
+        "data": {"userId": AuthService().userAuthInfo.value!.id!.toString()}
       });
 
       // socket.emit("getStoreAdmin", {"id": 1});
@@ -34,17 +35,53 @@ class SocketService {
     socket.on('server_to_user', (data) {
       Common.logger.d(data);
       try {
-        Get.find<ChatRoomListController>().addChat(ChatModel(sender: data['sender'], msg: data['msg'], createdAt: data['createdAt']));
+        Get.find<ChatRoomController>().setChatMsg(ChatModel(
+          sender: BigInt.parse(data['sender']),
+          msg: data['msg'],
+          createdAt: data['createdAt'],
+          msgId: BigInt.parse(data["msgId"]),
+        ));
       } catch (e) {
         Common.logger.e(e);
       }
-      // if (data["type"] == "data") {
-      //   if (documentChangeListenerMap.containsKey(DocumentTopic.fromString(data["documentTopic"]))) {
-      //     for (var i in documentChangeListenerMap[DocumentTopic.fromString(data["documentTopic"])] ?? <Function>[]) {
-      //       i(data["data"]);
-      //     }
-      //   }
-      // }
+    });
+    socket.on('chatRoomRes', (data) {
+      Common.logger.d(data);
+      try {
+        List<ChatRoomModel> chatRooms = [];
+        for (var i in data["data"]) {
+          chatRooms.add(ChatRoomModel(
+            userList: [BigInt.parse(i["userList"][0]), BigInt.parse(i["userList"][1])],
+            createdAt: i["createdAt"],
+            chatRoomId: BigInt.parse(i["chatRoomId"]),
+            // lastMessage: i["lastMessage"],
+            // userLastRead: i["userLastRead"],
+          ));
+        }
+
+        Get.find<ChatRoomListController>().setChatRooms(chatRooms);
+      } catch (e) {
+        Common.logger.e(e);
+      }
+    });
+    socket.on('chatRoomCreated-chatRoomRes', (data) {
+      Common.logger.d(data);
+      try {
+        List<ChatRoomModel> chatRooms = [];
+        for (var i in data["data"]) {
+          chatRooms.add(ChatRoomModel(
+            userList: [BigInt.parse(i["userList"][0]), BigInt.parse(i["userList"][1])],
+            createdAt: i["createdAt"],
+            chatRoomId: BigInt.parse(i["chatRoomId"]),
+            // lastMessage: i["lastMessage"],
+            // userLastRead: i["userLastRead"],
+          ));
+        }
+
+        Get.find<ChatRoomListController>().setChatRooms(chatRooms);
+      } catch (e) {
+        Common.logger.e(e);
+      }
     });
 
     socket.onDisconnect((_) => print('disconnect'));
@@ -70,8 +107,8 @@ class SocketService {
     return callback;
   }
 
-  void request(RequestTopic requestTopic, dynamic data) {
-    socket.emit("sendMessage", data);
+  void request(String requestTopic, dynamic data) {
+    socket.emit(requestTopic, data);
   }
 }
 

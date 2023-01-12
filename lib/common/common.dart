@@ -9,7 +9,8 @@ import 'package:logger/logger.dart';
 
 class Common {
   static final f = NumberFormat('###,###,###,###');
-  static const String baseUrl = "http://13.209.48.23";
+  static const String baseUrl = "https://ku.woojin-dev.kro.kr";
+  // static const String baseUrl = "http://13.209.48.23";
 
   static const double defaultMarginHor = 24.0;
   static const double defaultMarginVer = 24.0;

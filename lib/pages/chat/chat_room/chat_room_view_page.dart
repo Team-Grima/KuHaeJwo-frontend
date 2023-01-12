@@ -1,104 +1,116 @@
-import 'dart:io';
-
 // import 'package:file_picker/file_picker.dart';
 // import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-
-import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
-
-import 'package:path_provider/path_provider.dart';
-import 'package:http/http.dart' as http;
+import 'package:get/get.dart';
 
 import 'package:kuhaejwo_app/pages/chat/chat_room/chat_room_controller.dart';
 
 class ChatRoomViewPage extends StatelessWidget {
-  ChatRoomViewPage({Key? key, required this.room}) : super(key: key);
+  const ChatRoomViewPage({Key? key}) : super(key: key);
   static const url = '/chat';
-  types.Room room;
+
   @override
   Widget build(BuildContext context) {
-    ChatRoomController controller = ChatRoomController();
-
+    ChatRoomController controller = Get.put(ChatRoomController());
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.light,
         title: const Text('Chat'),
+        // actions: [
+        //   IconButton(onPressed: controller.addUser, icon: Icons(add())
+        // ],
       ),
-      body: StreamBuilder<types.Room>(
-        initialData: room,
-        stream: FirebaseChatCore.instance.room(room.id),
-        builder: (context, snapshot) => StreamBuilder<List<types.Message>>(
-          initialData: const [],
-          stream: FirebaseChatCore.instance.messages(snapshot.data!),
-          builder: (context, snapshot) => Chat(
-            // isAttachmentUploading: _isAttachmentUploading,
-            messages: snapshot.data ?? [],
-            // onAttachmentPressed: _handleAtachmentPressed,
-            onMessageTap: _handleMessageTap,
-            onPreviewDataFetched: _handlePreviewDataFetched,
-            onSendPressed: _handleSendPressed,
-            user: types.User(
-              id: FirebaseChatCore.instance.firebaseUser?.uid ?? '',
+      body: Obx(
+        () => Column(
+          children: [
+            TextField(
+              controller: controller.messageController,
             ),
-          ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: controller.sendMsg,
+                  child: const Text("send"),
+                ),
+                TextButton(
+                  onPressed: controller.clear,
+                  child: const Text("clear"),
+                ),
+              ],
+            ),
+            ...List.generate(
+                controller.chatList.length,
+                (index) => Row(
+                      mainAxisAlignment:
+                          controller.chatList[index].sender == controller.authService.userAuthInfo.value?.id ? MainAxisAlignment.end : MainAxisAlignment.start,
+                      children: [
+                        Text(controller.chatList[index].sender.toString()),
+                        const Text("| "),
+                        Text(controller.chatList[index].msgId.toString()),
+                        const Text("| "),
+                        Text(controller.chatList[index].msg),
+                        const Text("| "),
+                        Text(DateTime.fromMillisecondsSinceEpoch(int.tryParse(controller.chatList[index].createdAt) ?? 0).toIso8601String().split("T")[1]),
+                      ],
+                    ))
+          ],
         ),
       ),
     );
   }
 
-  void _handleMessageTap(BuildContext _, types.Message message) async {
-    if (message is types.FileMessage) {
-      var localPath = message.uri;
+  // void _handleMessageTap(BuildContext _, types.Message message) async {
+  //   if (message is types.FileMessage) {
+  //     var localPath = message.uri;
 
-      if (message.uri.startsWith('http')) {
-        try {
-          final updatedMessage = message.copyWith(isLoading: true);
-          FirebaseChatCore.instance.updateMessage(
-            updatedMessage,
-            room.id,
-          );
+  //     if (message.uri.startsWith('http')) {
+  //       try {
+  //         final updatedMessage = message.copyWith(isLoading: true);
+  //         FirebaseChatCore.instance.updateMessage(
+  //           updatedMessage,
+  //           room.id,
+  //         );
 
-          final client = http.Client();
-          final request = await client.get(Uri.parse(message.uri));
-          final bytes = request.bodyBytes;
-          final documentsDir = (await getApplicationDocumentsDirectory()).path;
-          localPath = '$documentsDir/${message.name}';
+  //         final client = http.Client();
+  //         final request = await client.get(Uri.parse(message.uri));
+  //         final bytes = request.bodyBytes;
+  //         final documentsDir = (await getApplicationDocumentsDirectory()).path;
+  //         localPath = '$documentsDir/${message.name}';
 
-          if (!File(localPath).existsSync()) {
-            final file = File(localPath);
-            await file.writeAsBytes(bytes);
-          }
-        } finally {
-          final updatedMessage = message.copyWith(isLoading: false);
-          FirebaseChatCore.instance.updateMessage(
-            updatedMessage,
-            room.id,
-          );
-        }
-      }
+  //         if (!File(localPath).existsSync()) {
+  //           final file = File(localPath);
+  //           await file.writeAsBytes(bytes);
+  //         }
+  //       } finally {
+  //         final updatedMessage = message.copyWith(isLoading: false);
+  //         FirebaseChatCore.instance.updateMessage(
+  //           updatedMessage,
+  //           room.id,
+  //         );
+  //       }
+  //     }
 
-      // await OpenFilex.open(localPath);
-    }
-  }
+  //     // await OpenFilex.open(localPath);
+  //   }
+  // }
 
-  void _handlePreviewDataFetched(
-    types.TextMessage message,
-    types.PreviewData previewData,
-  ) {
-    final updatedMessage = message.copyWith(previewData: previewData);
+  // void _handlePreviewDataFetched(
+  //   types.TextMessage message,
+  //   types.PreviewData previewData,
+  // ) {
+  //   final updatedMessage = message.copyWith(previewData: previewData);
 
-    FirebaseChatCore.instance.updateMessage(updatedMessage, room.id);
-  }
+  //   FirebaseChatCore.instance.updateMessage(updatedMessage, room.id);
+  // }
 
-  void _handleSendPressed(types.PartialText message) {
-    FirebaseChatCore.instance.sendMessage(
-      message,
-      room.id,
-    );
-  }
+  // void _handleSendPressed(types.PartialText message) {
+  //   FirebaseChatCore.instance.sendMessage(
+  //     message,
+  //     room.id,
+  //   );
+  // }
 
   // void _setAttachmentUploading(bool uploading) {
   //   setState(() {

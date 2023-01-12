@@ -75,7 +75,7 @@ class MainPage extends StatelessWidget {
             child: IntrinsicHeight(
               child: Obx(
                 () => Column(
-                  children: List.generate(controller.mateOfferList.length, (index) => _bodyFragment(controller.mateOfferList[index], index)),
+                  children: List.generate(controller.mateOfferList.length, (index) => _bodyFragment(controller.mateOfferList[index], index, controller)),
                 ),
               ),
             ),
@@ -89,7 +89,7 @@ class MainPage extends StatelessWidget {
     return Container();
   }
 
-  static Widget _bodyFragment(MateOfferResponse mateOffer, int index) {
+  static Widget _bodyFragment(MateOfferResponse mateOffer, int index, MainController controller) {
     return InkWell(
       onTap: (() => Get.toNamed(UserPostViewPage.url, arguments: MateOfferUserParams(mateOffer: mateOffer))),
       child: Column(
@@ -198,7 +198,9 @@ class MainPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 20),
                       child: InkWell(
-                        onTap: () => Get.toNamed("search"),
+                        onTap: () {
+                          controller.createChatRoom(mateOffer);
+                        },
                         child: Row(
                           children: [
                             Icon(
